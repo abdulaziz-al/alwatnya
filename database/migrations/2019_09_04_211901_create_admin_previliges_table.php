@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePreviligesTable extends Migration
+class CreateAdminPreviligesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class CreatePreviligesTable extends Migration
      */
     public function up()
     {
-        Schema::create('previliges', function (Blueprint $table) {
-            $table->increments('previliges_id');
-            $table->string('previliges_name');
-            
-
+        Schema::create('admin_previliges', function (Blueprint $table) {
+            $table->increments('admin_previliges_id');
+            $table->int('admin_id');//for key
+            $table->string('previliges');
             $table->timestamps();
         });
     }
@@ -29,6 +28,6 @@ class CreatePreviligesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('previliges');
+        Schema::dropIfExists('admin_previliges');
     }
 }

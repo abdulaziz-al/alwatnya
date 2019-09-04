@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePreviligesTable extends Migration
+class CreateMuqassahStatementsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,13 @@ class CreatePreviligesTable extends Migration
      */
     public function up()
     {
-        Schema::create('previliges', function (Blueprint $table) {
-            $table->increments('previliges_id');
-            $table->string('previliges_name');
+        Schema::create('muqassah_statements', function (Blueprint $table) {
+            $table->increments('ms_id');
+            $table->int('order_id');//for key
+            $table->string('ms_number');//for key 
+            $table->date('expirydate');
+            $table->int('file_id');//for key
             
-
             $table->timestamps();
         });
     }
@@ -29,6 +31,6 @@ class CreatePreviligesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('previliges');
+        Schema::dropIfExists('muqassah_statements');
     }
 }

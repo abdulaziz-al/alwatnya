@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePreviligesTable extends Migration
+class CreateInvoiceItemsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,10 @@ class CreatePreviligesTable extends Migration
      */
     public function up()
     {
-        Schema::create('previliges', function (Blueprint $table) {
-            $table->increments('previliges_id');
-            $table->string('previliges_name');
-            
-
-            $table->timestamps();
+        Schema::create('invoice_items', function (Blueprint $table) {
+            $table->increments('invoiceItems_id');
+            $table->string('invoiceItems_description');
+            $table->int('subtotal');
         });
     }
 
@@ -29,6 +27,6 @@ class CreatePreviligesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('previliges');
+        Schema::dropIfExists('invoice_items');
     }
 }
