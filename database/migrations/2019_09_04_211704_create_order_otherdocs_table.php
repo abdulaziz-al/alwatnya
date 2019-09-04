@@ -15,11 +15,11 @@ class CreateOrderOtherdocsTable extends Migration
     {
         Schema::create('order_otherdocs', function (Blueprint $table) {
             $table->increments('ood_id');
-            $table->int('order_id');//fk
-            $table->int('ood_number');
+            $table->integer('order_id');//fk
+            $table->integer('ood_number');
             $table->date('expirydate');
             $table->text('description');
-            $table->int(file_id);//fk
+            $table->integer('file_id');//fk
             $table->timestamps();
         });
     }

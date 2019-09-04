@@ -15,10 +15,10 @@ class CreateExemptionLettersTable extends Migration
     {
         Schema::create('exemption_letters', function (Blueprint $table) {
             $table->increments('el_id');
-            $table->int('order_id');//for key
+            $table->integer('order_id');//for key
             $table->string('el_number');// for key
             $table->date('expirydate');
-            $table->int('file_id');//for key 
+            $table->integer('file_id');//for key 
             
             $table->timestamps();
         });

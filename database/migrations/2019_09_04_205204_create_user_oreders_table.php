@@ -15,14 +15,14 @@ class CreateUserOredersTable extends Migration
     {
         Schema::create('user_oreders', function (Blueprint $table) {
             $table->increments('order_id');
-            $table->int('user_id');//for key 
-            $table->int('admin_id');//for key
-            $table->int('cr_id');//for key
-            $table->int('invoice_id');//for key
+            $table->integer('user_id');//for key 
+            $table->integer('admin_id');//for key
+            $table->integer('cr_id');//for key
+            $table->integer('invoice_id');//for key
             $table->boolean('importeport_id');//for key
-            $table->int('number_of_trucks');//for key
-            $table->int('status_id');//for key
-            $table->int('comment_id');//for key
+            $table->integer('number_of_trucks');//for key
+            $table->integer('status_id');//for key
+            $table->integer('comment_id');//for key
 
             $table->timestamps();
         });

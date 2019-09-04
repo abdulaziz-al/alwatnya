@@ -15,12 +15,12 @@ class CreateCommercialRecordsTable extends Migration
     {
         Schema::create('commercial_records', function (Blueprint $table) {
             $table->increments('cr_id');
-            $table->int('user_id');//for key
-            $table->int('order_id');//for key
-            $table->int('file_id');//for key
+            $table->integer('user_id');//for key
+            $table->integer('order_id');//for key
+            $table->integer('file_id');//for key
             $table->string('cr_number');//for key
             $table->string('cr_expiry');//for key
-            
+
             $table->timestamps();
         });
     }

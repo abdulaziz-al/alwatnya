@@ -16,7 +16,7 @@ class CreateInvoiceItemsTable extends Migration
         Schema::create('invoice_items', function (Blueprint $table) {
             $table->increments('invoiceItems_id');
             $table->string('invoiceItems_description');
-            $table->int('subtotal');
+            $table->integer('subtotal');
         });
     }
 

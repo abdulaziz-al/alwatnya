@@ -15,10 +15,10 @@ class CreateSasosTable extends Migration
     {
         Schema::create('sasos', function (Blueprint $table) {
             $table->increments('saso_id');
-            $table->int('order_id');//for key
-            $tbale->string('saso_number');//for key
+            $table->integer('order_id');//for key
+            $table->string('saso_number');//for key
             $table->date('expirydate');
-            $table->int('file_id');//for key
+            $table->integer('file_id');//for key
             $table->timestamps();
         });
     }

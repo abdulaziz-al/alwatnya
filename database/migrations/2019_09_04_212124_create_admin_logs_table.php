@@ -15,7 +15,7 @@ class CreateAdminLogsTable extends Migration
     {
         Schema::create('admin_logs', function (Blueprint $table) {
             $table->increments('logs_id');
-            $table->int('admin_id');//for key 
+            $table->integer('admin_id');//for key 
             $table->string('source_ip');
             $table->string('description');
             $table->date('created_on');

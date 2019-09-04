@@ -15,10 +15,10 @@ class CreateCoosTable extends Migration
     {
         Schema::create('coos', function (Blueprint $table) {
             $table->increments('coo_id');
-            $table->int('order_id');//FK
+            $table->integer('order_id');//FK
             $table->string('coo_number');
             $table->date('expirydate');
-            $table->int('file');//FK
+            $table->integer('file');//FK
             $table->timestamps();
         });
     }

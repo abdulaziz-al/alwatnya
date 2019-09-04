@@ -15,10 +15,10 @@ class CreatePackingListsTable extends Migration
     {
         Schema::create('packing_lists', function (Blueprint $table) {
             $table->increments('pi_id');
-            $table->int('order_id');//FK
+            $table->integer('order_id');//FK
             $table->string('pl_number');
             $table->date('expirydate');
-            $table->int('file_id');//FK
+            $table->integer('file_id');//FK
             $table->timestamps();
         });
     }

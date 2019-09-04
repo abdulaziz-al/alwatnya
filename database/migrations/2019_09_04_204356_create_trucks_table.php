@@ -16,9 +16,9 @@ class CreateTrucksTable extends Migration
         Schema::create('trucks', function (Blueprint $table) {
             $table->increments('Trucks_id');
             $table->string('driver_name');
-            $table->int('driver_mobile');
-            $table->int('order_id');//FK
-            $table->blob('Truck_ownership_number');
+            $table->integer('driver_mobile');
+            $table->integer('order_id');//FK
+            $table->string('Truck_ownership_number');
 
             $table->timestamps();
         });

@@ -15,10 +15,10 @@ class CreateReleaseLettersTable extends Migration
     {
         Schema::create('release_letters', function (Blueprint $table) {
             $table->increments('rl_id');
-            $table->int('order_id');//FK
+            $table->integer('order_id');//FK
             $table->string('rl_number');
             $table->date('expirydate');
-$table->int('file_id');//fk
+            $table->integer('file_id');//fk
             $table->timestamps();
         });
     }

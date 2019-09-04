@@ -15,7 +15,7 @@ class CreateAdminPreviligesTable extends Migration
     {
         Schema::create('admin_previliges', function (Blueprint $table) {
             $table->increments('admin_previliges_id');
-            $table->int('admin_id');//for key
+            $table->integer('admin_id');//for key
             $table->string('previliges');
             $table->timestamps();
         });
