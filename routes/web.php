@@ -9,7 +9,9 @@
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
+
 */
+
 // -- home controller --
 // home / guest view
 Route::get('/','HomeController@index');
@@ -96,3 +98,7 @@ Route::get('/user/returnedorders', function() {
 Route::get('/user/logout', function() {
     return '<h1>YOU HAVE LOGGED OUT!</h1>';
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

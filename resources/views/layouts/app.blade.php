@@ -4,10 +4,11 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>الوطنية  </title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 
         <!-- Styles -->
         <link href="{{ asset('css/bootstrap/bootstrap.min.css') }}" rel="stylesheet">
@@ -24,8 +25,7 @@
         </style>
     </head>
     <body>
-        <!-- Navbar -->
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand ml-auto" href="#">
                 <span>الوطنية</span>
                 <img src="https://getbootstrap.com/docs/4.3/assets/brand/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top" alt="">
@@ -36,24 +36,40 @@
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">تواصل معنا</a>
+                        <a class="nav-link" href="/contact-us">تواصل معنا</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">استعلام عن طلب</a>
+                        <a class="nav-link" href="/checkstatus">استعلام عن طلب</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">الدخول</a>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/login">الدخول  <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/registration">التسجيل</a>
                     </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">الرئيسية <span class="sr-only">(current)</span></a>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">الرئيسية</a>
+                    </li>
+                    <li>
+                            <li>  <a href="{{ route('logout') }}"
+                                onclick="event.preventDefault();
+                                              document.getElementById('logout-form').submit();">
+                                 {{ __('تسجيل حروج') }}
+                             </a></li>
+
+                             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                 @csrf
+                             </form>
+                        
                     </li>
                 </ul>
             </div>
-            <!-- <a class="navbar-brand" href="#">
-                <span>الوطنية</span>
-                <img src="https://getbootstrap.com/docs/4.3/assets/brand/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top" alt="">
-            </a> -->
         </nav>
+
+        @yield('content')
+                <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+                <!-- Include all compiled plugins (below), or include individual files as needed -->
+                <script src="{{ asset('js/bootstrap/bootstrap.min.js') }}"></script>
+    </body>
+</html>
