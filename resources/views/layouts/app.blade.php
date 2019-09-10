@@ -17,7 +17,7 @@
 
 
         <!-- Styles -->
-        <link href="{{ asset('css/bootstrap/bootstrap.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
         <style>
             html, body {
                 background-color: #fff;
