@@ -62,16 +62,17 @@
     margin-top: 10%;
 }
 .btnRegister{
-    float: right;
-    margin-top: 15%;
+    
+    margin: auto;
     border: none;
     border-radius: 1.5rem;
     padding: 2%;
     background: #9803c5;
     color: #fff;
     font-weight: 600;
-    width: 70%;
-    cursor: pointer;
+    width: 520%;
+    height:200%;
+    
 }
 .register .nav-tabs .nav-link:hover{
     border: none;
@@ -92,4 +93,20 @@
 .form-control{
 text-align: right;
 
+}
+
+
+/*log in */
+.btnlogin{
+    
+    margin: auto;
+    border: none;
+    border-radius: 1.5rem;
+    padding: 2%;
+    background: #9803c5;
+    color: #fff;
+    font-weight: 600;
+    width: 15%;
+    height:20%;
+    
 }

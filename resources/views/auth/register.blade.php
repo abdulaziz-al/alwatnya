@@ -140,16 +140,28 @@
                                 </div>
 
 
+        
                             </div>
+<<<<<<< HEAD
                             
 
                             <input type="submit" class="btnRegister"  value="إنشاء حساب"/>
                             </form>
+=======
+                            <form method="POST" action="{{ route('register') }}">
+                                    @csrf
+                                <input type="submit" class="btnRegister"  value="إنشاء حساب"/>
+                                            
+>>>>>>> ce72e1f236812f4590e77227e4d60c7fe02bb0d2
                         </div>
+
                     </div>
                     
+                    
                 </div>
+
             </div>
+
         </div>
     
     </div>
