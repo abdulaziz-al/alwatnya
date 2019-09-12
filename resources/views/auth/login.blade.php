@@ -114,7 +114,7 @@
                             
 
                         </div>
-                        <button type="submit" class="btn btn-lg btn-primary btn-block">
+                        <button type="submit" class="btnRegister">
                             {{ __('تسجيل دخول') }}
                         </button>
                     </div>

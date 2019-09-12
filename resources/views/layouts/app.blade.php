@@ -77,7 +77,6 @@
                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
                 <!-- Include all compiled plugins (below), or include individual files as needed -->
                 <script src="{{ asset('js/bootstrap/bootstrap.min.js') }}"></script>
-                <script src="{{ asset('js/bootstrap/bootstrap.min.js') }}"></script>
         <script type="text/javascript" src="{{ asset('js/Hijri.js') }}"></script>
         <script>
             var currDate = '';
@@ -135,7 +134,27 @@
             showAnim: 'bounce'
         });
     } );
-    </script>
 
+    </script>
+<script>
+        $('.del-btn').on('click', function() {
+            swal({
+                title: "هل أنت متأكد؟",
+                text: "!بعد الحذف لن تتمكن من استعادة البيانات المحذوفة",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+                    swal("درررررم تم الحذف بنجاح", {
+                        icon: "success",
+                    });
+                } else {
+                    swal("تم إلغاء عملية الحذف");
+                }
+            });
+        })
+    </script>
     </body>
 </html>
