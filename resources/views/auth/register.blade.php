@@ -1,6 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
+
+
+
 <!--
     <div class="container">
     <div class="row justify-content-center">
@@ -13,14 +16,42 @@
                         @csrf
 
                         <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
+                            <label for="firstname" class="col-md-4 col-form-label text-md-right">{{ __(' first_name') }}</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required autofocus>
+                                <input id="first_name" type="text" class="form-control{{ $errors->has('first_name') ? ' is-invalid' : '' }}" name="first_name" value="{{ old('name') }}" required autofocus>
 
-                                @if ($errors->has('name'))
+                                @if ($errors->has('first_name'))
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('name') }}</strong>
+                                        <strong>{{ $errors->first('first_name') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="lastname" class="col-md-4 col-form-label text-md-right">{{ __('last_name') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="last_name" type="text" class="form-control{{ $errors->has('last_name') ? ' is-invalid' : '' }}" name="last_name" value="{{ old('name') }}" required autofocus>
+
+                                @if ($errors->has('last_name'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('last_name') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="phone" class="col-md-4 col-form-label text-md-right">{{ __('phone') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="phone" type="text" class="form-control{{ $errors->has('phone') ? ' is-invalid' : '' }}" name="phone" value="{{ old('name') }}" required autofocus>
+
+                                @if ($errors->has('phone'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('phone') }}</strong>
                                     </span>
                                 @endif
                             </div>
@@ -35,6 +66,20 @@
                                 @if ($errors->has('email'))
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('email') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="cr_image" class="col-md-4 col-form-label text-md-right">{{ __('cr_image') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="cr_image" type="text" class="form-control{{ $errors->has('cr_image') ? ' is-invalid' : '' }}" name="cr_image" value="{{ old('name') }}" required autofocus>
+
+                                @if ($errors->has('cr_image'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('cr_image') }}</strong>
                                     </span>
                                 @endif
                             </div>
@@ -76,96 +121,99 @@
     </div>
 </div>
 
+
 -->
+
 
 
                     
 <div class="container register">
-        <div class="row">
-            <div class="col-md-3 register-left">
-                <img src="images/plane-travel-icon-rebound2.gif" alt=""/>
+    <div class="row">
+        <div class="col-md-3 register-left">
+            <img src="images/plane-travel-icon-rebound2.gif" alt=""/>
+
+            <h3>أهلا وسهلا</h3>
+            <p> شركة الوطنية للتخليص الجمركي</p>
+            <a href="/login" > 
+            <input type="submit" name=""  value="تسجيل دخول"/>
+            </a>
+            <br/>
+
+            
+        </div>
+        <div class="col-md-9 register-right">
+            
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    <h3 class="register-heading">سجل</h3>
+                    <form method="POST" action="{{ route('register') }}">
+                            @csrf
     
-                <h3>أهلا وسهلا</h3>
-                <p> شركة الوطنية للتخليص الجمركي</p>
-                <a href="/login" > 
-                <input type="submit" name=""  value="تسجيل دخول"/>
-                </a>
-                <br/>
-    
-                
-            </div>
-            <div class="col-md-9 register-right">
-                
-                <div class="tab-content" id="myTabContent">
-                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                        <h3 class="register-heading">سجل</h3>
-                        <div class="row register-form">
-                            <div class="col-md-6">
-                               
-                                <form method="POST" action="{{ route('register') }}">
-                                    @csrf
-                                <div class="form-group">
-                                    <input type="email" class="form-control" name="email" placeholder="إيميل " value="" />
-                                </div>
-                                <div class="form-group">
-                                    <input type="text" minlength="10" maxlength="10" name="phone" class="form-control" placeholder="رقم جوال*" value="" />
-                                </div>
-
-
-                                <div class="form-group">
-                                    <label> الملف التجاري </label>
-                                    <input type="file" name="cr_image">
-                                </div>
-                                
-
-
+                    <div class="row register-form">
+                        <div class="col-md-6">
+                        
+                             
+                            <div class="form-group">
+                                <input id="email"  name="email" type="text" class="form-control" placeholder="إيميل " value="" />
                             </div>
-                            <div class="col-md-6">
-                               
-
-
-                                <div class="form-group">
-                                    <input type="text" name="first_name" class="form-control" placeholder="الإسم الأول" value="" />
-                                </div>
-                                <div class="form-group">
-                                    <input type="text" name="last_name" class="form-control" placeholder="إسم العائلة" value="" />
-                                </div>
-                                
-                                
-                                <div class="form-group">
-                                    <input type="password" name="password" class="form-control" placeholder="الرقم السري" value="" />
-                                </div>
-                                <div class="form-group">
-                                    <input type="password" class="form-control"  placeholder="تأكيد الرقم السري " value="" />
-                                </div>
-
-
-        
+                            <div class="form-group">
+                                <input  id="phone" type="text" minlength="10" maxlength="10" name="phone" class="form-control" placeholder="رقم جوال*" value="" />
                             </div>
-<<<<<<< HEAD
+
+
+                            <div class="form-group">
+                                <input  id="cr_image" type="text" name="cr_image">
+                            </div>
                             
 
-                            <input type="submit" class="btnRegister"  value="إنشاء حساب"/>
-                            </form>
-=======
-                            <form method="POST" action="{{ route('register') }}">
-                                    @csrf
-                                <input type="submit" class="btnRegister"  value="إنشاء حساب"/>
-                                            
->>>>>>> ce72e1f236812f4590e77227e4d60c7fe02bb0d2
+
                         </div>
+                        <div class="col-md-6">
+                           
 
-                    </div>
-                    
-                    
-                </div>
 
-            </div>
-
-        </div>
+                            <div class="form-group">
+                                <input id="first_name" name="first_name" type="text" class="form-control" placeholder="الإسم الأول" value="" />
+                            </div>
+                            <div class="form-group">
+                                <input id="last_name" name="last_name" type="text" class="form-control" placeholder="إسم العائلة" value="" />
+                            </div>
+                            
+                        
     
+                                <div class="form-group row ">            
+
+
+                                            <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password"  placeholder="الرقم السري " required>
+            
+                                            @if ($errors->has('password'))
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $errors->first('password') }}</strong>
+                                                </span>
+                                            @endif
+                                    </div>
+            
+                                    <div class="form-group row ">
+            
+                                            <input id="password-confirm" type="password" class="form-control" name="password_confirmation" placeholder="تأكيد الرقم السري  " required>
+                                    </div>
+    
+
+                            
+
+                        </div>
+                      
+                        <button type="submit" class="btnRegister"  value="إنشاء حساب">
+                        </button>
+                        </form>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
     </div>
 
+</div>
     
 
                     <span class="list-group-item mb-3 rounded-lg">

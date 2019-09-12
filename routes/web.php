@@ -16,7 +16,6 @@
 // home / guest view
 Route::get('/','HomeController@index');
 // registration page
-Route::get('/registration','HomeController@registration');
 // login
 Route::get('/login', 'HomeController@login');
 // check status
@@ -102,3 +101,6 @@ Route::get('/user/logout', function() {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+
+

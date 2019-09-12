@@ -65,6 +65,36 @@
     </div>
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   
     -->
     
@@ -86,19 +116,30 @@
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                     <h4 class="register-heading">تسجيل دخول</h4>
+
+                    <form method="POST" action="{{ route('login') }}">
+                            @csrf
+                    
                     <div class="row register-form">
                         
-                            <button type="submit" class="btnlogin">
-                                    {{ __('تسجيل دخول') }}
-                                </button>
+
+
+
+                           
+
+
+                              
+
                                 <div class="form-group">
                                         <input type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required  placeholder="الرقم السري" value="" />
-                                    </div>
                                     @if ($errors->has('password'))
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('password') }}</strong>
                                     </span>
                                 @endif
+
+                            </div>
+
         
                                 
                         <div class="col-md-6">
@@ -115,20 +156,22 @@
                         </div>
                         
                            
-
+                        <button type="submit" class="btnlogin">
+                                {{ __('تسجيل دخول') }}
+                            </button>
     
 
+
+
                         </div>
-<<<<<<< HEAD
+
                         
-=======
-                        <button type="submit" class="btnRegister">
-                            {{ __('تسجيل دخول') }}
-                        </button>
->>>>>>> edf4f5add96f6e7e43ab990c8392c7c65acb147d
+                    </form>
+
+                      
                     </div>
                 </div>
-                
+
             </div>
         </div>
     </div>
