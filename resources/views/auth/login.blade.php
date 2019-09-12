@@ -119,7 +119,13 @@
     
 
                         </div>
+<<<<<<< HEAD
                         
+=======
+                        <button type="submit" class="btnRegister">
+                            {{ __('تسجيل دخول') }}
+                        </button>
+>>>>>>> edf4f5add96f6e7e43ab990c8392c7c65acb147d
                     </div>
                 </div>
                 
