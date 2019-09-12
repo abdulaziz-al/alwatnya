@@ -138,6 +138,9 @@
 
 
                             </div>
+                            
+                            <form method="POST" action="{{ route('register') }}">
+                                @csrf
                             <input type="submit" class="btnRegister"  value="إنشاء حساب"/>
 
                         </div>

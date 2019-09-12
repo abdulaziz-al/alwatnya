@@ -3,6 +3,7 @@
 @section('content')
 
 
+    <!-- 
 <div class="container flex-center position-ref full-height">
 
         <div class="content">
@@ -32,11 +33,7 @@
                                     <div class="form-group">
                                         <input  placeholder="كلمة المرور" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
                                     </div>
-                                    @if ($errors->has('password'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
+                                   
                                 <div class="form-group row">
                                         <div class="col-md-6 offset-md-4">
                                             <div class="form-check">
@@ -66,6 +63,68 @@
             </div>
         </div>
     </div>
+
+
+  
+    -->
+    
+                    
+<div class="container register">
+    <div class="row">
+        <div class="col-md-3 register-left">
+            <img src="images/plane-travel-icon-rebound2.gif" alt=""/>
+
+            <h5>أهلا وسهلا</h5>
+            <p> شركة الوطنية للتخليص الجمركي</p>
+            
+            <br/>
+
+            
+        </div>
+        <div class="col-md-9 register-right">
+            
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    <h4 class="register-heading">تسجيل دخول</h4>
+                    <div class="row register-form">
+                        <div class="col-md-6">
+                           
+                            <div class="form-group">
+                                <input type="email" class="form-control {{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autofocus placeholder="إيميل " />
+                            </div>
+                            @if ($errors->has('email'))
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $errors->first('email') }}</strong>
+                            </span>
+                        @endif
+                            <div class="form-group">
+                                <input type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required  placeholder="الرقم السري" value="" />
+                            </div>
+                            @if ($errors->has('password'))
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $errors->first('password') }}</strong>
+                            </span>
+                        @endif
+
+                        </div>
+                        
+                           
+
+
+                            
+
+                        </div>
+                        <button type="submit" class="btn btn-lg btn-primary btn-block">
+                            {{ __('تسجيل دخول') }}
+                        </button>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+
 
 
 
