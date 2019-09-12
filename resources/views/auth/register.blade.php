@@ -137,17 +137,21 @@
                                 </div>
 
 
+        
                             </div>
-                            
                             <form method="POST" action="{{ route('register') }}">
-                                @csrf
-                            <input type="submit" class="btnRegister"  value="إنشاء حساب"/>
-
+                                    @csrf
+                                <input type="submit" class="btnRegister"  value="إنشاء حساب"/>
+                                            
                         </div>
+
                     </div>
                     
+                    
                 </div>
+
             </div>
+
         </div>
     
     </div>
