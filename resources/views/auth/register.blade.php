@@ -102,16 +102,19 @@
                         <div class="row register-form">
                             <div class="col-md-6">
                                
+                                <form method="POST" action="{{ route('register') }}">
+                                    @csrf
                                 <div class="form-group">
-                                    <input type="email" class="form-control" placeholder="إيميل " value="" />
+                                    <input type="email" class="form-control" name="email" placeholder="إيميل " value="" />
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" minlength="10" maxlength="10" name="txtEmpPhone" class="form-control" placeholder="رقم جوال*" value="" />
+                                    <input type="text" minlength="10" maxlength="10" name="phone" class="form-control" placeholder="رقم جوال*" value="" />
                                 </div>
 
 
                                 <div class="form-group">
-                                    <input type="file" name="file">
+                                    <label> الملف التجاري </label>
+                                    <input type="file" name="cr_image">
                                 </div>
                                 
 
@@ -122,15 +125,15 @@
 
 
                                 <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="الإسم الأول" value="" />
+                                    <input type="text" name="first_name" class="form-control" placeholder="الإسم الأول" value="" />
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="إسم العائلة" value="" />
+                                    <input type="text" name="last_name" class="form-control" placeholder="إسم العائلة" value="" />
                                 </div>
                                 
                                 
                                 <div class="form-group">
-                                    <input type="password" class="form-control" placeholder="الرقم السري" value="" />
+                                    <input type="password" name="password" class="form-control" placeholder="الرقم السري" value="" />
                                 </div>
                                 <div class="form-group">
                                     <input type="password" class="form-control"  placeholder="تأكيد الرقم السري " value="" />
@@ -139,10 +142,9 @@
 
                             </div>
                             
-                            <form method="POST" action="{{ route('register') }}">
-                                @csrf
-                            <input type="submit" class="btnRegister"  value="إنشاء حساب"/>
 
+                            <input type="submit" class="btnRegister"  value="إنشاء حساب"/>
+                            </form>
                         </div>
                     </div>
                     
