@@ -11,7 +11,7 @@
  /*register*/
 
 .register{
-    background: -webkit-linear-gradient(left, #31af6a, #00ff73);
+    background: -webkit-linear-gradient(left, #9803c5, #d712ff);
     padding: 3%;
     width: 100%;
 }
@@ -63,31 +63,15 @@
 }
 .btnRegister{
     float: right;
-    margin-top: 10%;
+    margin-top: 15%;
     border: none;
     border-radius: 1.5rem;
     padding: 2%;
-    background: #00cc55;
+    background: #9803c5;
     color: #fff;
     font-weight: 600;
-    width: 50%;
+    width: 70%;
     cursor: pointer;
-}
-.register .nav-tabs{
-    margin-top: 3%;
-    border: none;
-    background: #00cc55;
-    border-radius: 1.5rem;
-    width: 40%;
-    float: right;
-}
-.register .nav-tabs .nav-link{
-    padding: 2%;
-    height: 34px;
-    font-weight: 600;
-    color: #fff;
-    border-top-right-radius: 1.5rem;
-    border-bottom-right-radius: 1.5rem;
 }
 .register .nav-tabs .nav-link:hover{
     border: none;
@@ -104,4 +88,8 @@
     margin-top: 8%;
     margin-bottom: -15%;
     color: #495057;
+}
+.form-control{
+text-align: right;
+
 }

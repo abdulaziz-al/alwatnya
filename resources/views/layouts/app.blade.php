@@ -51,7 +51,7 @@
                         <a class="nav-link" href="/login">الدخول  <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/registration">التسجيل</a>
+                        <a class="nav-link" href="/register">التسجيل</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/">الرئيسية</a>
@@ -77,5 +77,65 @@
                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
                 <!-- Include all compiled plugins (below), or include individual files as needed -->
                 <script src="{{ asset('js/bootstrap/bootstrap.min.js') }}"></script>
+                <script src="{{ asset('js/bootstrap/bootstrap.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/Hijri.js') }}"></script>
+        <script>
+            var currDate = '';
+            function initWork() {
+                // get today's date in Hijri
+                currDate = HijriJS.today().toString();
+                // to remove H from yearH ex: 1440H, drop the last character to be 1440
+                currDate = currDate.substring(0, currDate.length - 1);
+                // reformat date from dd/mm/yyyy to dd-mm-yyyy
+                currDate = currDate.split('/').join('-');
+                // set the date input field to currDate so, datepicker sets it as the current date automatically
+                $('#datepicker').val(currDate);
+                
+            }
+            $( function() {
+                $( "#datepicker" ).datepicker({
+                    // changeMonth: true, // show months menu
+                    changeYear: true, // show years menu
+                    dayNamesMin: [ "س", "ج", "خ", "ر", "ث", "ن", "ح" ], // arabic days names
+                    // dayNames: [ "السبت", "الجمعة", "الخميس", "الأربعاء", "الثلاثاء", "الأُثنين", "الأحد" ],
+                    dateFormat: "dd-mm-yy", // set format to dd-mm-yyyy
+                    monthNames: [ "محرم", "صفر", "ربيع الأول", "ربيع الثاني", "جمادى الأول", "جمادى الثاني", "رجب", "شعبان", "رمضان", "شوال", "ذو القعدة", "ذو الحجة" ],
+                    yearRange: "c-0:c+15", // year range in Hijri from current year and +15 years
+                    monthNamesShort: [ "محرم", "صفر", "ربيع ١", "ربيع ٢", "جمادى ١", "جمادى ٢", "رجب", "شعبان", "رمضان", "شوال", "ذو القعدة", "ذو الحجة" ],
+                    showAnim: 'bounce'
+                });
+            } );
+            </script>
+
+<script src="{{ asset('js/bootstrap/bootstrap.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/Hijri.js') }}"></script>
+<script>
+    var currDate = '';
+    function initWork() {
+        // get today's date in Hijri
+        currDate = HijriJS.today().toString();
+        // to remove H from yearH ex: 1440H, drop the last character to be 1440
+        currDate = currDate.substring(0, currDate.length - 1);
+        // reformat date from dd/mm/yyyy to dd-mm-yyyy
+        currDate = currDate.split('/').join('-');
+        // set the date input field to currDate so, datepicker sets it as the current date automatically
+        // $('#datepicker').val(currDate);
+        
+    }
+    $( function() {
+        $( "#datepicker" ).datepicker({
+            // changeMonth: true, // show months menu
+            changeYear: true, // show years menu
+            dayNamesMin: [ "س", "ج", "خ", "ر", "ث", "ن", "ح" ], // arabic days names
+            // dayNames: [ "السبت", "الجمعة", "الخميس", "الأربعاء", "الثلاثاء", "الأُثنين", "الأحد" ],
+            dateFormat: "dd-mm-yy", // set format to dd-mm-yyyy
+            monthNames: [ "محرم", "صفر", "ربيع الأول", "ربيع الثاني", "جمادى الأول", "جمادى الثاني", "رجب", "شعبان", "رمضان", "شوال", "ذو القعدة", "ذو الحجة" ],
+            yearRange: "c-0:c+15", // year range in Hijri from current year and +15 years
+            monthNamesShort: [ "محرم", "صفر", "ربيع ١", "ربيع ٢", "جمادى ١", "جمادى ٢", "رجب", "شعبان", "رمضان", "شوال", "ذو القعدة", "ذو الحجة" ],
+            showAnim: 'bounce'
+        });
+    } );
+    </script>
+
     </body>
 </html>
