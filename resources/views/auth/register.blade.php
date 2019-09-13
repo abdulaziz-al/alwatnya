@@ -5,7 +5,7 @@
 <div class="container register">
     <div class="row">
         <div class="col-md-3 register-left">
-            <img src="images/Logo-Transparent-Background.png" alt=""/>
+            <img id="image_reg" src="images/Logo-Transparent-Background.png" alt=""/>
 
             <h3>أهلا وسهلا</h3>
             <p> شركة الوطنية للتخليص الجمركي</p>
@@ -44,7 +44,7 @@
                                 <input  id="cr_image" type="file" name="cr_image" placeholder="Upload CR">
                             </div>
                             
-                            
+
                             <div class="form-group">
                                 <input id="cr_exp" name="cr_exp" type="text" class="form-control" placeholder="تاريخ انتهاء السجل التجاري  " value="" />
                             </div>
@@ -86,9 +86,8 @@
                             
 
                         </div>
-                      
-                        <button type="submit" class="btnRegister"  value="إنشاء حساب">
-                        </button>
+                     
+                        <input type="submit" class="btnRegister"  value="إنشاء حساب" />
                         </form>
                     </div>
                 </div>
