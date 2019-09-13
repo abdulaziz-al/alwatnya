@@ -5,7 +5,7 @@
 <div class="container register">
     <div class="row">
         <div class="col-md-3 register-left">
-            <img src="images/plane-travel-icon-rebound2.gif" alt=""/>
+            <img src="images/Logo-Transparent-Background.png" alt=""/>
 
             <h3>أهلا وسهلا</h3>
             <p> شركة الوطنية للتخليص الجمركي</p>

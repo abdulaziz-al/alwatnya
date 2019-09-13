@@ -33,7 +33,7 @@
          <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand ml-auto" href="#">
                 <span>الوطنية</span>
-                <img src="https://getbootstrap.com/docs/4.3/assets/brand/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top" alt="">
+                <img src="images/Logo-white-Transparent-Background.png" width="30" height="30" class="d-inline-block align-top" alt="">
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>

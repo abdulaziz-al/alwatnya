@@ -11,7 +11,7 @@
  /*register*/
 
 .register{
-    background: -webkit-linear-gradient(left, #9803c5, #d712ff);
+    background: -webkit-linear-gradient(left, #ffffff, #b4b4b4);
     padding: 3%;
     width: 100%;
 }
@@ -21,7 +21,7 @@
     margin-top: 4%;
 }
 .register-left input{
-    border: none;
+    border:#000;
     border-radius: 1.5rem;
     padding: 2%;
     width: 60%;
@@ -31,9 +31,10 @@
     margin-top: 30%;
     margin-bottom: 3%;
     cursor: pointer;
+    
 }
 .register-right{
-    background: #f8f9fa;
+    background: #8e8e8f;
     border-top-left-radius: 10% 50%;
     border-bottom-left-radius: 10% 50%;
 }
