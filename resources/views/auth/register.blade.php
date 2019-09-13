@@ -110,10 +110,21 @@
                                 </div>
 
 
+<<<<<<< HEAD
                                 <div class="form-group">
                                     <input type="file" name="file">
                                 </div>
                                 
+=======
+                            <div class="form-group">
+                                <input  id="cr_image" type="text" name="cr_image" placeholder="CR name">
+                            </div>
+
+                               <div class="form-group">
+                                <input  id="cr_image" type="file" name="cr_image" placeholder="Upload CR">
+                            </div>
+                            
+>>>>>>> e2b1105e7a176093a4e467c3d4fdd6bd47db2408
 
 
                             </div>
