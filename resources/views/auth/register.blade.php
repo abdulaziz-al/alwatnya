@@ -37,7 +37,11 @@
 
 
                             <div class="form-group">
-                                <input  id="cr_image" type="text" name="cr_image">
+                                <input  id="cr_image" type="text" name="cr_image" placeholder="CR name">
+                            </div>
+
+                               <div class="form-group">
+                                <input  id="cr_image" type="file" name="cr_image" placeholder="Upload CR">
                             </div>
                             
 
