@@ -37,13 +37,19 @@
 
 
                             <div class="form-group">
-                                <input  id="cr_image" type="text" name="cr_image" placeholder="CR name">
+                                <input id="cr_number" name="cr_number" type="text" class="form-control" placeholder="رقم السجل التجاري  " value="" />
                             </div>
 
-                               <div class="form-group">
+                            <div class="form-group">
                                 <input  id="cr_image" type="file" name="cr_image" placeholder="Upload CR">
                             </div>
                             
+                            
+                            <div class="form-group">
+                                <input id="cr_exp" name="cr_exp" type="text" class="form-control" placeholder="تاريخ انتهاء السجل التجاري  " value="" />
+                            </div>
+
+                           
 
 
                         </div>
@@ -52,11 +58,10 @@
 
 
                             <div class="form-group">
-                                <input id="first_name" name="first_name" type="text" class="form-control" placeholder="الإسم الأول" value="" />
+                                <input id="full_name" name="full_name" type="text" class="form-control" placeholder="الإسم الكامل" value="" />
                             </div>
-                            <div class="form-group">
-                                <input id="last_name" name="last_name" type="text" class="form-control" placeholder="إسم العائلة" value="" />
-                            </div>
+                          
+                            
                             
                         
     
