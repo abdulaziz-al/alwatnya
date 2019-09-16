@@ -63,6 +63,8 @@ Route::get('/admin/logout', 'AdminController@logout');
 // -- user controller --
 // user dashboard
 Route::get('/user', 'UserController@index');
+Route::get('/creatOrder', 'UserController@createOrder');
+
 // user/settings page:
 Route::get('/user/settings', 'UserController@settings');
 // 1 user/settings/info page

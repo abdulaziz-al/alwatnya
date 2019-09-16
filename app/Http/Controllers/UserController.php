@@ -8,6 +8,8 @@ use App\User;
 class UserController extends Controller
 {
     // user index page (dashboard)
+
+
     public function index(  ) {
 
         
@@ -15,6 +17,11 @@ class UserController extends Controller
       
 
         return view('users.index')->with('user',$user);
+    }
+
+    function createOrder(){
+        
+     return view('users.createOrder');
     }
     // user/settings page:
     public function settings() {
@@ -45,5 +52,41 @@ class UserController extends Controller
     // 1 user/neworder page
     public function newOrder() {
         return view('users.neworder');
+    }
+
+
+
+    function insert(Request $request)
+    {
+     if($request->ajax())
+     {
+      $rules = array(
+       'first_name.*'  => 'required',
+       'last_name.*'  => 'required'
+      );
+      $error = Validator::make($request->all(), $rules);
+      if($error->fails())
+      {
+       return response()->json([
+        'error'  => $error->errors()->all()
+       ]);
+      }
+
+      $first_name = $request->first_name;
+      $last_name = $request->last_name;
+      for($count = 0; $count < count($first_name); $count++)
+      {
+       $data = array(
+        'first_name' => $first_name[$count],
+        'last_name'  => $last_name[$count]
+       );
+       $insert_data[] = $data; 
+      }
+
+      DynamicField::insert($insert_data);
+      return response()->json([
+       'success'  => 'Data Added successfully.'
+      ]);
+     }
     }
 }
