@@ -192,7 +192,7 @@ var HijriJS = {
 			monthNames : ['Muharram', 'Safar', 'Rabi\' al-awwal', 'Rabi\' al-thani', 'Jumada al-awwal', 'Jumada al-thani', 'Rajab', 'Sha\'aban', 'Ramadan', 'Shawwal', 'Dhu al-Qi\'dah', 'Dhu al-Hijjah'],
 			monthShortNames : ['Muh', 'Saf', 'Rab1', 'Rab2', 'Jum1', 'Jum2', 'Raj', 'Sha\'', 'Ram', 'Shaw', 'DhuQ', 'DhuH'],
 			formatLocale : function(hDate) {// For English it will convert from currentLanguages numbers to Arabic numbers.
-				/*
+				
 				 if (HijriJS.currentLanguage != 'en') {
 				 for ( i = 0; i < hDate.length; i++) {
 				 switch(hDate[i]) {
@@ -228,7 +228,7 @@ var HijriJS = {
 				 break;
 				 }
 				 }
-				 }*/
+				 }
 
 				return hDate;
 			}

@@ -29,18 +29,23 @@
                         
                              
                             <div class="form-group">
+                                    <i class="fa fa-envelope-open" aria-hidden="true" id="icon"></i>
                                 <input id="email"  name="email" type="text" class="form-control" placeholder="إيميل " value="" />
                             </div>
                             <div class="form-group">
+                                    <i class="fa fa-phone" aria-hidden="true" id="icon"></i>
                                 <input  id="phone" type="text" minlength="10" maxlength="10" name="phone" class="form-control" placeholder="رقم جوال*" value="" />
                             </div>
 
 
                             <div class="form-group">
+                                
+                                    <i class="fa fa-address-card" aria-hidden="true" id="icon"></i>
                                 <input id="cr_number" name="cr_number" type="text" class="form-control" placeholder="رقم السجل التجاري  " value="" />
                             </div>
 
                             <div class="form-group">
+                                    <i class="fa fa-arrow-circle-down" aria-hidden="true" ></i>
                                 <input  id="cr_image" type="file" name="cr_image" placeholder="Upload CR">
                             </div>
                             
@@ -58,8 +63,9 @@
 
 
                             <div class="form-group">
-                                <input id="full_name" name="full_name" type="text" class="form-control" placeholder="الإسم الكامل" value="" />
-                            </div>
+                                    <i class="fa fa-user" aria-hidden="true" id="icon" ></i>
+                         <input id="full_name" name="full_name" type="text"  class="form-control" placeholder="الإسم الكامل"  >
+                        </div>
                           
                             
                             
@@ -67,9 +73,9 @@
     
                                 <div class="form-group row ">            
 
-
+                                        <i class="fa fa-lock" id="icon"></i>
                                             <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password"  placeholder="الرقم السري " required>
-            
+                                            
                                             @if ($errors->has('password'))
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $errors->first('password') }}</strong>
@@ -78,7 +84,7 @@
                                     </div>
             
                                     <div class="form-group row ">
-            
+                                            <i class="fa fa-lock" id="icon" ></i>
                                             <input id="password-confirm" type="password" class="form-control" name="password_confirmation" placeholder="تأكيد الرقم السري  " required>
                                     </div>
     

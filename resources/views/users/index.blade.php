@@ -3,9 +3,24 @@
 @section('content')
        
         <title>الوطنية - kamal1199</title>
+  
 
         <div class="container">
-            <h1 class="text-center mt-3">kamal1199 لوحة تحكم</h1>
+
+            @foreach ($user as $users)
+
+            @if ( $users->id== auth::user()->id )
+
+        <h1 class="text-center mt-3"> {{$users->full_name}}لوحة تحكم</h1>
+
+
+                
+            @endif
+                
+            @endforeach
+
+           
+
             <hr>
             <div class="jumbotron rounded-lg">
                 <h3 class="text-right"> تقرير مبسط <i class="fas fa-tachometer-alt"></i></h3>

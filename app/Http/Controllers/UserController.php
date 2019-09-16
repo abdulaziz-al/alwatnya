@@ -3,12 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\User;
 
 class UserController extends Controller
 {
     // user index page (dashboard)
-    public function index() {
-        return view('users.index');
+    public function index(  ) {
+
+        
+        $user = User::all();
+      
+
+        return view('users.index')->with('user',$user);
     }
     // user/settings page:
     public function settings() {
