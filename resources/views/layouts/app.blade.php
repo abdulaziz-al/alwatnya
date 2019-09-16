@@ -253,7 +253,6 @@
          $('#dynamic_form').on('submit', function(event){
                 event.preventDefault();
                 $.ajax({
-                    url:'{{ route("dynamic-field.insert") }}',
                     method:'post',
                     data:$(this).serialize(),
                     dataType:'json',

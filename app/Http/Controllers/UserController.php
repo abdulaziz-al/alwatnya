@@ -21,7 +21,7 @@ class UserController extends Controller
 
     function createOrder(){
         
-     return view('users.createOrder');
+     return view('users.createOredr');
     }
     // user/settings page:
     public function settings() {

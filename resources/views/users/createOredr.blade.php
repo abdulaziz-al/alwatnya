@@ -19,7 +19,7 @@
               </tbody>
               <tfoot>
                <tr>
-                               <td></td>
+                               <td colspan="2" align="right"></td>
                                <td>
                  @csrf
                  <input type="submit" name="save" id="save" class="btn btn-primary" value="Save" />
