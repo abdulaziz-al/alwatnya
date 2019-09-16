@@ -20,8 +20,10 @@
                     <th>رقم السجل</th>
                 </tr>
                 <tr>
-                    <td><input type="text" class="form-control" id="datepicker" value="10-09-1441"></td>
+                    <td><input type="text" class="form-control" id="datepicker" /></td>
                     <th>تاريخ السجل</th>
+
+                  
                 </tr>
                 <tr>
                     <td><img src="https://pbs.twimg.com/profile_images/434117280/CR_Logo_400x400.jpg" alt=""></td>
@@ -37,6 +39,8 @@
                 </tr>   
             </table>
     </div>
-       
+
+
+    
 @endsection
        

@@ -106,7 +106,9 @@ text-align: right;
 
 }
 
-
+#icon{
+    margin-left: 90%;
+}
 /*log in */
 .btnlogin{
     
