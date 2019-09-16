@@ -3,6 +3,8 @@
 @section('content')
 
 
+
+
   
                     
 <div class="container register">
@@ -22,11 +24,14 @@
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                     <h4 class="register-heading">تسجيل دخول</h4>
+                    <form method="POST" action="{{ route('login') }}">
+                            @csrf
                     <div class="row register-form">
                         
                             <button type="submit" class="btnlogin">
                                     {{ __('تسجيل دخول') }}
                                 </button>
+
                                 <div class="form-group">
                                         <i class="fa fa-lock" id="icon"></i>
 
@@ -58,6 +63,7 @@
     
 
                         </div>
+                    </form>
                    </div>
                 </div>
                 
