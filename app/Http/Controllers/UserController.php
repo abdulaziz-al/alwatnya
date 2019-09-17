@@ -19,10 +19,18 @@ class UserController extends Controller
         return view('users.index')->with('user',$user);
     }
 
-    function createOrder(){
+    public function showCreatePage(){
         
      return view('users.createOredr');
     }
+
+    public function createOrder(Request $request ){
+
+
+        
+    }
+
+
     // user/settings page:
     public function settings() {
         return view('users.settings');

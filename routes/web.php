@@ -63,7 +63,9 @@ Route::get('/admin/logout', 'AdminController@logout');
 // -- user controller --
 // user dashboard
 Route::get('/user', 'UserController@index');
-Route::get('/createOrder', 'UserController@createOrder');
+
+Route::get('/createOrder', 'UserController@showCreatePage');
+Route::post('/createOrder', 'UserController@createOrder')->name('createOrder');
 
 // user/settings page:
 Route::get('/user/settings', 'UserController@settings');

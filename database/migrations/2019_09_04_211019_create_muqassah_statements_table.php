@@ -16,9 +16,9 @@ class CreateMuqassahStatementsTable extends Migration
         Schema::create('muqassah_statements', function (Blueprint $table) {
             $table->increments('ms_id');
             $table->integer('order_id');//for key
-            $table->string('ms_number');//for key 
+            $table->string('ms_number');
             $table->date('expirydate');
-            $table->integer('file_id');//for key
+            $table->integer('file_id');
 
             $table->timestamps();
         });
