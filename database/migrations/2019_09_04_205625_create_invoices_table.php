@@ -14,6 +14,8 @@ class CreateInvoicesTable extends Migration
     public function up()
     {
         Schema::create('invoices', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
+
             $table->increments('invoice_id');
             $table->integer('invoiceItems_id');//FK
             

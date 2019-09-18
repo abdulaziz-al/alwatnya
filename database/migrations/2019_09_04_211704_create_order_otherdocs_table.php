@@ -14,6 +14,8 @@ class CreateOrderOtherdocsTable extends Migration
     public function up()
     {
         Schema::create('order_otherdocs', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
+
             $table->increments('ood_id');
             $table->integer('order_id');//fk
             $table->integer('ood_number');

@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
+
+use Illuminate\Support\Facades\Session;
+
 use App\User;
 
 class UserController extends Controller
@@ -27,6 +31,9 @@ class UserController extends Controller
     public function createOrder(Request $request ){
 
 
+        Session::flash('success', $request->Other_name[0]);
+
+        return Redirect::back(); 
         
     }
 
@@ -69,8 +76,10 @@ class UserController extends Controller
      if($request->ajax())
      {
       $rules = array(
-       'first_name.*'  => 'required',
-       'last_name.*'  => 'required'
+       'Other_name.*'  => 'required',
+       'Other_number.*'  => 'required',
+        'Other_exp.*'=> 'required',
+        'Other_file.*'=> 'required'
       );
       $error = Validator::make($request->all(), $rules);
       if($error->fails())
@@ -80,13 +89,19 @@ class UserController extends Controller
        ]);
       }
 
-      $first_name = $request->first_name;
-      $last_name = $request->last_name;
-      for($count = 0; $count < count($first_name); $count++)
+      $Other_name = $request->Other_name;
+      $Other_number = $request->Other_number;
+      $Other_exp = $request->Other_exp;
+      $Other_file = $request->Other_file;
+      for($count = 0; $count < count($Other_name); $count++)
       {
        $data = array(
-        'first_name' => $first_name[$count],
-        'last_name'  => $last_name[$count]
+        'Other_name' => $Other_name[$count],
+        'Other_number'  => $Other_number[$count],
+        'Other_exp'  => $Other_exp[$count],
+        'Other_file'  => $Other_file[$count]
+
+
        );
        $insert_data[] = $data; 
       }

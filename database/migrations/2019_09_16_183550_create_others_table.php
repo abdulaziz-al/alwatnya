@@ -14,6 +14,8 @@ class CreateOthersTable extends Migration
     public function up()
     {
         Schema::create('others', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
+
             $table->increments('other_id');
             $table->integer('order_id');//for key
             $table->string('other_number');

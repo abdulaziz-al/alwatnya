@@ -14,6 +14,8 @@ class CreateUserLogsTable extends Migration
     public function up()
     {
         Schema::create('user_logs', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
+
             $table->increments('logs_id');
             $table->integer('user_id');//for key
             $table->string('source_ip');

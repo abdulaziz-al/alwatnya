@@ -14,6 +14,8 @@ class CreateTrucksTable extends Migration
     public function up()
     {
         Schema::create('trucks', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
+
             $table->increments('Trucks_id');
             $table->string('driver_name');
             $table->integer('driver_mobile');

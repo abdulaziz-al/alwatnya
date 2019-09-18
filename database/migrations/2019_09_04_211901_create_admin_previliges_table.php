@@ -14,6 +14,8 @@ class CreateAdminPreviligesTable extends Migration
     public function up()
     {
         Schema::create('admin_previliges', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
+
             $table->increments('admin_previliges_id');
             $table->integer('admin_id');//for key
             $table->string('previliges');

@@ -14,6 +14,8 @@ class CreatePackingListsTable extends Migration
     public function up()
     {
         Schema::create('packing_lists', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
+
             $table->increments('pi_id');
             $table->integer('order_id');//FK
             $table->string('pl_number');

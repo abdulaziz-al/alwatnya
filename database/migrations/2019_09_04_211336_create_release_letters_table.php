@@ -14,6 +14,8 @@ class CreateReleaseLettersTable extends Migration
     public function up()
     {
         Schema::create('release_letters', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
+
             $table->increments('rl_id');
             $table->integer('order_id');//FK
             $table->string('rl_number');

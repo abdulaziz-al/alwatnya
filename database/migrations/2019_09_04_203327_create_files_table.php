@@ -14,6 +14,8 @@ class CreateFilesTable extends Migration
     public function up()
     {
         Schema::create('files', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
+
             $table->increments('file_id');
             $table->string('file_name');
             $table->string('file_location');

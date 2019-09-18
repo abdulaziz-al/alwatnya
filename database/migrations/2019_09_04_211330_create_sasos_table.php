@@ -14,6 +14,8 @@ class CreateSasosTable extends Migration
     public function up()
     {
         Schema::create('sasos', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
+
             $table->increments('saso_id');
             $table->integer('order_id');//for key
             $table->string('saso_number');//for key

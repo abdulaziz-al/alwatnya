@@ -14,6 +14,8 @@ class CreateExemptionLettersTable extends Migration
     public function up()
     {
         Schema::create('exemption_letters', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
+
             $table->increments('el_id');
             $table->integer('order_id');//for key
             $table->string('el_number');// for key

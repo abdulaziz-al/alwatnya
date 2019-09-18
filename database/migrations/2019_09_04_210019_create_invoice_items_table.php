@@ -14,6 +14,8 @@ class CreateInvoiceItemsTable extends Migration
     public function up()
     {
         Schema::create('invoice_items', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
+
             $table->increments('invoiceItems_id');
             $table->string('invoiceItems_description');
             $table->integer('subtotal');

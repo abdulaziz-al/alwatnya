@@ -14,6 +14,8 @@ class CreateAdminLogsTable extends Migration
     public function up()
     {
         Schema::create('admin_logs', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
+
             $table->increments('logs_id');
             $table->integer('admin_id');//for key 
             $table->string('source_ip');

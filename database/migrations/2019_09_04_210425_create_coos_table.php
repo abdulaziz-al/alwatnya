@@ -14,6 +14,8 @@ class CreateCoosTable extends Migration
     public function up()
     {
         Schema::create('coos', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
+
             $table->increments('coo_id');
             $table->integer('order_id');//FK
             $table->string('coo_number');

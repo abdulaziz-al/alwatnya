@@ -14,6 +14,8 @@ class CreateUserOredersTable extends Migration
     public function up()
     {
         Schema::create('user_oreders', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
+
             $table->increments('order_id');
             $table->integer('user_id');//for key 
             $table->integer('admin_id');//for key

@@ -14,6 +14,8 @@ class CreateCommercialRecordsTable extends Migration
     public function up()
     {
         Schema::create('commercial_records', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
+
             $table->increments('cr_id');
             $table->integer('user_id');//for key
             $table->integer('order_id');//for key

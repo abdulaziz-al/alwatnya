@@ -14,6 +14,8 @@ class CreatePolicyNumbersTable extends Migration
     public function up()
     {
         Schema::create('policy_numbers', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
+
             $table->increments('pn_id');
             $table->integer('order_id');//for key
             $table->string('policy_number');

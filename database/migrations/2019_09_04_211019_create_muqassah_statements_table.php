@@ -14,6 +14,8 @@ class CreateMuqassahStatementsTable extends Migration
     public function up()
     {
         Schema::create('muqassah_statements', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
+
             $table->increments('ms_id');
             $table->integer('order_id');//for key
             $table->string('ms_number');
