@@ -10,7 +10,7 @@
         @endif
 
 
-        
+
         <form  method="POST" action="{{ route('createOrder') }}"  >
                 @csrf
 
@@ -254,39 +254,92 @@
 
         </div>
 
+
+        <div class="col-sm-6  table-bordered table-striped" id="cardss" >
+
+            <div class="form-group"  >
+                
+                <h4 style="text-align: center">خطاب إعفاء من التفتيش</h4>
+                    <input type="text" class="form-control {{ $errors->has('el_number') ? ' is-invalid' : '' }}" name="el_number" value="{{ old('el_number') }}"  autofocus placeholder="  تاريخ الخطاب " />
+                </div>
+                @if ($errors->has('el_number'))
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $errors->first('el_number') }}</strong>
+                </span>
+            @endif
+
+            <input type="date" class="form-control {{ $errors->has('el_expirydate') ? ' is-invalid' : '' }}" name="el_expirydate" value="{{ old('el_expirydate') }}"  autofocus placeholder="تاريخ الإنتهاء" />
+        @if ($errors->has('el_expirydate'))
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $errors->first('el_expirydate') }}</strong>
+        </span>
+    @endif
+
+    <input type="file" class="{{ $errors->has('el_file') ? ' is-invalid' : '' }}" name="el_file" value="{{ old('el_file') }}"  />
+@if ($errors->has('el_file'))
+<span class="invalid-feedback" role="alert">
+    <strong>{{ $errors->first('el_file') }}</strong>
+</span>
+@endif
+
+    </div>
+
         <div class="col-xs-6 col-md-6 col-lg-6  table-bordered table-striped" id="cardss" >
 
                 <div class="form-group"  >
                     
+                    {{-- إستمارة ملكية الشاحنات --}}
                     <h4 style="text-align: center">إستمارة ملكية الشاحنات </h4>
-                        <input type="text" class="form-control {{ $errors->has('truck_ownership_number') ? ' is-invalid' : '' }}" name="truck_ownership" value="{{ old('truck_ownership') }}"  autofocus placeholder="  رقم الاستمارة " />
-                    </div>
-                    @if ($errors->has('truck_ownership_number'))
+
+                    <input type="text" class="form-control {{ $errors->has('Truck_ownership') ? ' is-invalid' : '' }}" name="Truck_ownership" value="{{ old('Truck_ownership') }}" required autofocus placeholder="إسم الشركة " />
+                    @if ($errors->has('Truck_ownership'))
                     <span class="invalid-feedback" role="alert">
-                        <strong>{{ $errors->first('truck_ownership_number') }}</strong>
+                        <strong>{{ $errors->first('Truck_ownership') }}</strong>
                     </span>
                 @endif
 
-                <input type="text" class="form-control {{ $errors->has('truck_of_number') ? ' is-invalid' : '' }}" name="truck_of_number" value="{{ old('truck_of_number') }}"  autofocus placeholder="  عدد الشاحنات  " />
+
+                    <input type="text" class="form-control {{ $errors->has('driver_name') ? ' is-invalid' : '' }}" name="driver_name" value="{{ old('driver_name') }}" required autofocus placeholder="  إسم السائق  " />
+                    @if ($errors->has('driver_name'))
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $errors->first('driver_name') }}</strong>
+                    </span>
+                @endif
+
+                 
+
+                        <input type="text" class="form-control {{ $errors->has('truck_ownership_number1') ? ' is-invalid' : '' }}" name="truck_ownership_number1" value="{{ old('truck_ownership_number1') }}" required  autofocus placeholder="  رقم الهاتف الإماراتي " />
+                    </div>
+                    @if ($errors->has('truck_ownership_number1'))
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $errors->first('truck_ownership_number1') }}</strong>
+                    </span>
+                @endif
+
+                <input type="text" class="form-control {{ $errors->has('truck_ownership_number2') ? ' is-invalid' : '' }}" name="truck_ownership_number2" value="{{ old('truck_ownership_number2') }}" required autofocus placeholder="  رقم الهاتف السعودي " />
+            @if ($errors->has('truck_ownership_number2'))
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $errors->first('truck_ownership_number2') }}</strong>
+            </span>
+        @endif
+
+                <input type="text" class="form-control {{ $errors->has('truck_of_number') ? ' is-invalid' : '' }}" name="truck_of_number" value="{{ old('truck_of_number') }}" required autofocus placeholder="  عدد الشاحنات  " />
             @if ($errors->has('truck_of_number'))
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $errors->first('truck_of_number') }}</strong>
             </span>
         @endif
 
-                <input type="date" class="form-control {{ $errors->has('tos_expirydate') ? ' is-invalid' : '' }}" name="tos_expirydate" value="{{ old('tos_expirydate') }}"  autofocus placeholder="تاريخ الإنتهاء" />
-            @if ($errors->has('tos_expirydate'))
-            <span class="invalid-feedback" role="alert">
-                <strong>{{ $errors->first('tos_expirydate') }}</strong>
-            </span>
-        @endif
+        
+    </div>
 
-        <input type="file" class="{{ $errors->has('tos_file') ? ' is-invalid' : '' }}" name="tos_file" value="{{ old('tos_file') }}"  />
-    @if ($errors->has('tos_file'))
-    <span class="invalid-feedback" role="alert">
-        <strong>{{ $errors->first('tos_file') }}</strong>
-    </span>
-@endif
+       
+
+
+              
+
+  
+
 
         </div>
 
@@ -331,10 +384,11 @@
           </table>
           <input type="submit" name="save" id="save" class="btn btn-primary" value="Save" />
           <button type="button" name="add" id="add" class="btn btn-success">Add</button>
-               </form>
+               
+          <textarea class="form-control" name="comment_order" id="comment_order" > </textarea>
+        </form>
   </div>
- </div>
-
+  
 <script> 
 
 $(document).ready(function(){
@@ -351,7 +405,7 @@ function dynamic_field(number)
            html += '<td><button type="button" name="remove" id="" class="btn btn-danger remove">Remove</button></td>';
            html += '<td><input type="file" name="Other_file[]" /></td>';     
 
-       html += '<td><input type="text" name="Other_exp[]" class="form-control" placeholder="تاريخ الإنتهاء" /></td>';
+       html += '<td><input type="date" name="Other_exp[]" class="form-control" placeholder="تاريخ الإنتهاء" /></td>';
          html += '<td><input type="text"  name="Other_number[]" class="form-control" placeholder="الرقم" / ></td>';
 
        html += '<td><input type="text"  name="Other_name[]" class="form-control"  placeholder="الاسم"  /></td></tr>';
@@ -363,7 +417,7 @@ function dynamic_field(number)
            html += '<td><button type="button" name="add" id="add" class="btn btn-success">Add</button></td>';
            html += '<td><input type="file" name="Other_file[]" /></td>';     
 
-       html += '<td><input type="text" name="Other_exp[]" class="form-control" placeholder="تاريخ الإنتهاء" /></td>';
+       html += '<td><input type="date" name="Other_exp[]" class="form-control" placeholder="تاريخ الإنتهاء" /></td>';
          html += '<td><input type="text"  name="Other_number[]" class="form-control" placeholder="الرقم" / ></td>';
 
        html += '<td><input type="text"  name="Other_name[]" class="form-control"  placeholder="الاسم"  /></td></tr>';
@@ -386,7 +440,7 @@ $(document).on('click', '.remove', function(){
 $('#dynamic_form').on('submit', function(event){
        event.preventDefault();
        $.ajax({
-           url: '/CreateOrder',
+           url: '/createOrder',
            method:'post',
            data:$(this).serialize(),
            dataType:'json',

@@ -16,10 +16,13 @@ class CreateTrucksTable extends Migration
         Schema::create('trucks', function (Blueprint $table) {
             $table->engine = 'InnoDB';
 
-            $table->increments('Trucks_id');
+            $table->increments('id');
             $table->string('driver_name');
-            $table->integer('driver_mobile');
-            $table->integer('order_id');//FK
+            $table->string('driver_mobile_1');
+            $table->string('driver_mobile_2');
+            //<---------- FK from order tables ------------>//
+            $table->integer('order_id')->unsigned()->index();
+            $table->foreign('order_id')->references('id')->on('user_oreders')->onDelete('cascade');
             $table->string('Truck_ownership_number');
 
             $table->timestamps();

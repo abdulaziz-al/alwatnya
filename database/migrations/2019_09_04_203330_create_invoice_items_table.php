@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateOthersTable extends Migration
+class CreateInvoiceItemsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,13 @@ class CreateOthersTable extends Migration
      */
     public function up()
     {
-        Schema::create('others', function (Blueprint $table) {
+        Schema::create('invoice_items', function (Blueprint $table) {
             $table->engine = 'InnoDB';
 
-            $table->increments('other_id');
-            $table->integer('order_id');//for key
-            $table->string('other_number');
-            $table->date('expirydate');
-            $table->integer('file_id');//for key
-            $table->timestamps();
+            $table->increments('id');
+            $table->string('invoiceItems_description');
+            $table->integer('subtotal');
+            
         });
     }
 
@@ -32,6 +30,6 @@ class CreateOthersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('others');
+        Schema::dropIfExists('invoice_items');
     }
 }

@@ -16,12 +16,20 @@ class CreateOrderOtherdocsTable extends Migration
         Schema::create('order_otherdocs', function (Blueprint $table) {
             $table->engine = 'InnoDB';
 
-            $table->increments('ood_id');
-            $table->integer('order_id');//fk
+            $table->increments('id');
+
+   
+            $table->string('ood_name');
             $table->integer('ood_number');
             $table->date('expirydate');
-            $table->text('description');
-            $table->integer('file_id');//fk
+            
+            //<---------- FK from order tables ------------>//
+            $table->integer('order_id')->unsigned()->index();
+            $table->foreign('order_id')->references('id')->on('user_oreders')->onDelete('cascade');
+
+            //<---------- FK from Files tables ------------>//
+            $table->integer('file_id')->unsigned()->index();
+            $table->foreign('file_id')->references('id')->on('files')->onDelete('cascade');
             $table->timestamps();
         });
     }

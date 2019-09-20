@@ -16,11 +16,17 @@ class CreateCoosTable extends Migration
         Schema::create('coos', function (Blueprint $table) {
             $table->engine = 'InnoDB';
 
-            $table->increments('coo_id');
-            $table->integer('order_id');//FK
-            $table->string('coo_number');
-            $table->date('expirydate');
-            $table->integer('file');//FK
+            $table->increments('id');
+            $table->string('coo_number')->nullable();
+            $table->date('expirydate')->nullable();
+
+            //<---------- FK from order tables ------------>//
+            $table->integer('order_id')->unsigned()->index();
+            $table->foreign('order_id')->references('id')->on('user_oreders')->onDelete('cascade');
+
+            //<---------- FK from Files tables ------------>//
+            $table->integer('file_id')->unsigned()->index();
+            $table->foreign('file_id')->references('id')->on('files')->onDelete('cascade');
             $table->timestamps();
         });
     }

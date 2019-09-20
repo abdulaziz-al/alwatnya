@@ -16,10 +16,17 @@ class CreateCommentsTable extends Migration
         Schema::create('comments', function (Blueprint $table) {
             $table->engine = 'InnoDB';
 
-            $table->increments('comment_id');
+            $table->increments('id');
             $table->string('comment_description');
-            $table->integer('comment_by_user');
-            $table->integer('comment_to_user');
+            
+
+            //<---------- FK from users tables ------------>//
+            $table->integer('comment_by_user')->unsigned()->index();
+            $table->foreign('comment_by_user')->references('id')->on('users')->onDelete('cascade');
+
+            //<---------- FK from roles tables ------------>//
+            $table->integer('comment_to_user')->unsigned()->index();
+            $table->foreign('comment_to_user')->references('id')->on('roles')->onDelete('cascade');
             $table->timestamps();
         });
     }

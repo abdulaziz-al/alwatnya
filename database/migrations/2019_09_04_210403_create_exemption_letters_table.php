@@ -16,11 +16,17 @@ class CreateExemptionLettersTable extends Migration
         Schema::create('exemption_letters', function (Blueprint $table) {
             $table->engine = 'InnoDB';
 
-            $table->increments('el_id');
-            $table->integer('order_id');//for key
-            $table->string('el_number');// for key
-            $table->date('expirydate');
-            $table->integer('file_id');//for key 
+            $table->increments('id');
+            $table->string('el_number')->nullable();
+            $table->date('expirydate')->nullable();
+
+            //<---------- FK from order tables ------------>//
+            $table->integer('order_id')->unsigned()->index();
+            $table->foreign('order_id')->references('id')->on('user_oreders')->onDelete('cascade');
+
+            //<---------- FK from Files tables ------------>//
+            $table->integer('file_id')->unsigned()->index();
+            $table->foreign('file_id')->references('id')->on('files')->onDelete('cascade');
             
             $table->timestamps();
         });

@@ -16,11 +16,21 @@ class CreatePolicyNumbersTable extends Migration
         Schema::create('policy_numbers', function (Blueprint $table) {
             $table->engine = 'InnoDB';
 
-            $table->increments('pn_id');
-            $table->integer('order_id');//for key
-            $table->string('policy_number');
-            $table->date('expirydate');
-            $table->integer('file_id');//for key
+            $table->increments('id');
+
+            $table->string('policy_number')->nullable();
+            $table->date('expirydate')->nullable();
+
+            //<---------- FK from order tables ------------>//
+            $table->integer('order_id')->unsigned()->index();
+            $table->foreign('order_id')->references('id')->on('user_oreders')->onDelete('cascade');
+
+            //<---------- FK from Files tables ------------>//
+            $table->integer('file_id')->unsigned()->index();
+            $table->foreign('file_id')->references('id')->on('files')->onDelete('cascade');
+
+
+       
             $table->timestamps();
         });
     }

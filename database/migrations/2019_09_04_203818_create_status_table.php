@@ -16,7 +16,7 @@ class CreateStatusTable extends Migration
         Schema::create('status', function (Blueprint $table) {
             $table->engine = 'InnoDB';
 
-            $table->increments('status_id');
+            $table->increments('id');
             $table->string('status_name');
             $table->boolean('status_active');
 

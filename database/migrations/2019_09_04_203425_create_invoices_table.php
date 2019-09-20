@@ -16,9 +16,12 @@ class CreateInvoicesTable extends Migration
         Schema::create('invoices', function (Blueprint $table) {
             $table->engine = 'InnoDB';
 
-            $table->increments('invoice_id');
-            $table->integer('invoiceItems_id');//FK
-            
+            $table->increments('id');
+
+            //<---------- FK from Invoice  tables ------------>//
+            $table->integer('invoiceItems_id')->unsigned()->index();
+            $table->foreign('invoiceItems_id')->references('id')->on('invoice_items')->onDelete('cascade');
+                        
         });
     }
 
