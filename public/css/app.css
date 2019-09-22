@@ -127,3 +127,42 @@ text-align: right;
 #cardss{
     margin-top: 5% ;
 }
+
+
+#image_home{
+    margin-top: 10%;
+    margin-left: 25%;
+    width: 50%;
+}
+
+/* test comment */
+
+  
+  .active-amber-textarea-2 textarea.md-textarea {
+    border: none;
+    box-shadow: 0 1px 0 0 #17be01;
+  }
+  .active-amber-textarea-2.md-form label.active {
+    color: #17be01;
+  }
+  .active-amber-textarea-2.md-form label {
+    color: #17be01;
+  }
+  .active-amber-textarea-2.md-form .prefix {
+    color: #17be01;
+  }
+  
+  .active-amber-textarea-2.md-form textarea.md-textarea:hover {
+    border: #17be01;
+    border-bottom: #17be01;
+
+  }
+  .active-amber-textarea-2.md-form textarea.md-textarea:focus([readonly])+label {
+    color: #17be01;
+  }
+  #comment_textarea{
+      width: 100%;
+  }
+  #comment_div{
+      text-align: right;
+  }

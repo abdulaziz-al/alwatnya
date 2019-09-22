@@ -54,5 +54,27 @@
             </tbody>
         </table>
     </div>
+
+
+    <script>
+        $('.del-btn').on('click', function() {
+            swal({
+                title: "هل أنت متأكد؟",
+                text: "!بعد الحذف لن تتمكن من استعادة البيانات المحذوفة",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+                    swal("درررررم تم الحذف بنجاح", {
+                        icon: "success",
+                    });
+                } else {
+                    swal("تم إلغاء عملية الحذف");
+                }
+            });
+        })
+    </script>
     
     @endsection
