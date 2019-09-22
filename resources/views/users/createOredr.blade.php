@@ -5,10 +5,7 @@
 <div class="container">   
     
     
-        @if (Session::has('success'))
-        <div class="alert alert-success">{{Session::get('success')}}</div>
-        @endif
-
+        
 
 
         <form  method="POST" action="{{ route('createOrder') }}"  >
@@ -259,7 +256,7 @@
 
             <div class="form-group"  >
                 
-                <h4 style="text-align: center">خطاب إعفاء من التفتيش</h4>
+                <h4 style="text-align: center">خطاب إعفاء </h4>
                     <input type="text" class="form-control {{ $errors->has('el_number') ? ' is-invalid' : '' }}" name="el_number" value="{{ old('el_number') }}"  autofocus placeholder="  تاريخ الخطاب " />
                 </div>
                 @if ($errors->has('el_number'))
@@ -333,19 +330,25 @@
         
     </div>
 
-       
+               <div class="col-xs-6 col-md-6 col-lg-6  table-bordered table-striped" id="cardss" >
 
 
-              
+    <div class=" amber-textarea active-amber-textarea-2">
+            <i class="fas fa-pencil-alt prefix"></i>
+            <textarea id="comment_textarea" class="md-textarea form-control" rows="5"></textarea>
+            <div  id="comment_div"> <h4> أترك ملاحظة </h4>
+             </div>
+          </div>
+
+        
+              </div>
+          
 
   
 
 
         </div>
 
-    </div>
-
-        
 
         <br/>
        
@@ -382,6 +385,11 @@
                </tr>
               </tfoot>
           </table>
+
+
+      <!--Textarea with icon prefix-->
+      
+
           <input type="submit" name="save" id="save" class="btn btn-primary" value="Save" />
           <div class="md-form">
             <i class="fas fa-pencil-alt prefix"></i>
@@ -389,8 +397,9 @@
             <label for="form10">Icon Prefix</label>
           </div>
         </form>
+    
   </div>
-  
+
 <script> 
 
 $(document).ready(function(){
@@ -472,9 +481,6 @@ $('#dynamic_form').on('submit', function(event){
 
 });
 </script>
-
-
-
 
 
 

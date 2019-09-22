@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use RealRashid\SweetAlert\Facades\Alert;
+
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller
@@ -28,6 +30,7 @@ class LoginController extends Controller
     protected function redirectTo()
     {
         if (auth()->user()->role_id == 3) {
+            //Alert::success('مرحبا بك ',auth()->user()->full_name) ;
             return view ('users.index');
         } else if (auth()->user()->role_id == 1) {
             return '/admin';

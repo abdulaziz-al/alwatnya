@@ -1,23 +1,41 @@
 @extends('layouts.app')
 
+@section('select')
+<select >
+
+@foreach ($cr_number as $cr_numbers)
+    <option name="{{$cr_numbers->cr_number }}"> {{$cr_numbers->cr_number }} </option>
+
+
+ @endforeach    
+</select>
+
+ @endsection
+
 @section('content')
        
         <title>الوطنية - kamal1199</title>
-  
+        
 
         <div class="container">
 
-            @foreach ($user as $users)
-
-            @if ( $users->id== auth::user()->id )
-
-        <h1 class="text-center mt-3"> {{$users->full_name}}لوحة تحكم</h1>
 
 
+
+                @if (Session::has('success'))
+                <div class="alert alert-success">{{Session::get('success')}}</div>
+                @endif
+        
+
+        
+
+        <h1 class="text-center mt-3"> {{Auth::user()->full_name}} لوحة تحكم</h1>
+        
+        
+
+     
                 
-            @endif
-                
-            @endforeach
+            
 
            
 
@@ -26,7 +44,7 @@
                 <h3 class="text-right"> تقرير مبسط <i class="fas fa-tachometer-alt"></i></h3>
                 <table class="borderless table text-right h4">
                     <tr>
-                        <td><u>4</u></td>
+                    <td><u>{{$order->count()}}</u></td>
                         <td>عدد طلباتي المسجلة <i class="far fa-file text-info"></i></td>
                     </tr>
                     <tr>

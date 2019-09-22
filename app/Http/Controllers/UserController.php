@@ -34,10 +34,13 @@ class UserController extends Controller
     public function index(  ) {
 
         
-        $user = User::all();
-      
+        $order = UserOreder::where('user_id',auth()->user()->id);
+        $cr_number = CommercialRecord::where('user_id',auth()->user()->id)->get();
 
-        return view('users.index')->with('user',$user);
+        $userInfo =Array('order'=>$order , 'cr_number'=>$cr_number );
+
+
+        return view('users.index' ,$userInfo);
     }
 
     public function showCreatePage(){
@@ -46,6 +49,13 @@ class UserController extends Controller
     }
 
     public function createOrder(Request $request ){
+
+       
+      
+
+
+
+
 /*
         'comment_description','comment_by_user','comment_to_user'
         'user_id','order_id','file_id','cr_number','cr_expiry'
@@ -69,42 +79,7 @@ class UserController extends Controller
         
 
 
-        if($request->ajax())
-        {
-         $rules = array(
-          'Other_name.*'  => 'required',
-          'Other_number.*'  => 'required',
-           'Other_exp.*'=> 'required',
-           'Other_file.*'=> 'required'
-         );
-         $error = Validator::make($request->all(), $rules);
-         if($error->fails())
-         {
-          return response()->json([
-           'error'  => $error->errors()->all()
-          ]);
-         }
-   
-         //////////////////Other data from Request///////////////////
-        $Other_name = $request->Other_name;
-        $Other_number = $request->Other_number;
-        $Other_exp = $request->Other_exp;
-        $Other_file = $request->Other_file;
-        /////////////////Save the data to other order table ////////////////////
-        for($count = 0; $count < count($Other_name); $count++)
-        {
-         $data = array(
-           'order_id' => $count,  
-          'ood_name' => $Other_name[$count],
-          'ood_number'  => $Other_number[$count],
-          'expirydate'  => $Other_exp[$count],
-          'file_id'  => $Other_file[$count]
-         );
-         $insert_data[] = $data; 
-        }
-        OrderOtherdocs::insert($insert_data);
-
-        }
+     
        
          //////////////////////////////////
         ////////// Get Waiting status from status table //////////////
@@ -154,6 +129,46 @@ class UserController extends Controller
          $UserOreder->status_id = $Statu->id;
          $UserOreder->comment_id = $Comment->id;
          $UserOreder->save();
+
+
+
+         
+         //////////////////Other data from Request///////////////////
+        $Other_name = $request->Other_name;
+        $Other_number = $request->Other_number;
+        $Other_exp = $request->Other_exp;
+        $Other_file = $request->Other_file;
+        /////////////////Save the data to other order table ////////////////////
+
+        
+        for($count = 0; $count < count($Other_name); $count++)
+        {
+
+
+            $file_ood = new File();
+            $file_ood->file_name = 'ملفات أخرى';
+            $file_ood->file_location = $Other_file[$count];
+
+
+            $file_ood->save();
+
+
+            $ood = new OrderOtherdocs();
+            $ood->order_id = $UserOreder->id ;
+            $ood->ood_name = $Other_name[$count];
+            $ood->ood_number = $Other_number[$count];
+            $ood->expirydate = $Other_exp[$count];
+            $ood->file_id = $file_ood->id;
+
+            $ood->save();
+
+        }
+
+        
+
+
+
+
 
          $File_coo = new File();
          $File_coo->file_name = "شهادة بلد المنشأ ";
@@ -282,23 +297,17 @@ class UserController extends Controller
 
 
 
-
+  
         
 
       
 
-         
-       
-        /*
-       
-        
-
-*/
+  
 
 
 
-        Session::flash('success','SMS send successfully');
-        return Redirect::back(); 
+        Session::flash('success','تم تسجيل طلبك');
+        return Redirect('/user'); 
 
 
         

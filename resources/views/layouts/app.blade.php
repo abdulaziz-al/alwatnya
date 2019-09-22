@@ -7,13 +7,17 @@
         <title>الوطنية  </title>
 
         <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet" type="text/css">
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
+     {{--   <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet" type="text/css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
         <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
         <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
+--}}
 
 
         <!-- Styles -->
@@ -50,9 +54,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/contact-us">تواصل معنا</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link"  href="/checkstatus">استعلام عن طلب</a>
-                    </li>
+                 
 
                      <li class="nav-item">
                         <a class="nav-link" href="/">الرئيسية</a>
@@ -114,10 +116,26 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="#"> 
+                                    الملف الشخصي
+                                </a>   
+
+
+
+                                
+
+                                
+
+
+                                <a class="dropdown-item" href="#"> 
+                                   إضافة سجل التجاري
+                                    </a>                                     
+                                                                     
+                                   
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
+                                        {{ __('تسجيل خروج') }}
                                     </a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -125,6 +143,8 @@
                                     </form>
                                 </div>
                             </li>
+
+                            @yield('select')
                         @endguest
                     </ul>
                 </div>
@@ -140,7 +160,6 @@
                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
                 <!-- Include all compiled plugins (below), or include individual files as needed -->
                 <script src="{{ asset('js/bootstrap/bootstrap.min.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('js/Hijri.js') }}"></script>
         <script>
             var currDate = '';
             function initWork() {

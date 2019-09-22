@@ -4,19 +4,32 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">ghhjgjhgjhgjhghjghjg</div>
+               
 
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
 
-                    You are logged in!
-                </div>
-            </div>
+                <img id="image_home" src="images/Logo-Transparent-Background.png" alt="" >
+
+                <p style="text-align: right"> <h4 style="text-align: right">   :عن الوطنية  
+                    
+                </h4> 
+             
+                بدأت الوطنية مسيرتها في أوائل عام 2004 و كانت حينها مجردمقاولة
+                صغيرة مستقلة تقوم بتقدمي خدمات التخليص جمركي بمبنفذ البطحاء
+                الحدودي على الحدود السعودية الإماراتية.
+                و منذ ذلك احلني و بفضل الجهد و المثابرة و الإلتزام و الرغبة في النجاح
+                و تحقيق الأهداف المنشودة ، أخدت الوطنية تنمو و تتطور تدرجيا
+                العديد من الإنجازات في مجال التخليص الجمركي و حازت على رضا غالبية
+                المصدرين والمستوردين  و القائمين على الخدمات  الجمركية  بالمنافذ
+                الحدودية.
+                الوطنية اليوم شركة وطنية مستقلة و وكيل مجارك معتمد، تعمل على تقدمي
+                سلسلة من الخدمات  الجمركية و االوجستية المتكاملة بمهنية منقطعة النظري.
+                كما لها القدرة بفضل الخبرات  المكتسبة على إيجاد  الحلول المناسبة لأكثر
+                المعاملات تعقيدا مما يمكن عملائنا من أفضلية تنافسية
+                
+                </p>
+
+
+
         </div>
     </div>
 </div>
