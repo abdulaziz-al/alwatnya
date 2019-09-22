@@ -383,9 +383,11 @@
               </tfoot>
           </table>
           <input type="submit" name="save" id="save" class="btn btn-primary" value="Save" />
-          <button type="button" name="add" id="add" class="btn btn-success">Add</button>
-               
-          <textarea class="form-control" name="comment_order" id="comment_order" > </textarea>
+          <div class="md-form">
+            <i class="fas fa-pencil-alt prefix"></i>
+            <textarea id="form10" class="md-textarea form-control" rows="3"></textarea>
+            <label for="form10">Icon Prefix</label>
+          </div>
         </form>
   </div>
   
