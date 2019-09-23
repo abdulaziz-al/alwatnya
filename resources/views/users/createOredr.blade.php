@@ -335,7 +335,7 @@
 
     <div class=" amber-textarea active-amber-textarea-2">
             <i class="fas fa-pencil-alt prefix"></i>
-            <textarea id="comment_textarea" class="md-textarea form-control" rows="5"></textarea>
+            <textarea id="comment_order" name="comment_order" class="md-textarea form-control" rows="5"></textarea>
             <div  id="comment_div"> <h4> أترك ملاحظة </h4>
              </div>
           </div>
@@ -391,11 +391,7 @@
       
 
           <input type="submit" name="save" id="save" class="btn btn-primary" value="Save" />
-          <div class="md-form">
-            <i class="fas fa-pencil-alt prefix"></i>
-            <textarea id="form10" class="md-textarea form-control" rows="3"></textarea>
-            <label for="form10">Icon Prefix</label>
-          </div>
+          
         </form>
     
   </div>

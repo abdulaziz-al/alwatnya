@@ -1,14 +1,28 @@
 @extends('layouts.app')
 
 @section('select')
-<select >
 
+<div class="dropdown">
+        <button onclick="myFunction()" class="dropbtn">إختار سجلك التجاري</button>
+        
+        <div id="myDropdown" class="dropdown-content">
+        
+
+                <a class="dropdown-item" href="/createOrder"
+                ><!--add count for each option-->
+                {{ __('إنشاء طلب ') }}
+
+            </a>
 @foreach ($cr_number as $cr_numbers)
-    <option name="{{$cr_numbers->cr_number }}"> {{$cr_numbers->cr_number }} </option>
+
+<a href="#" name="{{$cr_numbers->cr_number }}" class="dropdown-item">  {{$cr_numbers->cr_number }}</a>
 
 
- @endforeach    
-</select>
+ @endforeach  
+ 
+</div>
+</div>  
+
 
  @endsection
 
@@ -82,5 +96,26 @@
                 </div>
             </div>
         </div>
-
+        <script>
+                /* When the user clicks on the button, 
+                toggle between hiding and showing the dropdown content */
+                function myFunction() {
+                  document.getElementById("myDropdown").classList.toggle("show");
+                }
+                
+                // Close the dropdown if the user clicks outside of it
+                window.onclick = function(event) {
+                  if (!event.target.matches('.dropbtn')) {
+                    var dropdowns = document.getElementsByClassName("dropdown-content");
+                    var i;
+                    for (i = 0; i < dropdowns.length; i++) {
+                      var openDropdown = dropdowns[i];
+                      if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                      }
+                    }
+                  }
+                }
+                </script>
+        
         @endsection
