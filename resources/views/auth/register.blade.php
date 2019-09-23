@@ -1,7 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
- 
+@include('layouts.errmsg')
+
 <div class="container register">
     <div class="row">
         <div class="col-md-3 register-left">
@@ -21,14 +22,14 @@
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                     <h3 class="register-heading">سجل</h3>
-                    <form method="POST" action="{{ route('register') }}">
+                    <form method="POST" action="{{ route('register') }}" >
                             @csrf
     
                     <div class="row register-form">
                         <div class="col-md-6">
                         
                              
-                            <div class="form-group">
+                            <div class="form-group row">
                                     <i class="fa fa-envelope-open" aria-hidden="true" id="icon"></i>
                                 <input id="email"  name="email" type="text" class="form-control" placeholder="إيميل " value="" />
                             </div>
@@ -38,20 +39,28 @@
                             </div>
 
 
-                            <div class="form-group">
+                            <div class="form-group row">
                                 
                                     <i class="fa fa-address-card" aria-hidden="true" id="icon"></i>
-                                <input id="cr_number" name="cr_number" type="text" class="form-control" placeholder="رقم السجل التجاري  " value="" />
+                                <input id="cr_number" name="cr_number" type="text" class="form-control" />
                             </div>
 
-                            <div class="form-group">
-                                    <i class="fa fa-arrow-circle-down" aria-hidden="true" ></i>
-                                <input  id="cr_image" type="file" name="cr_image" placeholder="Upload CR">
+                           
+                            <div class="form-group row ">            
+
+                                <i class="fa fa-arrow-circle-down" aria-hidden="true" ></i>
+                                <input id="cr_image" type="file" {{ $errors->has('cr_image') ? ' is-invalid' : '' }} name="cr_image"   placeholder="رقم السجل التجاري  "  required>
+                                    
+                                    @if ($errors->has('cr_image'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('cr_image') }}</strong>
+                                        </span>
+                                    @endif
                             </div>
                             
 
-                            <div class="form-group">
-                                <input id="cr_exp" name="cr_exp" type="text" class="form-control" placeholder="تاريخ انتهاء السجل التجاري  " value="" />
+                            <div class="form-group row">
+                                <input id="cr_exp" name="cr_exp" type="date" class="form-control" placeholder="تاريخ انتهاء السجل التجاري  " value="" />
                             </div>
 
                            
@@ -62,7 +71,7 @@
                            
 
 
-                            <div class="form-group">
+                            <div class="form-group row">
                                     <i class="fa fa-user" aria-hidden="true" id="icon" ></i>
                          <input id="full_name" name="full_name" type="text"  class="form-control" placeholder="الإسم الكامل"  >
                         </div>

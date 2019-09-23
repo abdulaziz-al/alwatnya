@@ -18,7 +18,7 @@
         
 
         <div class="container">
-
+{{substr(Auth::user()->cr_image , -4)}}
 
 
 

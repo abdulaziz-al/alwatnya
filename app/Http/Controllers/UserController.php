@@ -78,13 +78,11 @@ class UserController extends Controller
 
         
 
-
      
        
          //////////////////////////////////
         ////////// Get Waiting status from status table //////////////
          $Statu =   Statu::find(1);
-         ///////////////////////////////
          ////////// Get admin role  from Role table //////////////
          $Role =   Role::find(1);
          ///////////////////////////////
@@ -140,7 +138,31 @@ class UserController extends Controller
         $Other_file = $request->Other_file;
         /////////////////Save the data to other order table ////////////////////
 
-        
+
+          
+            
+            if(count($Other_name) != 1) {
+
+
+                $messages = [
+    
+                    'Other_file.*'=>'ولد لازم '
+                    
+                ];
+                
+                $this->validate($request, [
+                    'Other_file'=>'required|file:application/pdf'
+                
+                    
+                ],$messages);
+
+           /*     $extension = $request->file('invoice_file')->getClientOriginalExtension();
+
+                if($extension == "pdf"){
+                    return "GOOD GOOD ";
+                }else {*/
+
+
         for($count = 0; $count < count($Other_name); $count++)
         {
 
@@ -163,6 +185,7 @@ class UserController extends Controller
             $ood->save();
 
         }
+    }
 
         
 
@@ -303,7 +326,7 @@ class UserController extends Controller
       
 
   
-
+    
 
 
         Session::flash('success','تم تسجيل طلبك');

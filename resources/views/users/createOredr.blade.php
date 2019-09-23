@@ -1,5 +1,9 @@
 @extends('layouts.app')
+
+
+
 @section('content')
+@include('layouts.errmsg')
 
 
 <div class="container">   
@@ -8,7 +12,7 @@
         
 
 
-        <form  method="POST" action="{{ route('createOrder') }}"  >
+        <form  method="POST" action="{{ route('createOrder') }}" enctype="multipart/form-data" >
                 @csrf
 
                 <div class="col-sm-6  table-bordered table-striped" id="cardss" style="margin-left: 25%">
@@ -335,7 +339,7 @@
 
     <div class=" amber-textarea active-amber-textarea-2">
             <i class="fas fa-pencil-alt prefix"></i>
-            <textarea id="comment_textarea" class="md-textarea form-control" rows="5"></textarea>
+            <textarea id="comment_order" name="comment_order" class="md-textarea form-control" rows="5"></textarea>
             <div  id="comment_div"> <h4> أترك ملاحظة </h4>
              </div>
           </div>
@@ -435,7 +439,10 @@ function dynamic_field(number)
 
 $(document).on('click', '#add', function(){
  count++;
+    
+
  dynamic_field(count);
+   
 });
 
 $(document).on('click', '.remove', function(){
@@ -446,8 +453,6 @@ $(document).on('click', '.remove', function(){
 $('#dynamic_form').on('submit', function(event){
        event.preventDefault();
        $.ajax({
-           url: '/createOrder',
-           method:'post',
            data:$(this).serialize(),
            dataType:'json',
            beforeSend:function(){
