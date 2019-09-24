@@ -23,7 +23,8 @@
                 <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                     <h3 class="register-heading">سجل</h3>
                     <form method="POST" action="{{ route('register') }}" >
-                            @csrf
+
+                        @csrf
     
                     <div class="row register-form">
                         <div class="col-md-6">
@@ -39,29 +40,7 @@
                             </div>
 
 
-                            <div class="form-group row">
-                                
-                                    <i class="fa fa-address-card" aria-hidden="true" id="icon"></i>
-                                <input id="cr_number" name="cr_number" type="text" class="form-control" />
-                            </div>
-
                            
-                            <div class="form-group row ">            
-
-                                <i class="fa fa-arrow-circle-down" aria-hidden="true" ></i>
-                                <input id="cr_image" type="file" {{ $errors->has('cr_image') ? ' is-invalid' : '' }} name="cr_image"   placeholder="رقم السجل التجاري  "  required>
-                                    
-                                    @if ($errors->has('cr_image'))
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $errors->first('cr_image') }}</strong>
-                                        </span>
-                                    @endif
-                            </div>
-                            
-
-                            <div class="form-group row">
-                                <input id="cr_exp" name="cr_exp" type="date" class="form-control" placeholder="تاريخ انتهاء السجل التجاري  " value="" />
-                            </div>
 
                            
 

@@ -31,7 +31,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/';
+    protected $redirectTo = '/user/createCR';
     /**
      * Create a new controller instance.
      *
@@ -54,10 +54,7 @@ class RegisterController extends Controller
       
         return Validator::make($data, [
             'full_name' => ['required', 'string', 'max:255'],
-            'cr_number' => ['required', 'string', 'max:255' , 'unique:users'],
             'phone' => ['required', 'string', 'max:255'],
-            'cr_image' => ['required'],
-            'cr_exp' => ['required', 'string', 'max:255' ] ,
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:6', 'confirmed'],
         ]);  
@@ -73,19 +70,17 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        //$extension = input::file('cr_image')->getClientOriginalExtension();
         
 
         return User::create([
             'full_name' => $data['full_name'],
-            'cr_number' => $data['cr_number'],
             'phone' => $data['phone'],
-           'cr_image' => $data['cr_image'],
-           'cr_exp' => $data['cr_exp'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'role_id' => 3,
         ]);
       
     }
+
+    
 }

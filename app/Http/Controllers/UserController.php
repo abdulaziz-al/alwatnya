@@ -110,12 +110,6 @@ class UserController extends Controller
          
  
  
-         $CommercialRecord =  new CommercialRecord();
-         $CommercialRecord->user_id = auth()->user()->id;
-         $CommercialRecord->file_id = $File->id;
-         $CommercialRecord->cr_number = auth()->user()->cr_number;
-         $CommercialRecord->cr_expiry = auth()->user()->cr_exp;
-         $CommercialRecord->save();
 
          $UserOreder =  new UserOreder();
          $UserOreder->user_id =  auth()->user()->id;
@@ -334,6 +328,56 @@ class UserController extends Controller
 
 
         
+    }
+    protected function showCRcreate(){
+        return view('users.createCR');
+
+
+    }
+    protected function CreateCR(Request $request){
+        $messages = [
+    
+            'Other_file.*'=>'ولد لازم '
+            
+        ];
+        
+        $this->validate($request, [
+            'cr_number'=>'required|unique:commercial_records'
+        
+            
+        ],$messages);
+
+
+        $extension = $request->file('cr_image')->getClientOriginalExtension();
+
+        if($extension == 'pdf'){
+
+         $file_CR = new File();
+         $file_CR->file_name = "سجل تجاري";
+         $file_CR->file_location = $request->cr_image;
+      
+         $file_CR->save();
+
+            
+         $CommercialRecord =  new CommercialRecord();
+         $CommercialRecord->user_id = auth()->user()->id;
+         $CommercialRecord->file_id = $file_CR->id;
+         $CommercialRecord->cr_number = $request->cr_number;
+         $CommercialRecord->cr_expiry = $request->cr_exp;
+         $CommercialRecord->save();
+ 
+         Session::flash('success','تم إرسال المعلومات ');
+         return Redirect('/user'); 
+
+        }else {
+
+            Session::flash('danger','الملف يجب ان يكون بصيغة PDF');
+            return Redirect::back();
+
+        }
+
+
+
     }
 
 

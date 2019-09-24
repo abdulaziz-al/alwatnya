@@ -22,12 +22,10 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('cr_number');
-            $table->string('cr_exp');
-            $table->string('cr_image');
             //----------------------FK form roles -------------------//
             $table->integer('role_id')->unsigned()->index();
             $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');
+            $table->boolean('active');
 
 
             $table->rememberToken();

@@ -389,7 +389,27 @@
                </tr>
               </tfoot>
           </table>
+  </div>
+         
+                    <th width="20%">+ </th>
+                    <th width="20%">الرقم الهاتف السعودي</th>
+                    <th width="20%">الرقم الهاتف الإماراتي</th>
+                    <th width="20%">أسم السائق</th>
+                    <th width="20%">اسم الشركة</th>
+                   
+                 
+                   
+              
 
+        
+                         <ul class="table table-bordered" id="dynamic_fieldss">  
+                              
+                                  <input type="text" name="name[]" placeholder="Enter your Name" class="form-control name_list" />
+                                   <button type="button" name="add" id="addss" class="btn btn-success">Add More</button>
+                             
+                         </ul>  
+              
+          
 
       <!--Textarea with icon prefix-->
       
@@ -399,88 +419,194 @@
     
   </div>
 
+  <script>  
+        $(document).ready(function(){  
+             var i=1;  
+             $('#addss').click(function(){  
+                  i++;  
+                  $('#dynamic_fieldss').append('<td><input type="text" name="name[]" placeholder="Enter your Name" class="form-control name_list" /><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">X</button>');  
+             });  
+             $(document).on('click', '.btn_remove', function(){  
+                  var button_id = $(this).attr("id");   
+                  $('#row'+button_id+'').remove();  
+             });  
+             $('#submit').click(function(){            
+                  $.ajax({  
+                       url:"name.php",  
+                       method:"POST",  
+                       data:$('#add_name').serialize(),  
+                       success:function(data)  
+                       {  
+                            alert(data);  
+                            $('#add_name')[0].reset();  
+                       }  
+                  });  
+             });  
+        });  
+        </script>
+        <script> 
+
+                $(document).ready(function(){
+                
+                var count = 1;
+                
+                dynamic_fields(count);
+                
+                function dynamic_fields(number)
+                {
+                        if(number > 1)
+                       {
+                           html += '<button type="button" name="remove" id="" class="btn btn-danger remove">Remove</button>';
+                           html += '<input type="file" name="Other_file[]" />';     
+                
+                       html += '<input type="date" name="Other_exp[]" class="form-control" placeholder="تاريخ الإنتهاء" /><';
+                         html += '<input type="text"  name="Other_number[]" class="form-control" placeholder="الرقم" / >';
+                
+                       html += '<input type="text"  name="Other_name[]" class="form-control"  placeholder="الاسم"  /></td>';
+                
+                         
+                       }
+                       else
+                       {   
+                           html += '<button type="button" name="add" id="adds" class="btn btn-success">Add</button>';
+                           html += '<input type="file" name="Other_file[]" />';     
+                
+                       html += '<input type="date" name="Other_exp[]" class="form-control" placeholder="تاريخ الإنتهاء" />';
+                         html += '<input type="text"  name="Other_number[]" class="form-control" placeholder="الرقم" / >';
+                
+                       html += '<input type="text"  name="Other_name[]" class="form-control"  placeholder="الاسم"  />';
+                
+                       }
+                      
+                }
+                
+                $(document).on('click', '#adds', function(){
+                 count++;
+                    
+                
+                 dynamic_fields(count);
+                   
+                });
+                
+                $(document).on('click', '.remove', function(){
+                 count--;
+                 $(this).closest("tr").remove();
+                });
+                
+                $('#dynamic_form').on('submit', function(event){
+                       event.preventDefault();
+                       $.ajax({
+                           data:$(this).serialize(),
+                           dataType:'json',
+                           beforeSend:function(){
+                               $('#save').attr('disabled','disabled');
+                           },
+                           success:function(data)
+                           {
+                               if(data.error)
+                               {
+                                   var error_html = '';
+                                   for(var count = 0; count < data.error.length; count++)
+                                   {
+                                       error_html += '<p>'+data.error[count]+'</p>';
+                                   }
+                                   $('#result').html('<div class="alert alert-danger">'+error_html+'</div>');
+                               }
+                               else
+                               {
+                                   dynamic_field(1);
+                                   $('#result').html('<div class="alert alert-success">'+data.success+'</div>');
+                               }
+                               $('#save').attr('disabled', false);
+                           }
+                       })
+                });
+                
+                });
+                </script>
+
 <script> 
 
-$(document).ready(function(){
-
-var count = 1;
-
-dynamic_field(count);
-
-function dynamic_field(number)
-{
- html = '<tr>';
-        if(number > 1)
-       {
-           html += '<td><button type="button" name="remove" id="" class="btn btn-danger remove">Remove</button></td>';
-           html += '<td><input type="file" name="Other_file[]" /></td>';     
-
-       html += '<td><input type="date" name="Other_exp[]" class="form-control" placeholder="تاريخ الإنتهاء" /></td>';
-         html += '<td><input type="text"  name="Other_number[]" class="form-control" placeholder="الرقم" / ></td>';
-
-       html += '<td><input type="text"  name="Other_name[]" class="form-control"  placeholder="الاسم"  /></td></tr>';
-
-           $('tbody').append(html);
-       }
-       else
-       {   
-           html += '<td><button type="button" name="add" id="add" class="btn btn-success">Add</button></td>';
-           html += '<td><input type="file" name="Other_file[]" /></td>';     
-
-       html += '<td><input type="date" name="Other_exp[]" class="form-control" placeholder="تاريخ الإنتهاء" /></td>';
-         html += '<td><input type="text"  name="Other_number[]" class="form-control" placeholder="الرقم" / ></td>';
-
-       html += '<td><input type="text"  name="Other_name[]" class="form-control"  placeholder="الاسم"  /></td></tr>';
-
-           $('tbody').html(html);
-       }
-      
-}
-
-$(document).on('click', '#add', function(){
- count++;
-    
-
- dynamic_field(count);
-   
-});
-
-$(document).on('click', '.remove', function(){
- count--;
- $(this).closest("tr").remove();
-});
-
-$('#dynamic_form').on('submit', function(event){
-       event.preventDefault();
-       $.ajax({
-           data:$(this).serialize(),
-           dataType:'json',
-           beforeSend:function(){
-               $('#save').attr('disabled','disabled');
-           },
-           success:function(data)
-           {
-               if(data.error)
+        $(document).ready(function(){
+        
+        var count = 1;
+        
+        dynamic_field(count);
+        
+        function dynamic_field(number)
+        {
+         html = '<tr>';
+                if(number > 1)
                {
-                   var error_html = '';
-                   for(var count = 0; count < data.error.length; count++)
-                   {
-                       error_html += '<p>'+data.error[count]+'</p>';
-                   }
-                   $('#result').html('<div class="alert alert-danger">'+error_html+'</div>');
+                   html += '<td><button type="button" name="remove" id="" class="btn btn-danger remove">Remove</button></td>';
+                   html += '<td><input type="file" name="Other_file[]" /></td>';     
+        
+               html += '<td><input type="date" name="Other_exp[]" class="form-control" placeholder="تاريخ الإنتهاء" /></td>';
+                 html += '<td><input type="text"  name="Other_number[]" class="form-control" placeholder="الرقم" / ></td>';
+        
+               html += '<td><input type="text"  name="Other_name[]" class="form-control"  placeholder="الاسم"  /></td></tr>';
+        
+                   $('tbody').append(html);
                }
                else
-               {
-                   dynamic_field(1);
-                   $('#result').html('<div class="alert alert-success">'+data.success+'</div>');
+               {   
+                   html += '<td><button type="button" name="add" id="add" class="btn btn-success">Add</button></td>';
+                   html += '<td><input type="file" name="Other_file[]" /></td>';     
+        
+               html += '<td><input type="date" name="Other_exp[]" class="form-control" placeholder="تاريخ الإنتهاء" /></td>';
+                 html += '<td><input type="text"  name="Other_number[]" class="form-control" placeholder="الرقم" / ></td>';
+        
+               html += '<td><input type="text"  name="Other_name[]" class="form-control"  placeholder="الاسم"  /></td></tr>';
+        
+                   $('tbody').html(html);
                }
-               $('#save').attr('disabled', false);
-           }
-       })
-});
-
-});
-</script>
+              
+        }
+        
+        $(document).on('click', '#add', function(){
+         count++;
+            
+        
+         dynamic_field(count);
+           
+        });
+        
+        $(document).on('click', '.remove', function(){
+         count--;
+         $(this).closest("tr").remove();
+        });
+        
+        $('#dynamic_form').on('submit', function(event){
+               event.preventDefault();
+               $.ajax({
+                   data:$(this).serialize(),
+                   dataType:'json',
+                   beforeSend:function(){
+                       $('#save').attr('disabled','disabled');
+                   },
+                   success:function(data)
+                   {
+                       if(data.error)
+                       {
+                           var error_html = '';
+                           for(var count = 0; count < data.error.length; count++)
+                           {
+                               error_html += '<p>'+data.error[count]+'</p>';
+                           }
+                           $('#result').html('<div class="alert alert-danger">'+error_html+'</div>');
+                       }
+                       else
+                       {
+                           dynamic_field(1);
+                           $('#result').html('<div class="alert alert-success">'+data.success+'</div>');
+                       }
+                       $('#save').attr('disabled', false);
+                   }
+               })
+        });
+        
+        });
+        </script>
 
 
 
