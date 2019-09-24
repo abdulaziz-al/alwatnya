@@ -82,10 +82,9 @@
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="/createOrder"
-                                    ><!--add count for each option-->
-                                    {{ __('إنشاء طلب ') }}
-                                </a>
+                                
+                                @yield('select')
+
                                         <a class="dropdown-item" href="#"
                                            >
                                             {{ __('الطلبات الحالية ') }}
@@ -122,16 +121,14 @@
 
 
 
-                                
-
-                                
-
 
                                 <a class="dropdown-item" href="/user/createCR"> 
                                    إضافة سجل التجاري
-                                    </a>                                     
-                                                                     
-                                   
+                                 
+                                
+                                    </a>   
+                                    
+                         
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -144,7 +141,6 @@
                                 </div>
                             </li>
 
-                            @yield('select')
                         @endguest
                     </ul>
                 </div>
