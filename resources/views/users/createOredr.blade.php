@@ -8,20 +8,29 @@
 
 <div class="container">   
     
-    
+    {{$cr->cr_number}}
         
 
 
-        <form  method="POST" action="{{ route('createOrder') }}" enctype="multipart/form-data" >
+        <form  method="POST" action="{{ route('createOrder') }}" enctype="multipart/form-data"  >
                 @csrf
 
-                <div class="col-sm-6  table-bordered table-striped" id="cardss" style="margin-left: 25%">
+                <div class="   table-striped" id="newcard" style="width: 65%" >
+               
+                        <div class="form-group">
+                                <h4 style="text-align: right">                                
 
-                    <div class="form-group"  >
+                                    فاتورة البضاعة  </h4>
+
+
+                        <div class="form-inline"  >
+                                
+
+
+                        <div id="cardform" >
+                            
+                    <input type="text" class="form-control {{ $errors->has('invoice_number') ? ' is-invalid' : '' }}" name="invoice_number" value="{{ old('invoice_number') }}" required autofocus placeholder="   رقم الفاتورة" />
                         
-                        <h4 style="text-align: center">فاتورة البضاعة </h4>
-                            <input type="text" class="form-control {{ $errors->has('invoice_number') ? ' is-invalid' : '' }}" name="invoice_number" value="{{ old('invoice_number') }}" required autofocus placeholder="   رقم الفاتورة" />
-                        </div>
                         @if ($errors->has('invoice_number'))
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $errors->first('invoice_number') }}</strong>
@@ -41,21 +50,30 @@
             <strong>{{ $errors->first('invoice_file') }}</strong>
         </span>
     @endif
-    
+
+</div>
+
+     </div>
+                        </div>
             </div>
 
-        <div class="row">
                
 
     
 
-        <div class="col-sm-6  table-bordered table-striped" id="cardss" >
+        <div class="table-striped" id="cardss" >
 
                 <div class="form-group"  >
                     
-                    <h4 style="text-align: center">شهادة بلد المنشأ </h4>
+                    <h4 style="text-align: right">
+              <input style="margin-left: 70%" type="checkbox" id="myCheck1" onclick="myFunction()">
+
+                        شهادة بلد المنشأ </h4>
+                        <div class="form-inline"  >
+                                <div id="cardform1" style="display: none" >
+
+                        
                         <input type="text" class="form-control {{ $errors->has('coo_number') ? ' is-invalid' : '' }}" name="coo_number" value="{{ old('coo_number') }}"  autofocus placeholder="   تاريخ الشهادة" />
-                    </div>
                     @if ($errors->has('coo_number'))
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $errors->first('coo_number') }}</strong>
@@ -75,46 +93,28 @@
         <strong>{{ $errors->first('coo_file') }}</strong>
     </span>
 @endif
+</div>
+</div>
 
+        </div>
         </div>
 
 
-        <div class="col-sm-6  table-bordered table-striped" id="cardss" >
+        <div class="table-striped" id="cardss" >
 
                 <div class="form-group"  >
                     
-                    <h4 style="text-align: center">السجل التجاري </h4>
-                        <input type="text" class="form-control {{ $errors->has('cr_number') ? ' is-invalid' : '' }}" name="cr_number" value=" {{Auth::user()->cr_number}}"  autofocus placeholder="   "  />
-                    </div>
-                    @if ($errors->has('number_'))
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $errors->first('number_') }}</strong>
-                    </span>
-                @endif
+                    <h4 style="text-align: right">
+                    <input style="margin-left: 70%" type="checkbox" id="myCheck2" onclick="myFunction()" >
 
-                <input type="date" class="form-control {{ $errors->has('cr_expirydate') ? ' is-invalid' : '' }}" name="cr_expirydate" value=" {{Auth::user()->cr_exp}}"  autofocus placeholder="تاريخ الإنتهاء" />
-            @if ($errors->has('cr_expirydate'))
-            <span class="invalid-feedback" role="alert">
-                <strong>{{ $errors->first('cr_expirydate') }}</strong>
-            </span>
-        @endif
-
-        <input type="file" class="{{ $errors->has('cr_file') ? ' is-invalid' : '' }}" name="cr_file" value=" {{Auth::user()->cr_image}}"  />
-    @if ($errors->has('cr_file'))
-    <span class="invalid-feedback" role="alert">
-        <strong>{{ $errors->first('cr_file') }}</strong>
-    </span>
-@endif
-
-        </div>
-
-        <div class="col-sm-6  table-bordered table-striped" id="cardss" >
-
-                <div class="form-group"  >
+                        بيان المقاصة
                     
-                    <h4 style="text-align: center">بيان المقاصة </h4>
+                    </h4>
+                    <div class="form-inline"  >
+                            <div id="cardform2" style="display: none">
+
                         <input type="text" class="form-control {{ $errors->has('ms_number') ? ' is-invalid' : '' }}" name="ms_number" value="{{ old('ms_number') }}"  autofocus placeholder=" رقم البيان  " />
-                    </div>
+                    
                     @if ($errors->has('ms_number'))
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $errors->first('ms_number') }}</strong>
@@ -134,16 +134,26 @@
         <strong>{{ $errors->first('ms_file') }}</strong>
     </span>
 @endif
-
+                            </div>
         </div>
+    </div>
+</div>
 
-        <div class="col-sm-6  table-bordered table-striped" id="cardss" >
+
+
+        <div class="table-striped" id="cardss" >
 
                 <div class="form-group"  >
                     
-                    <h4 style="text-align: center">قائمة التعبئة </h4>
+                    <h4 style="text-align: center">
+                            <input style="margin-left: 70%" type="checkbox" id="myCheck3" onclick="myFunction()">
+
+                        قائمة التعبئة </h4>
+                        <div class="form-inline"  >
+                                <div id="cardform3" style="display: none">
                         <input type="text" class="form-control {{ $errors->has('packing_list_number') ? ' is-invalid' : '' }}" name="packing_list_number" value="{{ old('packing_list_number') }}"  autofocus placeholder="  رقم القائمة " />
-                    </div>
+                       
+    
                     @if ($errors->has('packing_list_number'))
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $errors->first('packing_list_number') }}</strong>
@@ -163,16 +173,25 @@
         <strong>{{ $errors->first('pl_file') }}</strong>
     </span>
 @endif
-
+</div>
+</div>
+</div>
         </div>
 
-        <div class="col-sm-6  table-bordered table-striped" id="cardss" >
+        <div class=" table-striped" id="cardss" >
 
                 <div class="form-group"  >
                     
-                    <h4 style="text-align: center">خطاب الفسح </h4>
+                    <h4 style="text-align: center">
+                            <input style="margin-left: 70%" type="checkbox" id="myCheck4" onclick="myFunction()">
+
+                        خطاب الفسح </h4>
+
+                        <div class="form-inline"  >
+                                <div id="cardform4" style="display: none">
+
                         <input type="text" class="form-control {{ $errors->has('release_letter_number') ? ' is-invalid' : '' }}" name="release_letter_number" value="{{ old('release_letter_number') }}"  autofocus placeholder="  رقم فسح " />
-                    </div>
+                    
                     @if ($errors->has('release_letter_number'))
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $errors->first('release_letter_number') }}</strong>
@@ -192,16 +211,24 @@
         <strong>{{ $errors->first('rl_file') }}</strong>
     </span>
 @endif
-
+</div>
+</div>
+</div>
         </div>
 
-        <div class="col-sm-6  table-bordered table-striped" id="cardss" >
+        <div class="table-striped" id="cardss" >
 
                 <div class="form-group"  >
                     
-                    <h4 style="text-align: center">شهادة المطابقة للمنتجات المصدرة للمملكة</h4>
+                    <h4 style="text-align: right">
+             <input style="margin-left: 70%" type="checkbox" id="myCheck5" onclick="myFunction()">
+
+                        شهادة المطابقة  </h4>
+                        
+                        <div class="form-inline"  >
+                                <div id="cardform5" style="display: none">
                         <input type="text" class="form-control {{ $errors->has('saso_number') ? ' is-invalid' : '' }}" name="saso_number" value="{{ old('saso_number') }}"  autofocus placeholder="  رقم الشهادة " />
-                    </div>
+                    
                     @if ($errors->has('saso_number'))
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $errors->first('saso_number') }}</strong>
@@ -224,15 +251,28 @@
 
         </div>
 
+    </div>
+
+</div>
+
+</div>
+
        
 
-        <div class="col-sm-6  table-bordered table-striped" id="cardss" >
+        <div class=" table-striped" id="cardss" >
 
                 <div class="form-group"  >
                     
-                    <h4 style="text-align: center">البوليصة</h4>
+                    <h4 style="text-align: right">
+                <input style="margin-left: 70%" type="checkbox" id="myCheck6" onclick="myFunction()">
+
+                        البوليصة</h4>
+    
+                        <div class="form-inline"  >
+                                <div id="cardform6" style="display: none">
+
                         <input type="text" class="form-control {{ $errors->has('policy_number') ? ' is-invalid' : '' }}" name="policy_number" value="{{ old('policy_number') }}"  autofocus placeholder="  رقم البوليصة " />
-                    </div>
+                    
                     @if ($errors->has('policy_number'))
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $errors->first('policy_number') }}</strong>
@@ -252,17 +292,26 @@
         <strong>{{ $errors->first('policy_file') }}</strong>
     </span>
 @endif
-
+                                </div>
+                        </div>
+                </div>
         </div>
 
 
-        <div class="col-sm-6  table-bordered table-striped" id="cardss" >
+        <div class="table-striped" id="cardss" >
 
             <div class="form-group"  >
                 
-                <h4 style="text-align: center">خطاب إعفاء </h4>
+                <h4 style="text-align: center">
+                        <input style="margin-left: 70%" type="checkbox" id="myCheck7" onclick="myFunction()">
+
+                    خطاب إعفاء
+                 </h4>
+                 
+                 <div class="form-inline"  >
+                        <div id="cardform7" style="display: none">
                     <input type="text" class="form-control {{ $errors->has('el_number') ? ' is-invalid' : '' }}" name="el_number" value="{{ old('el_number') }}"  autofocus placeholder="  تاريخ الخطاب " />
-                </div>
+                
                 @if ($errors->has('el_number'))
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $errors->first('el_number') }}</strong>
@@ -282,59 +331,28 @@
     <strong>{{ $errors->first('el_file') }}</strong>
 </span>
 @endif
-
+</div>
+</div>
+</div>
     </div>
 
-        <div class="col-xs-6 col-md-6 col-lg-6  table-bordered table-striped" id="cardss" >
+    <div class="col-xs-6 col-md-6 col-lg-6  table-bordered table-striped" id="cardss" >
 
-                <div class="form-group"  >
-                    
-                    {{-- إستمارة ملكية الشاحنات --}}
-                    <h4 style="text-align: center">إستمارة ملكية الشاحنات </h4>
+    <div class="field_wrapper" >
+            <h3>أسم الشركة</h3>
+            <input type="text" name="Truck_ownership" class="form-control" value="اسم الشركة ">
+            <div>
+                <input type="text" class="form-control" name="driver_name[]" value="أسم السائق"/>
+                <input type="text" class="form-control" name="truck_ownership_number1[]" value="الرقم الهاتف الإماراتي"/>
+                <input type="text" class="form-control" name="truck_ownership_number2[]" value="الرقم الهاتف السعودي"/>
 
-                    <input type="text" class="form-control {{ $errors->has('Truck_ownership') ? ' is-invalid' : '' }}" name="Truck_ownership" value="{{ old('Truck_ownership') }}" required autofocus placeholder="إسم الشركة " />
-                    @if ($errors->has('Truck_ownership'))
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $errors->first('Truck_ownership') }}</strong>
-                    </span>
-                @endif
+            </div>
 
+        </div>
 
-                    <input type="text" class="form-control {{ $errors->has('driver_name') ? ' is-invalid' : '' }}" name="driver_name" value="{{ old('driver_name') }}" required autofocus placeholder="  إسم السائق  " />
-                    @if ($errors->has('driver_name'))
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $errors->first('driver_name') }}</strong>
-                    </span>
-                @endif
-
-                 
-
-                        <input type="text" class="form-control {{ $errors->has('truck_ownership_number1') ? ' is-invalid' : '' }}" name="truck_ownership_number1" value="{{ old('truck_ownership_number1') }}" required  autofocus placeholder="  رقم الهاتف الإماراتي " />
-                    </div>
-                    @if ($errors->has('truck_ownership_number1'))
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $errors->first('truck_ownership_number1') }}</strong>
-                    </span>
-                @endif
-
-                <input type="text" class="form-control {{ $errors->has('truck_ownership_number2') ? ' is-invalid' : '' }}" name="truck_ownership_number2" value="{{ old('truck_ownership_number2') }}" required autofocus placeholder="  رقم الهاتف السعودي " />
-            @if ($errors->has('truck_ownership_number2'))
-            <span class="invalid-feedback" role="alert">
-                <strong>{{ $errors->first('truck_ownership_number2') }}</strong>
-            </span>
-        @endif
-
-                <input type="text" class="form-control {{ $errors->has('truck_of_number') ? ' is-invalid' : '' }}" name="truck_of_number" value="{{ old('truck_of_number') }}" required autofocus placeholder="  عدد الشاحنات  " />
-            @if ($errors->has('truck_of_number'))
-            <span class="invalid-feedback" role="alert">
-                <strong>{{ $errors->first('truck_of_number') }}</strong>
-            </span>
-        @endif
-
-        
+        <a class="add_button" title="Add field">إضافة سائق اخر </a>
     </div>
-
-               <div class="col-xs-6 col-md-6 col-lg-6  table-bordered table-striped" id="cardss" >
+               <div class="col-xs-12 col-md-6 col-lg-12  table-bordered table-striped" style="width: 100%" >
 
 
     <div class=" amber-textarea active-amber-textarea-2">
@@ -351,9 +369,10 @@
   
 
 
-        </div>
+  
 
-
+ 
+       
         <br/>
        
   <div class="table-responsive">
@@ -391,60 +410,48 @@
           </table>
   </div>
          
-                    <th width="20%">+ </th>
-                    <th width="20%">الرقم الهاتف السعودي</th>
-                    <th width="20%">الرقم الهاتف الإماراتي</th>
-                    <th width="20%">أسم السائق</th>
-                    <th width="20%">اسم الشركة</th>
-                   
                  
                    
-              
-
-        
-                         <ul class="table table-bordered" id="dynamic_fieldss">  
-                              
-                                  <input type="text" name="name[]" placeholder="Enter your Name" class="form-control name_list" />
-                                   <button type="button" name="add" id="addss" class="btn btn-success">Add More</button>
-                             
-                         </ul>  
-              
-          
+                 
+                  
 
       <!--Textarea with icon prefix-->
       
 
-          <input type="submit" name="save" id="save" class="btn btn-primary" value="Save" />
+          <input type="submit"  name="save" id="save" class="btn btn-primary" value="Save" />
           
         </form>
     
   </div>
 
-  <script>  
-        $(document).ready(function(){  
-             var i=1;  
-             $('#addss').click(function(){  
-                  i++;  
-                  $('#dynamic_fieldss').append('<td><input type="text" name="name[]" placeholder="Enter your Name" class="form-control name_list" /><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">X</button>');  
-             });  
-             $(document).on('click', '.btn_remove', function(){  
-                  var button_id = $(this).attr("id");   
-                  $('#row'+button_id+'').remove();  
-             });  
-             $('#submit').click(function(){            
-                  $.ajax({  
-                       url:"name.php",  
-                       method:"POST",  
-                       data:$('#add_name').serialize(),  
-                       success:function(data)  
-                       {  
-                            alert(data);  
-                            $('#add_name')[0].reset();  
-                       }  
-                  });  
-             });  
-        });  
-        </script>
+  <script type="text/javascript">
+    $(document).ready(function(){
+        var maxField = 10; //Input fields increment limitation
+        var addButton = $('.add_button'); //Add button selector
+        var wrapper = $('.field_wrapper'); //Input field wrapper
+        var fieldHTML = '<div > <br/><input type="text" class="form-control" name="field_name[]" value="أسم السائق"/><input type="text" class="form-control" name="field_name[]" value="الرقم الهاتف الإماراتي"/><input type="text" class="form-control" name="field_name[]" value="الرقم الهاتف السعودي"/><input style="width: 20%" class="btn btn-danger remove_button" value="حذف" /> </div>'; //New input field html 
+        var x = 1; //Initial field counter is 1
+        
+        //Once add button is clicked
+        $(addButton).click(function(){
+            //Check maximum number of input fields
+            if(x < maxField){ 
+                x++; //Increment field counter
+                $(wrapper).append(fieldHTML); //Add field html
+            }
+        });
+        
+        //Once remove button is clicked
+        $(wrapper).on('click', '.remove_button', function(e){
+            e.preventDefault();
+            $(this).parent('div').remove(); //Remove field html
+            x--; //Decrement field counter
+        });
+    });
+    </script>
+
+
+
         <script> 
 
                 $(document).ready(function(){
@@ -611,8 +618,119 @@
 
 
 
+<script type="text/javascript">
 
 
+
+function myFunction() {
+    // Get the checkbox
+
+    var checkBox1 = document.getElementById("myCheck1");
+    
+    var checkBox2 = document.getElementById("myCheck2");
+    
+    var checkBox3 = document.getElementById("myCheck3");
+    var checkBox4 = document.getElementById("myCheck4");
+    var checkBox5 = document.getElementById("myCheck5");
+    var checkBox6 = document.getElementById("myCheck6");
+    var checkBox7 = document.getElementById("myCheck7");
+
+    // Get the output text
+
+    var text1 = document.getElementById("cardform1");
+
+    var text2 = document.getElementById("cardform2");
+
+    var text3 = document.getElementById("cardform3");
+
+    var text4 = document.getElementById("cardform4");
+
+    var text5 = document.getElementById("cardform5");
+      
+     
+    var text6 = document.getElementById("cardform6");
+ 
+ 
+    var text7 = document.getElementById("cardform7");
+    // If the checkbox is checked, display the output text
+
+    if (checkBox1.checked == true){
+        text1.style.display = "block";
+    } 
+    
+
+    
+     else if (checkBox1.checked != true) {
+        text1.style.display = "none";
+
+    }
+    if (checkBox2.checked == true){
+        text2.style.display = "block";
+    } 
+    
+
+    
+     else if (checkBox2.checked != true) {
+        text2.style.display = "none";
+
+    }
+    if (checkBox3.checked == true){
+        text3.style.display = "block";
+    } 
+    
+
+    
+    else if (checkBox3.checked != true) {
+        text3.style.display = "none";
+
+    }
+    
+    if (checkBox4.checked == true){
+        text4.style.display = "block";
+    } 
+    
+
+    
+     else if (checkBox4.checked != true) {
+        text4.style.display = "none";
+
+    }
+    if (checkBox5.checked == true){
+        text5.style.display = "block";
+    } 
+    
+
+    
+    else if (checkBox5.checked != true) {
+        text5.style.display = "none";
+
+    }
+    
+    if (checkBox6.checked == true){
+        text6.style.display = "block";
+    } 
+    
+
+    
+     else if (checkBox6.checked != true) {
+        text6.style.display = "none";
+
+    }
+    
+    if (checkBox7.checked == true){
+        text7.style.display = "block";
+    } 
+    
+
+    
+     else if (checkBox7.checked != true) {
+        text7.style.display = "none";
+
+    }
+
+
+  } 
+</script>
 
 
 

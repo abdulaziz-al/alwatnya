@@ -44,8 +44,11 @@ class UserController extends Controller
     }
 
     public function showCreatePage(){
+
+        $userCR = CommercialRecord::where('user_id',auth()->user()->id)->get();
+
         
-     return view('users.createOredr');
+     return view('users.createOredr')->with('cr',$userCR);
     }
 
     public function createOrder(Request $request ){
@@ -109,15 +112,16 @@ class UserController extends Controller
          $Invoice->save();
          
  
- 
+        $countTrunl = $request->driver_name;
 
+        $userCR = CommercialRecord::where();
          $UserOreder =  new UserOreder();
          $UserOreder->user_id =  auth()->user()->id;
          $UserOreder->admin_id = null ;
          $UserOreder->cr_id =  $CommercialRecord->id;
          $UserOreder->invoice_id =  $Invoice->id;
          $UserOreder->importeport_id = true ;
-         $UserOreder->number_of_trucks =$request->truck_of_number;
+         $UserOreder->number_of_trucks =$countTrunl->count();
          $UserOreder->status_id = $Statu->id;
          $UserOreder->comment_id = $Comment->id;
          $UserOreder->save();

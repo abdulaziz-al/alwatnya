@@ -126,6 +126,14 @@ text-align: right;
 
 #cardss{
     margin-top: 5% ;
+    margin-left: 25%;
+    
+}
+#newcard{
+    width: auto;
+    margin-top: 5% ;
+    margin-left: auto;
+    
 }
 
 
