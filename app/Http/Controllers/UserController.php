@@ -140,20 +140,10 @@ class UserController extends Controller
 
           
             
-            if(count($Other_name) != 1) {
+            if( $Other_name != null && $Other_file != null  && $Other_number != null  && $Other_exp != null ) {
 
 
-                $messages = [
-    
-                    'Other_file.*'=>'ولد لازم '
-                    
-                ];
-                
-                $this->validate($request, [
-                    'Other_file'=>'required|file:application/pdf'
-                
-                    
-                ],$messages);
+              
 
            /*     $extension = $request->file('invoice_file')->getClientOriginalExtension();
 
@@ -184,7 +174,7 @@ class UserController extends Controller
             $ood->save();
 
         }
-    }
+    } 
 
         
 
@@ -352,7 +342,7 @@ class UserController extends Controller
             $Truck->driver_mobile_2 = $truck_ownership_number2[$count];
             $Truck->file_id = $File_truck->id;
             $Truck->order_id = $UserOreder->id;
-            $Truck->Truck_ownership_number = $request->Truck_ownership;
+            $Truck->Truck_ownership_number = $request->Truck_ownership[$count];
           
             $Truck->save();
           

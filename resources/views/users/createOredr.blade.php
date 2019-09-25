@@ -12,16 +12,14 @@
 
         <form  method="POST" action="{{ route('createOrder') }}" enctype="multipart/form-data">
                 @csrf
-
+            <div class="form-group">
                 <div class="   table-striped" id="newcard" style="width: 65%" >
                
-                        <div class="form-group">
                                 <h4 style="text-align: right">                                
 
                                     فاتورة البضاعة  </h4>
 
 
-                        <div class="form-inline"  >
                                 
 
 
@@ -51,13 +49,10 @@
 
 </div>
 
-     </div>
                         </div>
-            </div>
+        </div>
 
                
-
-    
 
         <div class="table-striped" id="cardss" >
 
@@ -67,7 +62,6 @@
               <input style="margin-left: 70%" type="checkbox" id="myCheck1" onclick="myFunction()">
 
                         شهادة بلد المنشأ </h4>
-                        <div class="form-inline"  >
                                 <div id="cardform1" style="display: none" >
 
                         
@@ -92,7 +86,6 @@
     </span>
 @endif
 </div>
-</div>
 
         </div>
         </div>
@@ -108,7 +101,6 @@
                         بيان المقاصة
                     
                     </h4>
-                    <div class="form-inline"  >
                             <div id="cardform2" style="display: none">
 
                         <input type="text" class="form-control {{ $errors->has('ms_number') ? ' is-invalid' : '' }}" name="ms_number" value="{{ old('ms_number') }}"  autofocus placeholder=" رقم البيان  " />
@@ -135,7 +127,6 @@
                             </div>
         </div>
     </div>
-</div>
 
 
 
@@ -143,11 +134,10 @@
 
                 <div class="form-group"  >
                     
-                    <h4 style="text-align: center">
+                    <h4 style="text-align: right">
                             <input style="margin-left: 70%" type="checkbox" id="myCheck3" onclick="myFunction()">
 
                         قائمة التعبئة </h4>
-                        <div class="form-inline"  >
                                 <div id="cardform3" style="display: none">
                         <input type="text" class="form-control {{ $errors->has('packing_list_number') ? ' is-invalid' : '' }}" name="packing_list_number" value="{{ old('packing_list_number') }}"  autofocus placeholder="  رقم القائمة " />
                        
@@ -173,19 +163,17 @@
 @endif
 </div>
 </div>
-</div>
         </div>
 
         <div class=" table-striped" id="cardss" >
 
                 <div class="form-group"  >
                     
-                    <h4 style="text-align: center">
+                    <h4 style="text-align: right">
                             <input style="margin-left: 70%" type="checkbox" id="myCheck4" onclick="myFunction()">
 
                         خطاب الفسح </h4>
 
-                        <div class="form-inline"  >
                                 <div id="cardform4" style="display: none">
 
                         <input type="text" class="form-control {{ $errors->has('release_letter_number') ? ' is-invalid' : '' }}" name="release_letter_number" value="{{ old('release_letter_number') }}"  autofocus placeholder="  رقم فسح " />
@@ -211,7 +199,6 @@
 @endif
 </div>
 </div>
-</div>
         </div>
 
         <div class="table-striped" id="cardss" >
@@ -223,7 +210,6 @@
 
                         شهادة المطابقة  </h4>
                         
-                        <div class="form-inline"  >
                                 <div id="cardform5" style="display: none">
                         <input type="text" class="form-control {{ $errors->has('saso_number') ? ' is-invalid' : '' }}" name="saso_number" value="{{ old('saso_number') }}"  autofocus placeholder="  رقم الشهادة " />
                     
@@ -251,7 +237,6 @@
 
     </div>
 
-</div>
 
 </div>
 
@@ -266,7 +251,6 @@
 
                         البوليصة</h4>
     
-                        <div class="form-inline"  >
                                 <div id="cardform6" style="display: none">
 
                         <input type="text" class="form-control {{ $errors->has('policy_number') ? ' is-invalid' : '' }}" name="policy_number" value="{{ old('policy_number') }}"  autofocus placeholder="  رقم البوليصة " />
@@ -293,20 +277,18 @@
                                 </div>
                         </div>
                 </div>
-        </div>
 
 
         <div class="table-striped" id="cardss" >
 
             <div class="form-group"  >
                 
-                <h4 style="text-align: center">
+                <h4 style="text-align: right">
                         <input style="margin-left: 70%" type="checkbox" id="myCheck7" onclick="myFunction()">
 
                     خطاب إعفاء
                  </h4>
                  
-                 <div class="form-inline"  >
                         <div id="cardform7" style="display: none">
                     <input type="text" class="form-control {{ $errors->has('el_number') ? ' is-invalid' : '' }}" name="el_number" value="{{ old('el_number') }}"  autofocus placeholder="  تاريخ الخطاب " />
                 
@@ -331,18 +313,16 @@
 @endif
 </div>
 </div>
-</div>
     </div>
 
-    <div class="col-xs-6 col-md-6 col-lg-6  table-bordered table-striped" id="cardss" >
-
+    <div div class="table-striped" id="cardss" >
     <div class="field_wrapper" >
-            <h3>أسم الشركة</h3>
-            <input type="text" name="Truck_ownership" class="form-control" placeholder="اسم الشركة ">
+            <h3>معلومات المركبات </h3>
+            <input type="text" name="Truck_ownership[]" class="form-control" placeholder="رقم السيارة  " required/>
             <div>
-                <input type="text" class="form-control" name="driver_name[]" placeholder="أسم السائق"/>
-                <input type="text" class="form-control" name="truck_ownership_number1[]" placeholder="الرقم الهاتف الإماراتي"/>
-                <input type="text" class="form-control" name="truck_ownership_number2[]" placeholder="الرقم الهاتف السعودي"/>
+                <input type="text" class="form-control" name="driver_name[]" placeholder="أسم السائق" required/>
+                <input type="text" class="form-control" name="truck_ownership_number1[]" placeholder="الرقم الهاتف الدولي" required/>
+                <input type="text" class="form-control" name="truck_ownership_number2[]" placeholder="الرقم الهاتف المحلي" required/>
             {!! Form::file('tos_file') !!}
             </div>
 
@@ -355,21 +335,13 @@
 
     <div class=" amber-textarea active-amber-textarea-2">
             <i class="fas fa-pencil-alt prefix"></i>
-            <textarea id="comment_order" name="comment_order" class="md-textarea form-control" rows="5"></textarea>
+            <textarea id="comment_order" name="comment_order" class="md-textarea form-control" rows="5" required></textarea>
             <div  id="comment_div"> <h4> أترك ملاحظة </h4>
              </div>
           </div>
 
         
               </div>
-          
-
-  
-
-
-  
-
- 
        
         <br/>
        
@@ -392,8 +364,6 @@
 
                    <th width="20%">أخرى</th>
                    
-                 
-                   
                </tr>
               </thead>
               <tbody>
@@ -407,12 +377,6 @@
               </tfoot>
           </table>
   </div>
-         
-                 
-                   
-                 
-                  
-
       <!--Textarea with icon prefix-->
       
 
@@ -427,7 +391,7 @@
         var maxField = 10; //Input fields increment limitation
         var addButton = $('.add_button'); //Add button selector
         var wrapper = $('.field_wrapper'); //Input field wrapper
-        var fieldHTML = '<div > <br/><input type="text" class="form-control" name="driver_name[]" value="أسم السائق"/><input type="text" class="form-control" name="truck_ownership_number1[]" value="الرقم الهاتف الإماراتي"/><input type="text" class="form-control" name="truck_ownership_number2[]" value="الرقم الهاتف السعودي"/><input style="width: 20%" class="btn btn-danger remove_button" value="حذف" /> </div>'; //New input field html 
+        var fieldHTML = '<div > <br/><input type="text" name="Truck_ownership[]" class="form-control" placeholder="رقم السيارة  " required><input type="text" class="form-control" name="driver_name[]" placeholder="أسم السائق"/><input type="text" class="form-control" name="truck_ownership_number1[]" placeholder="الرقم الهاتف الدولي"/><input type="text" class="form-control" name="truck_ownership_number2[]" placeholder="الرقم الهاتف المحلي"/><input style="width: 20%" class="btn btn-danger remove_button" value="حذف" /> </div>'; //New input field html 
         var x = 1; //Initial field counter is 1
         
         //Once add button is clicked
@@ -503,34 +467,7 @@
          $(this).closest("tr").remove();
         });
         
-        $('#dynamic_form').on('submit', function(event){
-               event.preventDefault();
-               $.ajax({
-                   data:$(this).serialize(),
-                   dataType:'json',
-                   beforeSend:function(){
-                       $('#save').attr('disabled','disabled');
-                   },
-                   success:function(data)
-                   {
-                       if(data.error)
-                       {
-                           var error_html = '';
-                           for(var count = 0; count < data.error.length; count++)
-                           {
-                               error_html += '<p>'+data.error[count]+'</p>';
-                           }
-                           $('#result').html('<div class="alert alert-danger">'+error_html+'</div>');
-                       }
-                       else
-                       {
-                           dynamic_field(1);
-                           $('#result').html('<div class="alert alert-success">'+data.success+'</div>');
-                       }
-                       $('#save').attr('disabled', false);
-                   }
-               })
-        });
+      
         
         });
         </script>
