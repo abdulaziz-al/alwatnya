@@ -8,11 +8,9 @@
 
 <div class="container">   
     
-    {{$cr->cr_number}}
-        
 
 
-        <form  method="POST" action="{{ route('createOrder') }}" enctype="multipart/form-data"  >
+        <form  method="POST" action="{{ route('createOrder') }}" enctype="multipart/form-data">
                 @csrf
 
                 <div class="   table-striped" id="newcard" style="width: 65%" >
@@ -340,12 +338,12 @@
 
     <div class="field_wrapper" >
             <h3>أسم الشركة</h3>
-            <input type="text" name="Truck_ownership" class="form-control" value="اسم الشركة ">
+            <input type="text" name="Truck_ownership" class="form-control" placeholder="اسم الشركة ">
             <div>
-                <input type="text" class="form-control" name="driver_name[]" value="أسم السائق"/>
-                <input type="text" class="form-control" name="truck_ownership_number1[]" value="الرقم الهاتف الإماراتي"/>
-                <input type="text" class="form-control" name="truck_ownership_number2[]" value="الرقم الهاتف السعودي"/>
-
+                <input type="text" class="form-control" name="driver_name[]" placeholder="أسم السائق"/>
+                <input type="text" class="form-control" name="truck_ownership_number1[]" placeholder="الرقم الهاتف الإماراتي"/>
+                <input type="text" class="form-control" name="truck_ownership_number2[]" placeholder="الرقم الهاتف السعودي"/>
+            {!! Form::file('tos_file') !!}
             </div>
 
         </div>
@@ -429,7 +427,7 @@
         var maxField = 10; //Input fields increment limitation
         var addButton = $('.add_button'); //Add button selector
         var wrapper = $('.field_wrapper'); //Input field wrapper
-        var fieldHTML = '<div > <br/><input type="text" class="form-control" name="field_name[]" value="أسم السائق"/><input type="text" class="form-control" name="field_name[]" value="الرقم الهاتف الإماراتي"/><input type="text" class="form-control" name="field_name[]" value="الرقم الهاتف السعودي"/><input style="width: 20%" class="btn btn-danger remove_button" value="حذف" /> </div>'; //New input field html 
+        var fieldHTML = '<div > <br/><input type="text" class="form-control" name="driver_name[]" value="أسم السائق"/><input type="text" class="form-control" name="truck_ownership_number1[]" value="الرقم الهاتف الإماراتي"/><input type="text" class="form-control" name="truck_ownership_number2[]" value="الرقم الهاتف السعودي"/><input style="width: 20%" class="btn btn-danger remove_button" value="حذف" /> </div>'; //New input field html 
         var x = 1; //Initial field counter is 1
         
         //Once add button is clicked
@@ -452,86 +450,7 @@
 
 
 
-        <script> 
-
-                $(document).ready(function(){
-                
-                var count = 1;
-                
-                dynamic_fields(count);
-                
-                function dynamic_fields(number)
-                {
-                        if(number > 1)
-                       {
-                           html += '<button type="button" name="remove" id="" class="btn btn-danger remove">Remove</button>';
-                           html += '<input type="file" name="Other_file[]" />';     
-                
-                       html += '<input type="date" name="Other_exp[]" class="form-control" placeholder="تاريخ الإنتهاء" /><';
-                         html += '<input type="text"  name="Other_number[]" class="form-control" placeholder="الرقم" / >';
-                
-                       html += '<input type="text"  name="Other_name[]" class="form-control"  placeholder="الاسم"  /></td>';
-                
-                         
-                       }
-                       else
-                       {   
-                           html += '<button type="button" name="add" id="adds" class="btn btn-success">Add</button>';
-                           html += '<input type="file" name="Other_file[]" />';     
-                
-                       html += '<input type="date" name="Other_exp[]" class="form-control" placeholder="تاريخ الإنتهاء" />';
-                         html += '<input type="text"  name="Other_number[]" class="form-control" placeholder="الرقم" / >';
-                
-                       html += '<input type="text"  name="Other_name[]" class="form-control"  placeholder="الاسم"  />';
-                
-                       }
-                      
-                }
-                
-                $(document).on('click', '#adds', function(){
-                 count++;
-                    
-                
-                 dynamic_fields(count);
-                   
-                });
-                
-                $(document).on('click', '.remove', function(){
-                 count--;
-                 $(this).closest("tr").remove();
-                });
-                
-                $('#dynamic_form').on('submit', function(event){
-                       event.preventDefault();
-                       $.ajax({
-                           data:$(this).serialize(),
-                           dataType:'json',
-                           beforeSend:function(){
-                               $('#save').attr('disabled','disabled');
-                           },
-                           success:function(data)
-                           {
-                               if(data.error)
-                               {
-                                   var error_html = '';
-                                   for(var count = 0; count < data.error.length; count++)
-                                   {
-                                       error_html += '<p>'+data.error[count]+'</p>';
-                                   }
-                                   $('#result').html('<div class="alert alert-danger">'+error_html+'</div>');
-                               }
-                               else
-                               {
-                                   dynamic_field(1);
-                                   $('#result').html('<div class="alert alert-success">'+data.success+'</div>');
-                               }
-                               $('#save').attr('disabled', false);
-                           }
-                       })
-                });
-                
-                });
-                </script>
+     
 
 <script> 
 

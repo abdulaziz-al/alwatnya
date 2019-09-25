@@ -29,8 +29,8 @@
 <div class="form-group row ">            
 
 <i class="fa fa-arrow-circle-down" aria-hidden="true" ></i>
-<input id="cr_image" type="file" {{ $errors->has('cr_image') ? ' is-invalid' : '' }} name="cr_image"     />
-     
+{!! Form::file('cr_image') !!}
+
     @if ($errors->has('cr_image'))
         <span class="invalid-feedback" role="alert">
             <strong>{{ $errors->first('cr_image') }}</strong>

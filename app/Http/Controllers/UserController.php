@@ -45,10 +45,10 @@ class UserController extends Controller
 
     public function showCreatePage(){
 
-        $userCR = CommercialRecord::where('user_id',auth()->user()->id)->get();
+        $userCR = CommercialRecord::where('user_id',auth()->user()->id)->first();
 
         
-     return view('users.createOredr')->with('cr',$userCR);
+     return view('users.createOredr')->with('userCR',$userCR);
     }
 
     public function createOrder(Request $request ){
@@ -112,16 +112,17 @@ class UserController extends Controller
          $Invoice->save();
          
  
-        $countTrunl = $request->driver_name;
+        $countTrunl = count($request->driver_name);
 
-        $userCR = CommercialRecord::where();
+         $userCR = CommercialRecord::where('user_id', auth()->user()->id)->first();
+
          $UserOreder =  new UserOreder();
          $UserOreder->user_id =  auth()->user()->id;
          $UserOreder->admin_id = null ;
-         $UserOreder->cr_id =  $CommercialRecord->id;
+         $UserOreder->cr_id = $userCR->id  ;
          $UserOreder->invoice_id =  $Invoice->id;
-         $UserOreder->importeport_id = true ;
-         $UserOreder->number_of_trucks =$countTrunl->count();
+         $UserOreder->importeport_id = false ;
+         $UserOreder->number_of_trucks =$countTrunl;
          $UserOreder->status_id = $Statu->id;
          $UserOreder->comment_id = $Comment->id;
          $UserOreder->save();
@@ -301,23 +302,63 @@ class UserController extends Controller
    $Saso->save();
  
 
-   $File_truck = new File();
-   $File_truck->file_name = "إستمارة ملكية الشاحنات ";
-   $File_truck->file_location = $request->tos_file;
-
-   $File_truck->save();
-
-  $Truck =  new Truck();
-  $Truck->driver_name = $request->driver_name;
-  $Truck->driver_mobile_1 = $request->truck_ownership_number1;
-  $Truck->driver_mobile_2 = $request->truck_ownership_number2;
-  $Truck->order_id = $UserOreder->id;
-  $Truck->Truck_ownership_number = $request->Truck_ownership;
-
-  $Truck->save();
+   
 
 
 
+
+    //////////////////Other data from Request///////////////////
+        $Truck_ownership = $request->Truck_ownership;
+
+        $truck_ownership_number1 = $request->truck_ownership_number1;
+        $truck_ownership_number2 = $request->truck_ownership_number2;
+        $driver_name = $request->driver_name;
+        $tos_file = $request->tos_file;
+
+        /////////////////Save the data to other order table ////////////////////
+
+
+        $file_TT = $request->file('tos_file');
+        $destination_path= public_path().'/files';
+        $extension = $file_TT->getClientOriginalExtension();
+        $files = $file_TT->getClientOriginalName();
+        $fileName = $files.'_'.time().'.'.$extension;
+        $file_TT->move($destination_path,$fileName);
+            
+
+
+
+           /*     $extension = $request->file('invoice_file')->getClientOriginalExtension();
+
+                if($extension == "pdf"){
+                    return "GOOD GOOD ";
+                }else {*/
+                    $File_truck = new File();
+                    $File_truck->file_name = "إستمارة ملكية الشاحنات ";
+                    $File_truck->file_location = $file_TT;
+                 
+                    $File_truck->save();
+
+        for($count = 0; $count < count($driver_name); $count++)
+        {
+
+
+       
+
+
+            $Truck =  new Truck();
+            $Truck->driver_name = $driver_name[$count];
+            $Truck->driver_mobile_1 = $truck_ownership_number1[$count];
+            $Truck->driver_mobile_2 = $truck_ownership_number2[$count];
+            $Truck->file_id = $File_truck->id;
+            $Truck->order_id = $UserOreder->id;
+            $Truck->Truck_ownership_number = $request->Truck_ownership;
+          
+            $Truck->save();
+          
+
+        }
+    
   
         
 
@@ -356,9 +397,16 @@ class UserController extends Controller
 
         if($extension == 'pdf'){
 
+            $file_TT = $request->file('cr_image');
+            $destination_path= public_path().'/files';
+            $extension = $file_TT->getClientOriginalExtension();
+            $files = $file_TT->getClientOriginalName();
+            $fileName = $files.'.'.$extension;
+            $file_TT->move($destination_path,$fileName);
+
          $file_CR = new File();
          $file_CR->file_name = "سجل تجاري";
-         $file_CR->file_location = $request->cr_image;
+         $file_CR->file_location = $fileName;
       
          $file_CR->save();
 
@@ -368,6 +416,7 @@ class UserController extends Controller
          $CommercialRecord->file_id = $file_CR->id;
          $CommercialRecord->cr_number = $request->cr_number;
          $CommercialRecord->cr_expiry = $request->cr_exp;
+         $CommercialRecord->active = 0 ;
          $CommercialRecord->save();
  
          Session::flash('success','تم إرسال المعلومات ');

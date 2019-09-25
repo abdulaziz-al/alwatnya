@@ -23,6 +23,9 @@ class CreateTrucksTable extends Migration
             //<---------- FK from order tables ------------>//
             $table->integer('order_id')->unsigned()->index();
             $table->foreign('order_id')->references('id')->on('user_oreders')->onDelete('cascade');
+            $table->integer('file_id')->unsigned()->index();
+            $table->foreign('file_id')->references('id')->on('files')->onDelete('cascade');
+            
             $table->string('Truck_ownership_number');
 
             $table->timestamps();
