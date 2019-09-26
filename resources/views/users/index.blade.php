@@ -62,15 +62,15 @@
                         <td>عدد طلباتي المسجلة <i class="far fa-file text-info"></i></td>
                     </tr>
                     <tr>
-                        <td><u>3</u></td>
+                    <td><u>{{$order_waiting->count()}}</u></td>
                         <td>عدد طلباتي المنفذة <i class="fas fa-clipboard-check text-success"></i></td>
                     </tr>
                     <tr>
-                        <td><u>1</u></td>
+                    <td><u>{{$order_Accepte->count()}}</u></td>
                         <td>عدد الطلبات بإنتظار التنفيذ <i class="far fa-clock text-danger"></i></td>
                     </tr>
                     <tr>
-                        <td><u>0</u></td>
+                    <td><u>{{$order_Reject->count()}}</u></td>
                         <td>عدد الطلبات المعادة للتحديث <i class="fas fa-exclamation-triangle text-warning"></i></td>
                     </tr>
                 </table>

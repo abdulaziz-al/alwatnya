@@ -34,10 +34,24 @@ class UserController extends Controller
     public function index(  ) {
 
         
-        $order = UserOreder::where('user_id',auth()->user()->id);
+        $order_all = UserOreder::where('user_id',auth()->user()->id);
+
+        $order_waiting = UserOreder::where('user_id',auth()->user()->id)
+                               ->where('status_id',1);
+                   
+        $order_Accepte = UserOreder::where('user_id',auth()->user()->id)
+                                  ->where('status_id',2);
+        
+        $order_Reject = UserOreder::where('user_id',auth()->user()->id)
+                                  ->where('status_id',3);
+         
+
+
+
+
         $cr_number = CommercialRecord::where('user_id',auth()->user()->id)->get();
 
-        $userInfo =Array('order'=>$order , 'cr_number'=>$cr_number );
+        $userInfo =Array('order'=>$order_all ,'order_waiting'=>$order_waiting,'order_Reject'=>$order_Reject,'order_Accepte'=>$order_Accepte, 'cr_number'=>$cr_number );
 
 
         return view('users.index' ,$userInfo);
@@ -53,7 +67,18 @@ class UserController extends Controller
 
     public function createOrder(Request $request ){
 
-       
+        $messages = [
+    
+            'Other_file.*'=>'ولد لازم '
+            
+        ];
+        
+        $this->validate($request, [
+            'comment_order'=>'required',
+           
+            
+        ],$messages);
+
       
 
 
@@ -96,15 +121,20 @@ class UserController extends Controller
          $Comment->comment_to_user = $Role->id;
          $Comment->save();
 
-         $File = new File();
-         $File->file_name = "السجل التجاري ";
-         $File->file_location = $request->cr_file;
- 
-         $File->save();
+
+         $file_TT = $request->file('invoice_file');
+         $extension = $file_TT->getClientOriginalExtension();
+         $destination_path= public_path().'/files';
+         $file_namess = $request->invoice_number. '.'. $extension;
+
+         $file_TT->move($destination_path, $file_namess);
+
+         $new_date = $Comment->created_at->format('dmY');;
+
 
          $invoiceItem =  new invoiceItem();
-         $invoiceItem->invoiceItems_description = "فاتورة رقم 4545";
-         $invoiceItem->subtotal = 100;
+        
+         $invoiceItem->invoiceItems_description =$new_date . $request->invoice_number . $extension;
          $invoiceItem->save();
 
          $Invoice =  new Invoice();
@@ -175,12 +205,6 @@ class UserController extends Controller
 
         }
     } 
-
-        
-
-
-
-
 
          $File_coo = new File();
          $File_coo->file_name = "شهادة بلد المنشأ ";
@@ -278,7 +302,7 @@ class UserController extends Controller
     
 
     $File_saso = new File();
-    $File_saso->file_name = "شهادة المطابقة للمنتجات المصدرة للمملكة ";
+    $File_saso->file_name = "شهادة المطابقة  ";
     $File_saso->file_location = $request->saso_file;
 
     $File_saso->save();
@@ -306,16 +330,16 @@ class UserController extends Controller
         $tos_file = $request->tos_file;
 
         /////////////////Save the data to other order table ////////////////////
-
+/*
 
         $file_TT = $request->file('tos_file');
         $destination_path= public_path().'/files';
         $extension = $file_TT->getClientOriginalExtension();
         $files = $file_TT->getClientOriginalName();
-        $fileName = $files.'_'.time().'.'.$extension;
+        $fileName = $Truck_ownership.'.'.$extension;
         $file_TT->move($destination_path,$fileName);
             
-
+*/
 
 
            /*     $extension = $request->file('invoice_file')->getClientOriginalExtension();
@@ -391,7 +415,7 @@ class UserController extends Controller
             $destination_path= public_path().'/files';
             $extension = $file_TT->getClientOriginalExtension();
             $files = $file_TT->getClientOriginalName();
-            $fileName = $files.'.'.$extension;
+            $fileName = $request->cr_number.'.'.$extension;
             $file_TT->move($destination_path,$fileName);
 
          $file_CR = new File();

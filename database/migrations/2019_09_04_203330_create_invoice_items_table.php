@@ -18,7 +18,8 @@ class CreateInvoiceItemsTable extends Migration
 
             $table->increments('id');
             $table->string('invoiceItems_description');
-            $table->integer('subtotal');
+            $table->integer('subtotal')->nullable();
+            
             
         });
     }

@@ -39,13 +39,10 @@
                     <strong>{{ $errors->first('expirydate_invoice') }}</strong>
                 </span>
             @endif
-    
-            <input type="file" class="{{ $errors->has('invoice_file') ? ' is-invalid' : '' }}" name="invoice_file" value="{{ old('invoice_file') }}"  required/>
-        @if ($errors->has('invoice_file'))
-        <span class="invalid-feedback" role="alert">
-            <strong>{{ $errors->first('invoice_file') }}</strong>
-        </span>
-    @endif
+            
+           
+    {!! Form::file('invoice_file') !!}
+
 
 </div>
 
