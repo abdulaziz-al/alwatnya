@@ -59,7 +59,10 @@
                 <div class="form-group"  >
                     
                     <h4 style="text-align: right">
-              <input style="margin-left: 70%" type="checkbox" id="myCheck1" onclick="myFunction()">
+                        <label class="cont">
+              <input  type="checkbox" id="myCheck1" onclick="myFunction()">
+              <span class="checkmark"></span>
+            </label>
 
                         شهادة بلد المنشأ </h4>
                                 <div id="cardform1" style="display: none" >
@@ -96,8 +99,12 @@
                 <div class="form-group"  >
                     
                     <h4 style="text-align: right">
-                    <input style="margin-left: 70%" type="checkbox" id="myCheck2" onclick="myFunction()" >
+                        <label class="cont">
 
+                    <input type="checkbox" id="myCheck2" onclick="myFunction()" >
+                    <span class="checkmark"></span>
+                </label>
+    
                         بيان المقاصة
                     
                     </h4>
@@ -135,7 +142,11 @@
                 <div class="form-group"  >
                     
                     <h4 style="text-align: right">
-                            <input style="margin-left: 70%" type="checkbox" id="myCheck3" onclick="myFunction()">
+                        <label class="cont">
+
+                <input type="checkbox" id="myCheck3" onclick="myFunction()">
+                <span class="checkmark"></span>
+            </label>
 
                         قائمة التعبئة </h4>
                                 <div id="cardform3" style="display: none">
@@ -170,8 +181,12 @@
                 <div class="form-group"  >
                     
                     <h4 style="text-align: right">
-                            <input style="margin-left: 70%" type="checkbox" id="myCheck4" onclick="myFunction()">
+                        <label class="cont">
 
+                            <input type="checkbox" id="myCheck4" onclick="myFunction()">
+                            <span class="checkmark"></span>
+                        </label>
+            
                         خطاب الفسح </h4>
 
                                 <div id="cardform4" style="display: none">
@@ -206,7 +221,12 @@
                 <div class="form-group"  >
                     
                     <h4 style="text-align: right">
-             <input style="margin-left: 70%" type="checkbox" id="myCheck5" onclick="myFunction()">
+                        <label class="cont">
+
+
+             <input type="checkbox" id="myCheck5" onclick="myFunction()">
+             <span class="checkmark"></span>
+            </label>
 
                         شهادة المطابقة  </h4>
                         
@@ -247,7 +267,11 @@
                 <div class="form-group"  >
                     
                     <h4 style="text-align: right">
-                <input style="margin-left: 70%" type="checkbox" id="myCheck6" onclick="myFunction()">
+                        <label class="cont">
+
+                <input  type="checkbox" id="myCheck6" onclick="myFunction()">
+                <span class="checkmark"></span>
+            </label>
 
                         البوليصة</h4>
     
@@ -284,8 +308,12 @@
             <div class="form-group"  >
                 
                 <h4 style="text-align: right">
-                        <input style="margin-left: 70%" type="checkbox" id="myCheck7" onclick="myFunction()">
+                    <label class="cont">
 
+                        <input  type="checkbox" id="myCheck7" onclick="myFunction()">
+                        <span class="checkmark"></span>
+                    </label>
+        
                     خطاب إعفاء
                  </h4>
                  
