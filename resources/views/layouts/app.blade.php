@@ -115,7 +115,7 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="#"> 
+                                <a class="dropdown-item" href="/user/settings/info"> 
                                     الملف الشخصي
                                 </a>   
 
@@ -127,6 +127,9 @@
                                  
                                 
                                     </a>   
+                                    <a class="dropdown-item" href="/user/settings/crs">
+                                        تعديل السجل التجاري
+                                    </a>
                                     
                          
                                     <a class="dropdown-item" href="{{ route('logout') }}"

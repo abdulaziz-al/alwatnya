@@ -10,19 +10,15 @@
             <div class="jumbotron rounded-lg text-center">
                 <table class="table borderless text-center">
                     <tr>
-                        <td>كمال الكياس</td>
+                    <td>{{Auth::user()->full_name}}</td>
                         <th>الإسم</th>
                     </tr>
                     <tr>
-                        <td>kamal1199</td>
-                        <th>إسم المستخدم</th>
-                    </tr>
-                    <tr>
-                        <td>kamal.alzahrani1@gmail.com</td>
+                    <td>{{Auth::user()->email}}</td>
                         <th>البريد الإلكتروني</th>
                     </tr>
                     <tr>
-                        <td>0532892778</td>
+                        <td>{{Auth::user()->phone}}</td>
                         <th>رقم الجوال</th>
                     </tr>
                     <tr>
