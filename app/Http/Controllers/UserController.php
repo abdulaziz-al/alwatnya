@@ -454,7 +454,12 @@ class UserController extends Controller
     }
     // 1 user/settings/info page
     public function viewInfoPage() {
+    
+
+
+        
         return view('users.info');
+
     }
     // 2 user/settings/info/edit page
     public function viewEditPage() {
@@ -466,7 +471,9 @@ class UserController extends Controller
     }
     // 4 user/settings/crs page
     public function viewCRs() {
-        return view('users.viewCRs');
+        $crUser = CommercialRecord::where('user_id',auth()->user()->id)->get();
+
+        return view('users.viewCRs')->with('crUser',$crUser);
     }
     // 5 user/settings/crs/edit page
     public function crEditView() {
