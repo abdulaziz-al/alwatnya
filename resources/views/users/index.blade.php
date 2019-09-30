@@ -32,7 +32,6 @@
         
 
         <div class="container">
-{{substr(Auth::user()->cr_image , -4)}}
 
 
 
@@ -62,11 +61,11 @@
                         <td>عدد طلباتي المسجلة <i class="far fa-file text-info"></i></td>
                     </tr>
                     <tr>
-                    <td><u>{{$order_waiting->count()}}</u></td>
+                    <td><u>{{$order_Accepte->count()}}</u></td>
                         <td>عدد طلباتي المنفذة <i class="fas fa-clipboard-check text-success"></i></td>
                     </tr>
                     <tr>
-                    <td><u>{{$order_Accepte->count()}}</u></td>
+                    <td><u>{{$order_waiting->count()}}</u></td>
                         <td>عدد الطلبات بإنتظار التنفيذ <i class="far fa-clock text-danger"></i></td>
                     </tr>
                     <tr>

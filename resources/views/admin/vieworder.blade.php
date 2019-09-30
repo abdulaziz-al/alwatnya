@@ -4,24 +4,42 @@
 
         <title> #CDC-1090 الوطنية - عرض طلب</title>
         <div class="container">
-            <h1 class="text-center mt-3"> #CDC-1090 عرض طلب</h1>
+            {{$order->count()}}
+            @foreach ($order as $orders)
+            @foreach ($invoice as $invoices)
+            @foreach ($invoice_items as $invoice_item)
+                @if ($invoices->id == $orders->invoice_id && $invoices->invoiceItems_id == $invoice_item->id )
+                
+                
+            <h1 class="text-center mt-3"> {{substr($invoice_item->invoiceItems_description , 0,-3) }} عرض طلب</h1>
+            <a  href="{{Storage::url($invoice_item->invoiceItems_description)}}" style= "height: 5cm"> fjkkjgz</a>
+
+
             <hr>
             <table class="table borderless table-striped text-center">
                 <tr>
-                    <td>#CDC-1090 <i class="far fa-file text-primary"></i></td>
+                    <td>{{substr($invoice_item->invoiceItems_description , 0,-3) }}<i class="far fa-file text-primary"></i></td>
                     <td>رقم الطلب</td>
+                    @endif
+                    @endforeach
+                    @endforeach
                 </tr>
                 <tr>
-                    <td>kamal1199 <i class="far fa-user text-primary"></i></td>
+                        @foreach ($user as $users)
+                        @if ($users->id == $orders->user_id)
+                    <td>{{$users->full_name}} <i class="far fa-user text-primary"></i></td>
                     <td>إسم المستخدم</td>
                 </tr>
                 <tr>
-                    <td>xyz@gmail.com <i class="far fa-envelope text-primary"></i></td>
+                    <td>{{$users->email}} <i class="far fa-envelope text-primary"></i></td>
                     <td>البريد الإلكتروني</td>
                 </tr>
                 <tr>
-                    <td>+966532892778 <i class="fas fa-mobile-alt text-primary"></i></td>
+                    <td>+{{$users->phone}}  <i class="fas fa-mobile-alt text-primary"></i></td>
                     <td>رقم الجوال</td>
+                    @endif
+                    @endforeach
+
                 </tr>
                 <tr>
                     <td>Bilal Khan <i class="fas fa-truck-moving text-primary"></i></td>
@@ -31,14 +49,23 @@
                     <td>+966532892778 <i class="fas fa-mobile-alt text-primary"></i></td>
                     <td>رقم جوال السائق</td>
                 </tr>
+                @if ($orders->importeport_id == 0)
+
                 <tr>
+                        
                     <td>Import <i class="fas fa-arrow-circle-down text-primary"></i></td>
                     <td>نوع الطلب</td>
                 </tr>
+                @else 
                 <tr>
                     <td>Export <i class="fas fa-arrow-circle-up text-primary"></i></td>
                     <td>نوع الطلب</td>
+                   
                 </tr>
+                @endif
+
+                @endforeach
+
                 <tr>
                     <td>
                         <select class="form-control" dir="rtl">

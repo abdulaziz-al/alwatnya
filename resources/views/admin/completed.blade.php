@@ -11,65 +11,38 @@
             <table class="table table-striped  text-center">
                 <tr>
                     <td>
+
                         <div class="list-group">
-                            <a href="vieworder" class="list-group-item list-group-item-action">
-                                <i class="fas fa-check text-success"></i>
+                            @foreach ($order as $orders)
+                        <a href="vieworder{{$orders->id}}" class="list-group-item list-group-item-action">
+                                
+                            <i class="fas fa-check text-success"></i>
                                 <span class="badge badge-pill badge-primary">منفذ</span>
                                 <div class="d-flex w-100 justify-content-between">
-                                <h5 class="mb-1 ml-auto mr-auto">#CDC-1094 طلب تخليص جمركي رقم</h5>
-                                <small>منذ: 10/10/2018</small>
+                                    @foreach ($invoice as $invoices)
+                                    @foreach ($invoice_items as $invoice_item)
+                                        @if ($invoices->id == $orders->invoice_id && $invoices->invoiceItems_id == $invoice_item->id )
+                                        <h5 class="mb-1 ml-auto mr-auto">{{substr($invoice_item->invoiceItems_description , 0,-3) }}   طلب تخليص جمركي رقم</h5>
+
+                                        @endif
+                                    @endforeach
+                                    @endforeach
+                                
+                                
+                                <small> {{substr ($orders->created_at,0,10)}}   :منذ </small>
                                 </div>
-                                <p class="mb-1">@kamal1199 - +966554433221</p>
-                                <small>تاريخ التنفيذ: 14/10/2018</small>
+                                @foreach ($user as $users)
+                                    @if ($users->id == $orders->user_id)
+                                        
+                                <p class="mb-1">{{$users->full_name}}  -  +{{$users->phone}} </p>
+                                @endif
+                                @endforeach
+
+                                <small>{{substr ($orders->updated_at, 0,10)}}     :تاريخ التنفيذ </small>
                             </a>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <div class="list-group">
-                            <a href="vieworder" class="list-group-item list-group-item-action">
-                                <i class="fas fa-check text-success"></i>
-                                <span class="badge badge-pill badge-primary">منفذ</span>
-                                <div class="d-flex w-100 justify-content-between">
-                                <h5 class="mb-1 ml-auto mr-auto">#CDC-1095 طلب تخليص جمركي رقم</h5>
-                                <small>منذ: 12/10/2018</small>
-                            </div>
-                                <p class="mb-1">@hussam9911 - +966554354321</p>
-                                <small>تاريخ التنفيذ: 16/10/2018</small>
-                            </a>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <div class="list-group">
-                            <a href="vieworder" class="list-group-item list-group-item-action">
-                                <i class="fas fa-check text-success"></i>
-                                <span class="badge badge-pill badge-primary">منفذ</span>
-                                <div class="d-flex w-100 justify-content-between">
-                                <h5 class="mb-1 ml-auto mr-auto">#CDC-1096 طلب تخليص جمركي رقم</h5>
-                                <small>منذ: 22/10/2018</small>
-                                </div>
-                                <p class="mb-1">@ahmad91 - +96655000999</p>
-                                <small>تاريخ التنفيذ: 23/10/2018</small>
-                            </a>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <div class="list-group">
-                            <a href="vieworder" class="list-group-item list-group-item-action">
-                                <i class="fas fa-check text-success"></i>
-                                <span class="badge badge-pill badge-primary">منفذ</span>
-                                <div class="d-flex w-100 justify-content-between">
-                                <h5 class="mb-1 ml-auto mr-auto">#CDC-1097 طلب تخليص جمركي رقم</h5>
-                                <small>منذ: 27/10/2018</small>
-                                </div>
-                                <p class="mb-1">@ali91 - +96655999000</p>
-                                <small>تاريخ التنفيذ: 1/11/2018</small>
-                            </a>
+                          
+                            @endforeach
+
                         </div>
                     </td>
                 </tr>

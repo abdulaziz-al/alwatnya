@@ -3,12 +3,30 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\UserOreder;
+use App\Invoice;
+use App\invoiceItem;
+use App\User;
+
 
 class AdminController extends Controller
 {
     // admin index page (dashboard)
     public function index() {
-        return view('admin.index');
+
+         
+        $order_all = UserOreder::all();
+
+        $order_waiting = UserOreder::where('status_id',1);
+                   
+        $order_Accepte = UserOreder::where('status_id',2);
+        
+        $order_Reject = UserOreder::where('status_id',3);
+         
+
+        $userInfo =Array('order'=>$order_all ,'order_waiting'=>$order_waiting,'order_Reject'=>$order_Reject,'order_Accepte'=>$order_Accepte);
+        
+        return view('admin.index', $userInfo);
     }
     // admin settings page:
     public function settings() {
@@ -42,19 +60,51 @@ class AdminController extends Controller
     }
     // 2 admin/neworders page
     public function newOrders() {
-        return view('admin.neworders');
+
+        
+
+        $Waiting_order = UserOreder::where('status_id', 1)
+        ->leftJoin('invoices', 'user_oreders.invoice_id', '=', 'invoices.id')
+        ->leftJoin('invoice_items' , 'invoices.invoiceItems_id' , '=' , 'invoice_items.id' )
+        ->leftJoin('users' , 'user_oreders.user_id' , '=' , 'users.id')->get();
+
+        $Waitorder =Array( 'Waiting_order'=>$Waiting_order);
+
+
+        return view('admin.neworders', $Waitorder);
     }
     // 3 admin/completedorders page
     public function completedOrders() {
-        return view('admin.completed');
+
+    
+        $order = UserOreder::where('status_id' , 2 )->get();
+    
+        $invoice = Invoice::all();
+        $invoice_items = InvoiceItem::all();
+        $user = User::all();
+
+        $Accorder =Array( 'order'=>$order ,'invoice_items'=>$invoice_items, 'invoice'=>$invoice , 'user'=>$user);
+
+
+        return view('admin.completed' , $Accorder);
     }
     // 4 admin/returnedorders page
     public function returnedOrders() {
         return view('admin.returnedorders');
     }
     // 5 admin/vieworder page
-    public function viewOrder() {
-        return view('admin.vieworder');
+    public function viewOrder($id) {
+        
+        $order = UserOreder::where('id',$id )->get();
+    
+        $invoice = Invoice::all();
+        $invoice_items = InvoiceItem::all();
+        $user = User::all();
+
+        $Accorder =Array( 'order'=>$order ,'invoice_items'=>$invoice_items, 'invoice'=>$invoice , 'user'=>$user);
+
+
+        return view('admin.vieworder' , $Accorder );
     }
     // 6 admin/search page
     public function search() {

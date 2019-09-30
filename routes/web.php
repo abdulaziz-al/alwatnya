@@ -52,7 +52,7 @@ Route::get('/admin/completedorders', 'AdminController@completedOrders');
 // 4 admin/returnedorders page
 Route::get('/admin/returnedorders', 'AdminController@returnedOrders');
 // 5 admin/vieworder page
-Route::get('/admin/vieworder', 'AdminController@viewOrder');
+Route::get('/admin/vieworder{id}', 'AdminController@viewOrder');
 // 6 admin/search page
 Route::get('/admin/search', 'AdminController@search');
 // admin logout
@@ -63,6 +63,7 @@ Route::get('/admin/logout', 'AdminController@logout');
 // -- user controller --
 // user dashboard
 Route::get('/user', 'UserController@index');
+Route::get('/user/post','UserController@PostRequest');
 Route::get('/user/createCR', 'UserController@showCRcreate');
 Route::post('/user/createCR', 'UserController@CreateCR')->name('CreateCR');
 

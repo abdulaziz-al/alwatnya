@@ -26,6 +26,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 
 
+
 class UserController extends Controller
 {
     // user index page (dashboard)
@@ -121,11 +122,13 @@ class UserController extends Controller
          $Comment->comment_to_user = $Role->id;
          $Comment->save();
 
+         $userCR = CommercialRecord::where('user_id', auth()->user()->id)->first();
+
 
          $file_TT = $request->file('invoice_file');
          $extension = $file_TT->getClientOriginalExtension();
-         $destination_path= public_path().'/files';
-         $file_namess = $request->invoice_number. '.'. $extension;
+         $destination_path= public_path().'/files'.'/'.auth()->user()->full_name . '/' . $userCR->cr_number;
+         $file_namess = 'فاتورة البضاعة '. $request->invoice_number. '.'. $extension;
 
          $file_TT->move($destination_path, $file_namess);
 
@@ -134,7 +137,7 @@ class UserController extends Controller
 
          $invoiceItem =  new invoiceItem();
         
-         $invoiceItem->invoiceItems_description =$new_date . $request->invoice_number . $extension;
+         $invoiceItem->invoiceItems_description =$new_date . $request->invoice_number;
          $invoiceItem->save();
 
          $Invoice =  new Invoice();
@@ -372,6 +375,12 @@ class UserController extends Controller
           
 
         }
+        $file_TR = $request->file('tos_file');
+        $extension = $file_TR->getClientOriginalExtension();
+        $file_namesTr = 'معلومات المركبات '. $countTrunl.  '.'. $extension;
+        $file_TR->move($destination_path, $file_namesTr);
+
+
     
   
         
@@ -412,10 +421,10 @@ class UserController extends Controller
         if($extension == 'pdf'){
 
             $file_TT = $request->file('cr_image');
-            $destination_path= public_path().'/files';
+            $destination_path= public_path().'/files'.'/'.auth()->user()->full_name . '/' . $request->cr_number;
             $extension = $file_TT->getClientOriginalExtension();
             $files = $file_TT->getClientOriginalName();
-            $fileName = $request->cr_number.'.'.$extension;
+            $fileName = 'السجل التجاري رقم '.$request->cr_number.'.'.$extension;
             $file_TT->move($destination_path,$fileName);
 
          $file_CR = new File();
@@ -486,4 +495,46 @@ class UserController extends Controller
         return view('users.neworder');
     }
 
+
+    
+public function PostRequest() {
+   
+$data = array(
+ 'user' => "abdulaziz",
+ 'password' => "gary yaoi",
+ 'phone' => "966598875516",
+ 'sid' => "GW Active",
+ 'msg' => "Test Message يا ولد",
+ 'fl' =>"0",
+);
+$phone = "966598875516";
+  //  "https://apps.gateway.sa/vendorsms/pushsms.aspx?user=abdulaziz&password=gary%20yaoi&msisdn=$data[phone]&sid=GW%20Active&msg=$data[msg]&fl=0"; // the url to post to
+   $path = "https://apps.gateway.sa/vendorsms/pushsms.aspx?user=abdulaziz&password=gary%20yaoi&msisdn=$phone&sid=GW%20Active&msg=$data[msg]&fl=0";
+   $fin =  ($path);
+/*
+      return Response($fin)
+    
+    ->withHeaders([
+        'Refresh' => '3;url=https://apps.gateway.sa/vendorsms/pushsms.aspx?user=abdulaziz&password=gary%20yaoi&msisdn=$phone&sid=GW%20Active&msg=$data[msg]&fl=0',
+        'Refresh' => '3;url=/',
+    ]);
+    */
+    $get = curl_init();
+
+    //set the url, number of POST vars, POST data
+    curl_setopt($get, CURLOPT_URL, $path);
+curl_setopt($get, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($get, CURLOPT_FOLLOWLOCATION, true);
+$exec  = curl_exec($get);
+  
+    
+    $result = curl_exec($path);
+    
+    //close connection
+    curl_close($path);
+    
+    var_dump($result);
+
+    return '/';
+}
 }
