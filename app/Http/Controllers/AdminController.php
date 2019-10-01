@@ -3,10 +3,24 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\User;
+use App\Role;
 use App\UserOreder;
+use App\Comment;
+use App\CommercialRecord;
+use App\Coo;
+use App\exemptionLetter;
+use App\File;
 use App\Invoice;
 use App\invoiceItem;
-use App\User;
+use App\muqassahStatement;
+use App\OrderOtherdocs;
+use App\PackingList;
+use App\PolicyNumber;
+use App\ReleaseLetter;
+use App\Saso;
+use App\Statu;
+use App\Truck;
 
 
 class AdminController extends Controller
@@ -61,15 +75,23 @@ class AdminController extends Controller
     // 2 admin/neworders page
     public function newOrders() {
 
-        
+        $order = UserOreder::where('status_id' , 1 )->get();
+    
+        $invoice = Invoice::all();
+        $invoice_items = InvoiceItem::all();
+        $user = User::all();
 
+        $Waitorder =Array( 'order'=>$order ,'invoice_items'=>$invoice_items, 'invoice'=>$invoice , 'user'=>$user);
+
+        
+/*
         $Waiting_order = UserOreder::where('status_id', 1)
         ->leftJoin('invoices', 'user_oreders.invoice_id', '=', 'invoices.id')
         ->leftJoin('invoice_items' , 'invoices.invoiceItems_id' , '=' , 'invoice_items.id' )
         ->leftJoin('users' , 'user_oreders.user_id' , '=' , 'users.id')->get();
 
         $Waitorder =Array( 'Waiting_order'=>$Waiting_order);
-
+*/
 
         return view('admin.neworders', $Waitorder);
     }
@@ -100,11 +122,33 @@ class AdminController extends Controller
         $invoice = Invoice::all();
         $invoice_items = InvoiceItem::all();
         $user = User::all();
+        $truck = Truck::where('order_id' , $id)->get();
 
-        $Accorder =Array( 'order'=>$order ,'invoice_items'=>$invoice_items, 'invoice'=>$invoice , 'user'=>$user);
+        $Accorder =Array( 'order'=>$order ,'invoice_items'=>$invoice_items,
+        'truck'=>$truck , 'invoice'=>$invoice , 'user'=>$user);
 
 
         return view('admin.vieworder' , $Accorder );
+    }
+    public function OrderCompleted($id){
+        UserOreder::where('id', $id)
+        ->update(['admin_id' => auth()->user()->id , 'status_id'=> 2]);
+     //   Alert::info('تمت الزيادة بنسبة %',$request->input('salary') );
+        return redirect('/admin');
+    }
+    public function OrderReject(Request $request , $id){
+
+        UserOreder::where('id', $id)
+        ->update(['admin_id' => auth()->user()->id , 'status_id'=> 3]);
+        $userInfo = UserOreder::where('id' , $id )->first();
+        $Comment =  new Comment();
+        $Comment->comment_description = $request->comment ;
+        $Comment->comment_by_user = auth()->user()->id;
+        $Comment->comment_to_user = $userInfo->user_id;
+        $Comment->save(); 
+            //   Alert::info('تمت الزيادة بنسبة %',$request->input('salary') );
+        return redirect('/admin');
+
     }
     // 6 admin/search page
     public function search() {

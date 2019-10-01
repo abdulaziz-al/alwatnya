@@ -37,18 +37,26 @@
                 <tr>
                     <td>+{{$users->phone}}  <i class="fas fa-mobile-alt text-primary"></i></td>
                     <td>رقم الجوال</td>
-                    @endif
-                    @endforeach
+                   
 
                 </tr>
+                @foreach ($truck as $trucks)
+
                 <tr>
-                    <td>Bilal Khan <i class="fas fa-truck-moving text-primary"></i></td>
+                    
+                    <td>{{$trucks->driver_name}} <i class="fas fa-truck-moving text-primary"></i></td>
                     <td>إسم السائق</td>
                 </tr>
                 <tr>
-                    <td>+966532892778 <i class="fas fa-mobile-alt text-primary"></i></td>
-                    <td>رقم جوال السائق</td>
+                    <td>{{$trucks->driver_mobile_2}} <i class="fas fa-mobile-alt text-primary"></i></td>
+                    <td> رقم جوال السائق المحلي </td>
+                    <td> {{$trucks->driver_mobile_1}} <i class="fas fa-mobile-alt text-primary"></i></td>
+
+                    <td> رقم جوال السائق الدولي </td>
+
                 </tr>
+                @endforeach
+
                 @if ($orders->importeport_id == 0)
 
                 <tr>
@@ -64,16 +72,54 @@
                 </tr>
                 @endif
 
-                @endforeach
 
                 <tr>
                     <td>
-                        <select class="form-control" dir="rtl">
-                            <option value="">قرار الطلب؟</option>
-                            <option value="">قبول</option>
-                            <option value="">إعادة</option>
-                            <option value="">رفض</option>
-                        </select> <i class="fas fa-gavel text-primary"></i></td>
+                        <form method="post" action="/admin/vieworder{{$orders->id}}">
+                            @csrf
+                            <input type="submit" class="btn btn-success"  value="قبول " />
+                        </form>
+                        <a><button class="btn btn-warning text-right ml-auto mr-auto" data-toggle="modal" data-target="#viewAddModal">رفض  </button></a>
+
+
+                        </td>
+                        <div class="modal fade" id="viewAddModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content container">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title" id="exampleModalLabel">ملاحظة الرفض </h4>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="card text-center">
+                                            <div class="card-header">
+                                            <h3>أترك ملاحظة للعميل  </h3>
+                                        </div>
+                        
+                        
+                            <div class="card-body">
+                                    <form method="POST" action="{{ route('OrderReject',[$orders->id]) }}" >
+                                        
+                                            @csrf
+                        <div class="form-group row">
+                                                        
+                            <i class="fa fa-comment" aria-hidden="true" id="icon"></i>
+                        <input id="comment" name="comment" type="text" class="form-control"  placeholder=" ملاحظة" required/>
+                        </div>
+                        
+                        <input type="submit" class=" btn btn-warning "  value="إرسال الملاحظة" />
+                        
+                                    </form>
+                        </div>
+                        </div>
+                                </div>
+                            </div>
+                            </div>
+                            @endif
+                            @endforeach
+                        @endforeach
+
                     <td>إجراء</td>
                 </tr>
             </table>

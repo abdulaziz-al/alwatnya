@@ -53,6 +53,9 @@ Route::get('/admin/completedorders', 'AdminController@completedOrders');
 Route::get('/admin/returnedorders', 'AdminController@returnedOrders');
 // 5 admin/vieworder page
 Route::get('/admin/vieworder{id}', 'AdminController@viewOrder');
+Route::post('/admin/vieworder{id}', 'AdminController@OrderCompleted');
+Route::post('/admin/vieworder{id}', 'AdminController@OrderReject')->name('OrderReject');
+
 // 6 admin/search page
 Route::get('/admin/search', 'AdminController@search');
 // admin logout
