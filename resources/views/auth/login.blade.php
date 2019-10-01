@@ -35,7 +35,8 @@
                                 <div class="form-group">
                                         <i class="fa fa-lock" id="icon"></i>
 
-                                        <input type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required  placeholder="الرقم السري" value="" />
+                                        <input type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" id="password"name="password" required  placeholder="الرقم السري" value="" />
+
                                     </div>
                                     @if ($errors->has('password'))
                                     <span class="invalid-feedback" role="alert">

@@ -250,3 +250,31 @@ text-align: right;
     -ms-transform: rotate(45deg);
     transform: rotate(45deg);
   }
+  #image_home{
+width:40%;
+height:40%;
+margin-left:30%;
+margin-top:5%;
+ 
+}
+#pragraph_hoome{
+  text-align: right;
+  font-style: oblique;
+  border-style: outset;
+  padding:5%;
+
+}
+
+#contact-us{
+  border-style: outset;
+  text-align: center;
+  margin-left:30%;
+  width:40%;
+height:40%;
+
+}
+
+span#typePrompt { display: none; }
+input#typesPrompt:hover + span#typePrompt { display: inline; }
+input#typesPrompt:focus + span#typePrompt { display: inline; }
+
