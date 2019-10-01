@@ -52,7 +52,9 @@
 
                             <div class="form-group row">
                                     <i class="fa fa-user" aria-hidden="true" id="icon" ></i>
-                         <input id="full_name" name="full_name" type="text"  class="form-control" placeholder="الإسم الكامل"  >
+                         <input id="full_name" name="full_name" type="text"  class="form-control" placeholder="الإسم الكامل" id="typesPrompt" >
+                         <span id="typePrompt">يرجى إدخال إسم المستخدم الكامل</span>
+
                         </div>
                           
                             
@@ -62,8 +64,9 @@
                                 <div class="form-group row ">            
 
                                         <i class="fa fa-lock" id="icon"></i>
-                                            <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password"  placeholder="الرقم السري " required>
-                                            
+                                            <input id="typesPrompt" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password"  placeholder="الرقم السري " required>
+                                            <span id="typePrompt">يرجى ادخال كلمة مرور مكونة من حروف وارقام </span>
+
                                             @if ($errors->has('password'))
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $errors->first('password') }}</strong>

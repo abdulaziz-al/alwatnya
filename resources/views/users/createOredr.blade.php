@@ -65,7 +65,9 @@
                                 <div id="cardform1" style="display: none" >
 
                         
-                        <input type="text" class="form-control {{ $errors->has('coo_number') ? ' is-invalid' : '' }}" name="coo_number" value="{{ old('coo_number') }}"  autofocus placeholder="   تاريخ الشهادة" />
+                        <input type="text" class="form-control {{ $errors->has('coo_number') ? ' is-invalid' : '' }}" name="coo_number" id="typesPrompt" value="{{ old('coo_number') }}"  autofocus placeholder="    رقم الشهادة" />
+                        <span id="typePrompt">يرجى إدخال رقم الشهادة لهذا الطلب</span>
+
                     @if ($errors->has('coo_number'))
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $errors->first('coo_number') }}</strong>
@@ -107,8 +109,9 @@
                     </h4>
                             <div id="cardform2" style="display: none">
 
-                        <input type="text" class="form-control {{ $errors->has('ms_number') ? ' is-invalid' : '' }}" name="ms_number" value="{{ old('ms_number') }}"  autofocus placeholder=" رقم البيان  " />
-                    
+                        <input type="text" class="form-control {{ $errors->has('ms_number') ? ' is-invalid' : '' }}" name="ms_number" id="typesPrompt" value="{{ old('ms_number') }}"  autofocus placeholder=" رقم البيان  " />
+                        <span id="typePrompt">الرجاء إدخال رقم المرجع والموجودعلى بيان المقاصة</span>
+
                     @if ($errors->has('ms_number'))
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $errors->first('ms_number') }}</strong>
@@ -147,8 +150,9 @@
 
                         قائمة التعبئة </h4>
                                 <div id="cardform3" style="display: none">
-                        <input type="text" class="form-control {{ $errors->has('packing_list_number') ? ' is-invalid' : '' }}" name="packing_list_number" value="{{ old('packing_list_number') }}"  autofocus placeholder="  رقم القائمة " />
-                       
+                        <input type="text" class="form-control {{ $errors->has('packing_list_number') ? ' is-invalid' : '' }}" name="packing_list_number" id="typesPrompt" value="{{ old('packing_list_number') }}"  autofocus placeholder="  رقم القائمة " />
+                        <span id="typePrompt">الرجاء إدخال الرقم المرجعي لقائمة التعبئة </span>
+
     
                     @if ($errors->has('packing_list_number'))
                     <span class="invalid-feedback" role="alert">
@@ -315,8 +319,9 @@
                  </h4>
                  
                         <div id="cardform7" style="display: none">
-                    <input type="text" class="form-control {{ $errors->has('el_number') ? ' is-invalid' : '' }}" name="el_number" value="{{ old('el_number') }}"  autofocus placeholder="  تاريخ الخطاب " />
-                
+                    <input type="text" class="form-control {{ $errors->has('el_number') ? ' is-invalid' : '' }}" name="el_number" id="typesPrompt" value="{{ old('el_number') }}"  autofocus placeholder="  الرقم المرجعي للخطاب " />
+                    <span id="typePrompt">الرجاء إدخال الرقم المرجعي لخطاب الإعفاء</span>
+
                 @if ($errors->has('el_number'))
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $errors->first('el_number') }}</strong>

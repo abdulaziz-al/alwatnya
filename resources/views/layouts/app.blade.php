@@ -4,7 +4,12 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>الوطنية  </title>
+        <title>  
+            @yield('title') | الوطنية
+          
+          </title>
+          <link  rel="icon"  href="{!!asset('/images/Logo-Transparent-Background.png')!!}" />
+      
 
         <!-- Fonts -->
         <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
@@ -38,8 +43,8 @@
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
          <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-            <img  src="images/Logo-white-Transparent-Background.png" width="60" height="60" class="d-inline-block align-top" alt="">
-                </a>
+            <img  src="/images/Logo-white-Transparent-Background.png" width="60" height="60" class="d-inline-block align-top" alt="">
+                
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ ('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -85,8 +90,7 @@
                                 
                                 @yield('select')
 
-                                        <a class="dropdown-item" href="#"
-                                           >
+                                        <a class="dropdown-item" href="/user/neworders">
                                             {{ __('الطلبات الحالية ') }}
                                         </a>
                                                 <a class="dropdown-item" href="#"
@@ -98,57 +102,23 @@
                                                             {{ __('الطلبات المعادة') }}
                                                         </a>
 
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    @csrf
+                                </form>
                             </div>
                         </li>
-                        @elseif (Auth::user()->role_id == 1 )
-                    
-                        <li class="nav-item">
-                                <a class="nav-link" href="/admin">لوحة التحكم</a>
-                            </li>
-    
-                        <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    الوصل السريع  <span class="caret"></span>
-                                </a>
-    
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    
-                                    @yield('select')
-    
-                                            <a class="dropdown-item" href="#"
-                                               >
-                                                {{ __('الطلبات الحالية ') }}
-                                            </a>
-                                                    <a class="dropdown-item" href="#"
-                                                       >
-                                                        {{ __('الطلبات المنفذة') }}
-                                                    </a>
-                                                            <a class="dropdown-item" href="#"
-                                                             >
-                                                                {{ __('الطلبات المعادة') }}
-                                                            </a>
-    
-                                </div>
-                            </li>
-                            
-    
+                        
                     @endif
 
                       
-
-
-
                     
                    
                       <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->full_name }} <span class="caret"></span>
                                 </a>
-                                
- 
+
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    @if (Auth::user()->role_id == 3 )
-                                    <a class="dropdown-item" href="#"> 
                                 <a class="dropdown-item" href="/user/settings/info"> 
                                     الملف الشخصي
                                 </a>   
@@ -161,9 +131,6 @@
                                  
                                 
                                     </a>   
-                                    @endif
-                               
-                      
                                     <a class="dropdown-item" href="/user/settings/crs">
                                         تعديل السجل التجاري
                                     </a>
@@ -180,9 +147,6 @@
                                     </form>
                                 </div>
                             </li>
-
-
-
 
                         @endguest
                     </ul>

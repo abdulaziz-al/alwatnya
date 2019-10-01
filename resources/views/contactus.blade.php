@@ -34,6 +34,25 @@
                                 </div>
                                 </div>
                             </div>
+
+
+                            <div  id="contact-us">
+                                
+                                    <p>
+                                    
+ <h4>حي الواحة</h4>
+                                    <br>
+                                    11681  الرمز البريدي: 84837 ص ب 
+                                    <br>
+                                    00 966 1 12741610: هاتف
+                                    <br>
+                                    الرياض
+                                     المملكة العربية السعودية
+                                     <br>
+                                     info@alwataniaclearing.com : البريد الالكتروني
+        </p>   
+                                    </div>
+                                    
                             <div class="col-sm-12 col-md-12 col-lg-12 my-5">
                             <div class="card border-0">
                                 <div class="card-body text-center">
@@ -43,6 +62,7 @@
                                 </div>
                             </div>
                         </div>
+                        
                     </div>
                 </section>
             </div>
