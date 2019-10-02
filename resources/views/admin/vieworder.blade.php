@@ -10,23 +10,31 @@
             @foreach ($invoice_items as $invoice_item)
                 @if ($invoices->id == $orders->invoice_id && $invoices->invoiceItems_id == $invoice_item->id )
                 
-                
-            <h1 class="text-center mt-3"> {{substr($invoice_item->invoiceItems_description , 0,-3) }} عرض طلب</h1>
-            <a  href="{{Storage::url($invoice_item->invoiceItems_description)}}" style= "height: 5cm"> fjkkjgz</a>
+        
+                @foreach ($user as $users)
+                @foreach ($cr as $crs)
+                @foreach ($file as $files)
+                @if ($users->id == $orders->user_id && $orders->cr_id == $crs->id && $crs->file_id == $files->id)
 
+               
+            <h1 class="text-center mt-3"> {{substr($invoice_item->invoiceItems_description , 0,-4) }} عرض طلب</h1>
+   
+      
 
+       
             <hr>
             <table class="table borderless table-striped text-center">
                 <tr>
-                    <td>{{substr($invoice_item->invoiceItems_description , 0,-3) }}<i class="far fa-file text-primary"></i></td>
+                    <td> <a href="/files/{{$users->full_name}}/{{$crs->cr_number}}/{{$invoice_item->invoiceItems_description}}" download="{{$invoice_item->invoiceItems_description}}">
+         
+                        {{$invoice_item->invoiceItems_description}}
+                    </i>
+                </a><i class="far fa-file text-primary"></i></td>
                     <td>رقم الطلب</td>
-                    @endif
-                    @endforeach
-                    @endforeach
+
                 </tr>
                 <tr>
-                        @foreach ($user as $users)
-                        @if ($users->id == $orders->user_id)
+                       
                     <td>{{$users->full_name}} <i class="far fa-user text-primary"></i></td>
                     <td>إسم المستخدم</td>
                 </tr>
@@ -40,22 +48,44 @@
                    
 
                 </tr>
-                @foreach ($truck as $trucks)
+                
+          
+             
 
-                <tr>
-                    
-                    <td>{{$trucks->driver_name}} <i class="fas fa-truck-moving text-primary"></i></td>
-                    <td>إسم السائق</td>
-                </tr>
-                <tr>
-                    <td>{{$trucks->driver_mobile_2}} <i class="fas fa-mobile-alt text-primary"></i></td>
-                    <td> رقم جوال السائق المحلي </td>
-                    <td> {{$trucks->driver_mobile_1}} <i class="fas fa-mobile-alt text-primary"></i></td>
+                    @foreach ($truck as $trucks)
 
-                    <td> رقم جوال السائق الدولي </td>
-
-                </tr>
-                @endforeach
+                    <tr>
+                        
+                        <td>{{$trucks->driver_name}} <i class="fas fa-truck-moving text-primary"></i></td>
+                        <td>إسم السائق</td>
+                    </tr>
+                    <tr>
+                        <td>{{$trucks->driver_mobile_2}} <i class="fas fa-mobile-alt text-primary"></i></td>
+                        <td> رقم جوال السائق المحلي </td>
+                    </tr>
+    
+                        <tr>
+                        <td> {{$trucks->driver_mobile_1}} <i class="fas fa-mobile-alt text-primary"></i></td>
+    
+                        <td> رقم جوال السائق الدولي </td>
+                    </tr>
+                    @foreach ($file as $files)
+                        
+                    @if( $trucks->file_id == $files->id  )
+                   
+                    <tr>
+                            <td><a href="/files/{{$users->full_name}}/{{$crs->cr_number}}/{{$files->file_location}}" download="{{$files->file_location}}">
+             
+                                {{$files->file_location}}
+                        </a><i class="far fa-file text-primary"></i></td>
+        
+                            <td>ملف السائق  </td>
+                        </tr>
+                        
+                    @endif
+                    @endforeach
+                    @endforeach
+           
 
                 @if ($orders->importeport_id == 0)
 
@@ -116,9 +146,8 @@
                                 </div>
                             </div>
                             </div>
-                            @endif
-                            @endforeach
-                        @endforeach
+                         
+                       
 
                     <td>إجراء</td>
                 </tr>
@@ -147,6 +176,12 @@
                         <tr><td colspan="2"></td></tr>
                     </table>
                 </div>
+                @foreach ($coo as $coos)
+                @foreach ($file as $files)
+                    
+       
+                
+                @if ($coos->file_id == $files->id && $coos->order_id == $orders->id )
                 <div class="col-xs-6 col-md-6 col-lg-6">
                     {{-- Cirtificate of Origin --}}
                     <table class="table borderless table-striped text-center">
@@ -158,15 +193,21 @@
                             <td>تاريخ الشهادة</td>
                         </tr>
                         <tr>
-                            <td>12312323</td>
-                            <td>dd/mm/yyy</td>
+                        <td>{{$coos->coo_number}}</td>
+                        <td>{{$coos->expirydate}}</td>
                         </tr>
                         <tr>
-                            <td colspan="2"><a href="">coo.pdf</a></td>
+                                <td colspan="2"><a href="/files/{{$users->full_name}}/{{$crs->cr_number}}/{{$files->file_location}}" download="{{$files->file_location}}">
+             
+                                    {{$files->file_location}}
+                            </a><i class="far fa-file text-primary"></i></td>
                         </tr>
                         <tr><td colspan="2"></td></tr>
                     </table>
                 </div>
+                @endif
+                @endforeach
+                @endforeach
             </div>
             <div class="row">
                 <div class="col-xs-6 col-md-6 col-lg-6">
@@ -315,26 +356,45 @@
                         <tr><td colspan="2"></td></tr>
                     </table>
                 </div>
+
+                @foreach ($other as $others)
+                @foreach ($file as $files)
+                    
+       
+                
+                @if ($others->file_id == $files->id )
+
+                        
+                    
                 <div class="col-xs-6 col-md-6 col-lg-6">
-                    {{-- truck ownership - إستمارة ملكية الشاحنات --}}
                     <table class="table borderless table-striped text-center">
                         <tr>
-                            <th colspan="2">إستمارة ملكية الشاحنات</th>
+                        <th colspan="2">  {{$others->ood_name}} إستمارة أخرى </th>
                         </tr>
                         <tr>
                             <td>رقم الاستمارة</td>
                             <td>تاريخ الاستمارة</td>
                         </tr>
                         <tr>
-                            <td>12312323</td>
-                            <td>dd/mm/yyy</td>
+                            <td>{{$others->ood_number}}</td>
+                        <td>{{$others->expirydate}}</td>
                         </tr>
+
                         <tr>
-                            <td colspan="2"><a href="">truck_ownership.pdf</a></td>
+                                <td colspan="2"><a href="/files/{{$users->full_name}}/{{$crs->cr_number}}/{{$files->file_location}}" download="{{$files->file_location}}">
+             
+                                    {{$files->file_location}}
+                            </a><i class="far fa-file text-primary"></i></td>
                         </tr>
                         <tr><td colspan="2"></td></tr>
                     </table>
                 </div>
+                @endif
+                @endforeach
+                @endforeach
+
+          
+
             </div>
             <div class="row">
                 <div class="col-xs-6 col-md-6 col-lg-6">
@@ -349,5 +409,18 @@
                           {{-- <img src="http://pngimg.com/uploads/simpsons/simpsons_PNG8.png" class="d-block w-100" height="650" alt="..."> --}}
                  
         </div>
+
+        @endif
+        @endforeach
+        @endforeach
+        @endforeach
+               
+        @endif
+       
+        @endforeach
+        @endforeach                    
+        @endforeach
+
+
 
         @endsection

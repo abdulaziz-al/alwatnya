@@ -74,7 +74,12 @@
                         <a class="nav-link" href="/register">التسجيل</a>
                     </li>
                         @else
-         
+                        @if (Auth::user()->role_id == 1 )
+                        <li class="nav-item">
+                                <a class="nav-link" href="/admin">لوحة التحكم</a>
+                            </li>
+
+                            @endif
                     @if (Auth::user()->role_id == 3 )
                     
                     <li class="nav-item">

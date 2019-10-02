@@ -41,7 +41,7 @@
             @endif
             
            
-    {!! Form::file('invoice_file') !!}
+            {!! Form::file('invoice_file') !!}
 
 
 </div>
@@ -81,12 +81,9 @@
             </span>
         @endif
 
-        <input type="file" class="{{ $errors->has('coo_file') ? ' is-invalid' : '' }}" name="cr_file" value="{{ old('coo_file') }}"  />
-    @if ($errors->has('coo_file'))
-    <span class="invalid-feedback" role="alert">
-        <strong>{{ $errors->first('coo_file') }}</strong>
-    </span>
-@endif
+      
+        {!! Form::file('coo_file') !!}
+
 </div>
 
         </div>
@@ -353,7 +350,8 @@
                 <input type="text" class="form-control" name="driver_name[]" placeholder="أسم السائق" required/>
                 <input type="text" class="form-control" name="truck_ownership_number1[]" placeholder="الرقم الهاتف الدولي" required/>
                 <input type="text" class="form-control" name="truck_ownership_number2[]" placeholder="الرقم الهاتف المحلي" required/>
-            {!! Form::file('tos_file') !!}
+                <input type="file" class="form-control" name="tos_file[]"  required/>
+
             </div>
 
         </div>
@@ -421,7 +419,7 @@
         var maxField = 10; //Input fields increment limitation
         var addButton = $('.add_button'); //Add button selector
         var wrapper = $('.field_wrapper'); //Input field wrapper
-        var fieldHTML = '<div > <br/><input type="text" name="Truck_ownership[]" class="form-control" placeholder="رقم السيارة  " required><input type="text" class="form-control" name="driver_name[]" placeholder="أسم السائق"/><input type="text" class="form-control" name="truck_ownership_number1[]" placeholder="الرقم الهاتف الدولي"/><input type="text" class="form-control" name="truck_ownership_number2[]" placeholder="الرقم الهاتف المحلي"/><input style="width: 20%" class="btn btn-danger remove_button" value="حذف" /> </div>'; //New input field html 
+        var fieldHTML = '<div > <br/><input type="text" name="Truck_ownership[]" class="form-control" placeholder="رقم السيارة  " required><input type="text" class="form-control" name="driver_name[]" placeholder="أسم السائق"/><input type="text" class="form-control" name="truck_ownership_number1[]" placeholder="الرقم الهاتف الدولي"/><input type="text" class="form-control" name="truck_ownership_number2[]" placeholder="الرقم الهاتف المحلي"/><input type="file" class="form-control" name="tos_file[]"  required/><input style="width: 20%" class="btn btn-danger remove_button" value="حذف" /> </div>'; //New input field html 
         var x = 1; //Initial field counter is 1
         
         //Once add button is clicked

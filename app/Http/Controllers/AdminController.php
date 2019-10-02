@@ -123,9 +123,13 @@ class AdminController extends Controller
         $invoice_items = InvoiceItem::all();
         $user = User::all();
         $truck = Truck::where('order_id' , $id)->get();
-
+        $file = File::all();
+        $cr = CommercialRecord::all();
+        $other = OrderOtherdocs::where('order_id', $id)->get();
+        $coo = Coo::where('order_id', $id)->get();
         $Accorder =Array( 'order'=>$order ,'invoice_items'=>$invoice_items,
-        'truck'=>$truck , 'invoice'=>$invoice , 'user'=>$user);
+        'truck'=>$truck , 'invoice'=>$invoice , 'user'=>$user,
+        'file'=>$file , 'cr'=>$cr , 'other'=>$other , 'coo'=>$coo);
 
 
         return view('admin.vieworder' , $Accorder );
@@ -158,4 +162,5 @@ class AdminController extends Controller
     public function logout() {
         // logout & end sessions
     }
+ 
 }

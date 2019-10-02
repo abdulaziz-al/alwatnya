@@ -52,7 +52,7 @@
 
                             <div class="form-group row">
                                     <i class="fa fa-user" aria-hidden="true" id="icon" ></i>
-                         <input id="full_name" name="full_name" type="text"  class="form-control" placeholder="الإسم الكامل" id="typesPrompt" >
+                         <input id="typesPrompt" name="full_name" type="text"  class="form-control" placeholder="الإسم الكامل" id="typesPrompt" >
                          <span id="typePrompt">يرجى إدخال إسم المستخدم الكامل</span>
 
                         </div>

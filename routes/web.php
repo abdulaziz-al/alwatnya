@@ -42,6 +42,7 @@ Route::get('/admin/settings/password', 'AdminController@password');
 // 5 admin/settings/statuses page
 Route::get('/admin/settings/statuses', 'AdminController@orderStatuses');
 
+
 // admin quick links:
 // 1 admin/create new user page
 Route::get('/admin/createuser', 'AdminController@createUser');

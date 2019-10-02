@@ -124,28 +124,26 @@ class UserController extends Controller
 
          $userCR = CommercialRecord::where('user_id', auth()->user()->id)->first();
 
+         $new_date = $Comment->created_at->format('dmY');
 
-         $file_TT = $request->file('invoice_file');
-         $extension = $file_TT->getClientOriginalExtension();
+//////////////////// Invoice Table ////////////////////////////////////////
+         $file_Invoice = $request->file('invoice_file');
+         $extension = $file_Invoice->getClientOriginalExtension();
          $destination_path= public_path().'/files'.'/'.auth()->user()->full_name . '/' . $userCR->cr_number;
-         $file_namess = 'فاتورة البضاعة '. $request->invoice_number. '.'. $extension;
-
-         $file_TT->move($destination_path, $file_namess);
-
-         $new_date = $Comment->created_at->format('dmY');;
-
+         $file_name = $new_date . 'فاتورة البضاعة '. $request->invoice_number. '.'. $extension;
+         $file_Invoice->move($destination_path, $file_name);
 
          $invoiceItem =  new invoiceItem();
-        
-         $invoiceItem->invoiceItems_description =$new_date . $request->invoice_number;
+         $invoiceItem->invoiceItems_description =$file_name ;
          $invoiceItem->save();
 
          $Invoice =  new Invoice();
          $Invoice->invoiceItems_id = $invoiceItem->id;
          $Invoice->save();
          
- 
-        $countTrunl = count($request->driver_name);
+ //////////////////////////////////////////////////////////////////////////////
+
+         $countTrunl = count($request->driver_name);
 
          $userCR = CommercialRecord::where('user_id', auth()->user()->id)->first();
 
@@ -162,56 +160,16 @@ class UserController extends Controller
 
 
 
-         
-         //////////////////Other data from Request///////////////////
-        $Other_name = $request->Other_name;
-        $Other_number = $request->Other_number;
-        $Other_exp = $request->Other_exp;
-        $Other_file = $request->Other_file;
-        /////////////////Save the data to other order table ////////////////////
-
-
-          
-            
-            if( $Other_name != null && $Other_file != null  && $Other_number != null  && $Other_exp != null ) {
-
-
-              
-
-           /*     $extension = $request->file('invoice_file')->getClientOriginalExtension();
-
-                if($extension == "pdf"){
-                    return "GOOD GOOD ";
-                }else {*/
-
-
-        for($count = 0; $count < count($Other_name); $count++)
-        {
-
-
-            $file_ood = new File();
-            $file_ood->file_name = 'ملفات أخرى';
-            $file_ood->file_location = $Other_file[$count];
-
-
-            $file_ood->save();
-
-
-            $ood = new OrderOtherdocs();
-            $ood->order_id = $UserOreder->id ;
-            $ood->ood_name = $Other_name[$count];
-            $ood->ood_number = $Other_number[$count];
-            $ood->expirydate = $Other_exp[$count];
-            $ood->file_id = $file_ood->id;
-
-            $ood->save();
-
-        }
-    } 
+         if( $request->coo_file != null ){
+         $file_coo = $request->file('coo_file');
+         $extension = $file_coo->getClientOriginalExtension();
+         $destination_path= public_path().'/files'.'/'.auth()->user()->full_name . '/' . $userCR->cr_number;
+         $file_name = $new_date . 'شهادة بلد المنشأ '. $request->invoice_number. '.'. $extension;
+         $file_coo->move($destination_path, $file_name);
 
          $File_coo = new File();
          $File_coo->file_name = "شهادة بلد المنشأ ";
-         $File_coo->file_location = $request->coo_file;
+         $File_coo->file_location = $file_name;
  
          $File_coo->save();
 
@@ -222,7 +180,23 @@ class UserController extends Controller
          $Coo->file_id = $File_coo->id ;
  
          $Coo->save();
+         }else{
 
+            $File_coo = new File();
+            $File_coo->file_name = "شهادة بلد المنشأ ";
+            $File_coo->file_location =  $request->coo_file;
+    
+            $File_coo->save();
+   
+            $Coo =  new Coo();
+            $Coo->order_id = $UserOreder->id;
+            $Coo->coo_number = $request->coo_number;
+            $Coo->expirydate = $request->expirydate_coo ;
+            $Coo->file_id = $File_coo->id ;
+    
+            $Coo->save();
+
+         }
 
          $File_el = new File();
          $File_el->file_name = "خطاب إعفاء من التفتيش ";
@@ -332,36 +306,24 @@ class UserController extends Controller
         $driver_name = $request->driver_name;
         $tos_file = $request->tos_file;
 
+
         /////////////////Save the data to other order table ////////////////////
-/*
-
-        $file_TT = $request->file('tos_file');
-        $destination_path= public_path().'/files';
-        $extension = $file_TT->getClientOriginalExtension();
-        $files = $file_TT->getClientOriginalName();
-        $fileName = $Truck_ownership.'.'.$extension;
-        $file_TT->move($destination_path,$fileName);
-            
-*/
-
-
-           /*     $extension = $request->file('invoice_file')->getClientOriginalExtension();
-
-                if($extension == "pdf"){
-                    return "GOOD GOOD ";
-                }else {*/
-                    $File_truck = new File();
-                    $File_truck->file_name = "إستمارة ملكية الشاحنات ";
-                    $File_truck->file_location = $file_TT;
-                 
-                    $File_truck->save();
+       
+    
 
         for($count = 0; $count < count($driver_name); $count++)
         {
 
 
-       
-
+            $file_Truck = $tos_file[$count];
+            $extension =  $file_Truck->getClientOriginalExtension();
+            $destination_path= public_path().'/files'.'/'.auth()->user()->full_name . '/' . $userCR->cr_number;
+            $file_name = $new_date . 'إستمارة ملكية الشاحنات '. $driver_name[$count]. '.'. $extension;
+           $file_Truck->move($destination_path, $file_name);
+                        $File_truck = new File();
+                        $File_truck->file_name = "إستمارة ملكية الشاحنات ";
+                        $File_truck->file_location = $file_name;
+                        $File_truck->save();
 
             $Truck =  new Truck();
             $Truck->driver_name = $driver_name[$count];
@@ -375,11 +337,54 @@ class UserController extends Controller
           
 
         }
-        $file_TR = $request->file('tos_file');
+   /*     $file_TR = $request->file('tos_file');
         $extension = $file_TR->getClientOriginalExtension();
         $file_namesTr = 'معلومات المركبات '. $countTrunl.  '.'. $extension;
         $file_TR->move($destination_path, $file_namesTr);
-
+*/
+           
+        
+        
+            //////////////////Other data from Request///////////////////
+            $Other_name = $request->Other_name;
+            $Other_number = $request->Other_number;
+            $Other_exp = $request->Other_exp;
+            $Other_file = $request->Other_file;
+            /////////////////Save the data to other order table ////////////////////
+ 
+            if( $Other_name != null && $Other_file != null  && $Other_number != null  && $Other_exp != null ) {
+    
+    
+                  
+    
+            for($count = 0; $count < count($Other_name); $count++)
+            {
+                $file_Other = $Other_file[$count];
+                $extension = $file_Other->getClientOriginalExtension();
+                $destination_path= public_path().'/files'.'/'.auth()->user()->full_name . '/' . $userCR->cr_number;
+                $file_name = $new_date . 'أخر '. $Other_name[$count]. '.'. $extension;
+                $file_Other->move($destination_path, $file_name);
+    
+                $file_ood = new File();
+                $file_ood->file_name = 'ملفات أخرى';
+                $file_ood->file_location = $file_name;
+    
+    
+                $file_ood->save();
+    
+    
+                $ood = new OrderOtherdocs();
+                $ood->order_id = $UserOreder->id ;
+                $ood->ood_name = $Other_name[$count];
+                $ood->ood_number = $Other_number[$count];
+                $ood->expirydate = $Other_exp[$count];
+                $ood->file_id = $file_ood->id;
+    
+                $ood->save();
+    
+            }
+        } 
+    
 
     
   
