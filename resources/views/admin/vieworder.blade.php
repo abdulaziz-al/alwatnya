@@ -158,21 +158,31 @@
             <div class="row">
                 <div class="col-xs-6 col-md-6 col-lg-6">
                     {{-- CR --}}
+                    @foreach ($file as $files)
+                    
+                    @if ($crs->file_id == $files->id )
                     <table class="table borderless table-striped text-center">
                         <tr>
-                            <th colspan="2">السجل التجاري</th>
+                        <th colspan="2"> السجل التجاري</th>
                         </tr>
                         <tr>
                             <td>رقم السجل</td>
                             <td>تاريخ السجل</td>
                         </tr>
                         <tr>
-                            <td>12312323</td>
-                            <td>dd/mm/yyy</td>
+                            <td>{{$crs->cr_number}}</td>
+                            <td>{{$crs->cr_expiry}}</td>
                         </tr>
+                    
+
                         <tr>
-                            <td colspan="2"><a href="">cr.pdf</a></td>
+                                <td colspan="2"><a href="/files/{{$users->full_name}}/{{$crs->cr_number}}/{{$files->file_location}}" download="{{$files->file_location}}">
+             
+                                    {{$files->file_location}}
+                            </a><i class="far fa-file text-primary"></i></td>
                         </tr>
+                        @endif
+                        @endforeach
                         <tr><td colspan="2"></td></tr>
                     </table>
                 </div>
@@ -208,8 +218,10 @@
                 @endif
                 @endforeach
                 @endforeach
-            </div>
-            <div class="row">
+                @foreach ($pl as $packList)
+                @foreach ($file as $files)
+                @if ($packList->file_id == $files->id )
+
                 <div class="col-xs-6 col-md-6 col-lg-6">
                     {{-- packing list --}}
                     <table class="table borderless table-striped text-center">
@@ -221,15 +233,26 @@
                             <td>تاريخ القائمة</td>
                         </tr>
                         <tr>
-                            <td>12312323</td>
-                            <td>dd/mm/yyy</td>
+                            <td>{{$packList->pl_number}}</td>
+                        <td>{{$packList->expirydate}}</td>
                         </tr>
+
                         <tr>
-                            <td colspan="2"><a href="">packing_list.pdf</a></td>
+                                <td colspan="2"><a href="/files/{{$users->full_name}}/{{$crs->cr_number}}/{{$files->file_location}}" download="{{$files->file_location}}">
+             
+                                    {{$files->file_location}}
+                            </a><i class="far fa-file text-primary"></i></td>
                         </tr>
                         <tr><td colspan="2"></td></tr>
                     </table>
                 </div>
+                
+                @endif 
+                @endforeach
+                @endforeach
+                @foreach ($ms as $Muqassah)
+                @foreach ($file as $files)
+                @if ($Muqassah->file_id == $files->id )
                 <div class="col-xs-6 col-md-6 col-lg-6">
                     {{-- Muqassah statement --}}
                     <table class="table borderless table-striped text-center">
@@ -241,17 +264,24 @@
                             <td>تاريخ البيان</td>
                         </tr>
                         <tr>
-                            <td>12312323</td>
-                            <td>dd/mm/yyy</td>
+                            <td>{{$Muqassah->ms_number}}</td>
+                        <td>{{$Muqassah->expirydate}}</td>
                         </tr>
                         <tr>
-                            <td colspan="2"><a href="">muqassah.pdf</a></td>
+                                <td colspan="2"><a href="/files/{{$users->full_name}}/{{$crs->cr_number}}/{{$files->file_location}}" download="{{$files->file_location}}">
+             
+                                    {{$files->file_location}}
+                            </a><i class="far fa-file text-primary"></i></td>
                         </tr>
                         <tr><td colspan="2"></td></tr>
                     </table>
                 </div>
-            </div>
-            <div class="row">
+                @endif 
+                @endforeach
+                @endforeach
+                @foreach ($saso as $sasos)
+                @foreach ($file as $files)
+                @if ($sasos->file_id == $files->id )
                 <div class="col-xs-6 col-md-6 col-lg-6">
                     {{-- SASO - شهادة المطابقة للمنتجات المصدرة للمملكة --}}
                     <table class="table borderless table-striped text-center">
@@ -263,15 +293,24 @@
                             <td>تاريخ الشهادة</td>
                         </tr>
                         <tr>
-                            <td>12312323</td>
-                            <td>dd/mm/yyy</td>
+                            <td>{{$sasos->saso_number}}</td>
+                        <td>{{$sasos->expirydate}}</td>
                         </tr>
                         <tr>
-                            <td colspan="2"><a href="">saso.pdf</a></td>
+                                <td colspan="2"><a href="/files/{{$users->full_name}}/{{$crs->cr_number}}/{{$files->file_location}}" download="{{$files->file_location}}">
+             
+                                    {{$files->file_location}}
+                            </a><i class="far fa-file text-primary"></i></td>
                         </tr>
                         <tr><td colspan="2"></td></tr>
                     </table>
                 </div>
+                @endif 
+                @endforeach
+                @endforeach
+                @foreach ($rl as $Release)
+                @foreach ($file as $files)
+                @if ($Release->file_id == $files->id )
                 <div class="col-xs-6 col-md-6 col-lg-6">
                     {{-- Release letter - خطاب الفسح --}}
                     <table class="table borderless table-striped text-center">
@@ -283,17 +322,24 @@
                             <td>تاريخ الفسح</td>
                         </tr>
                         <tr>
-                            <td>12312323</td>
-                            <td>dd/mm/yyy</td>
+                            <td>{{$Release->rl_number}}</td>
+                        <td>{{$Release->expirydate}}</td>
                         </tr>
                         <tr>
-                            <td colspan="2"><a href="">release_letter.pdf</a></td>
+                                <td colspan="2"><a href="/files/{{$users->full_name}}/{{$crs->cr_number}}/{{$files->file_location}}" download="{{$files->file_location}}">
+             
+                                    {{$files->file_location}}
+                            </a><i class="far fa-file text-primary"></i></td>
                         </tr>
                         <tr><td colspan="2"></td></tr>
                     </table>
                 </div>
-            </div>
-            <div class="row">
+                @endif 
+                @endforeach
+                @endforeach
+                    @foreach ($pn as $Policy)
+                    @foreach ($file as $files)
+                    @if ($Policy->file_id == $files->id )
                 <div class="col-xs-6 col-md-6 col-lg-6">
                     {{-- Policy - البوليصة --}}
                     <table class="table borderless table-striped text-center">
@@ -305,37 +351,24 @@
                             <td>تاريخ البوليصة</td>
                         </tr>
                         <tr>
-                            <td>12312323</td>
-                            <td>dd/mm/yyy</td>
+                            <td>{{$Policy->policy_number}}</td>
+                        <td>{{$Policy->expirydate}}</td>
                         </tr>
                         <tr>
-                            <td colspan="2"><a href="">policy.pdf</a></td>
+                                <td colspan="2"><a href="/files/{{$users->full_name}}/{{$crs->cr_number}}/{{$files->file_location}}" download="{{$files->file_location}}">
+             
+                                    {{$files->file_location}}
+                            </a><i class="far fa-file text-primary"></i></td>
                         </tr>
                         <tr><td colspan="2"></td></tr>
                     </table>
                 </div>
-                <div class="col-xs-6 col-md-6 col-lg-6">
-                    {{-- invoice - فاتورة البضاعة --}}
-                    <table class="table borderless table-striped text-center">
-                        <tr>
-                            <th colspan="2">فاتورة البضاعة</th>
-                        </tr>
-                        <tr>
-                            <td>رقم البضاعة</td>
-                            <td>تاريخ البضاعة</td>
-                        </tr>
-                        <tr>
-                            <td>12312323</td>
-                            <td>dd/mm/yyy</td>
-                        </tr>
-                        <tr>
-                            <td colspan="2"><a href="">invoice.pdf</a></td>
-                        </tr>
-                        <tr><td colspan="2"></td></tr>
-                    </table>
-                </div>
-            </div>
-            <div class="row">
+                @endif 
+                @endforeach
+                @endforeach
+                @foreach ($el as $exemption_letter)
+                @foreach ($file as $files)
+                @if ($exemption_letter->file_id == $files->id )
                 <div class="col-xs-6 col-md-6 col-lg-6">
                     {{-- exemption_letter - خطاب إعفاء من التفتيش --}}
                     <table class="table borderless table-striped text-center">
@@ -347,16 +380,21 @@
                             <td>تاريخ الخطاب</td>
                         </tr>
                         <tr>
-                            <td>12312323</td>
-                            <td>dd/mm/yyy</td>
+                        <td>{{$exemption_letter->el_number}}</td>
+                        <td>{{$exemption_letter->expirydate}}</td>
                         </tr>
                         <tr>
-                            <td colspan="2"><a href="">exemption_letter.pdf</a></td>
+                                <td colspan="2"><a href="/files/{{$users->full_name}}/{{$crs->cr_number}}/{{$files->file_location}}" download="{{$files->file_location}}">
+             
+                                    {{$files->file_location}}
+                            </a><i class="far fa-file text-primary"></i></td>
                         </tr>
                         <tr><td colspan="2"></td></tr>
                     </table>
                 </div>
-
+                @endif 
+                @endforeach
+                @endforeach
                 @foreach ($other as $others)
                 @foreach ($file as $files)
                     
@@ -393,7 +431,8 @@
                 @endforeach
                 @endforeach
 
-          
+            </div>
+
 
             </div>
             <div class="row">

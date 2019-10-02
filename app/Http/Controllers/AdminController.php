@@ -127,9 +127,18 @@ class AdminController extends Controller
         $cr = CommercialRecord::all();
         $other = OrderOtherdocs::where('order_id', $id)->get();
         $coo = Coo::where('order_id', $id)->get();
+        $comment = Comment::all();
+        $el = exemptionLetter::where('order_id' , $id)->get();
+        $ms = muqassahStatement::where('order_id',$id)->get();
+        $pl = PackingList::where('order_id',$id)->get();
+        $pn = PolicyNumber::where('order_id',$id)->get();
+        $rl = ReleaseLetter::where('order_id',$id)->get();
+        $saso = Saso::where('order_id' , $id)->get();
         $Accorder =Array( 'order'=>$order ,'invoice_items'=>$invoice_items,
         'truck'=>$truck , 'invoice'=>$invoice , 'user'=>$user,
-        'file'=>$file , 'cr'=>$cr , 'other'=>$other , 'coo'=>$coo);
+        'file'=>$file , 'cr'=>$cr , 'other'=>$other , 'coo'=>$coo,
+        'comment'=>$comment , 'el'=>$el , 'ms'=>$ms , 'pl'=>$pl,
+        'pn'=>$pn , 'rl'=>$rl , 'saso'=>$saso);
 
 
         return view('admin.vieworder' , $Accorder );

@@ -145,7 +145,6 @@ class UserController extends Controller
 
          $countTrunl = count($request->driver_name);
 
-         $userCR = CommercialRecord::where('user_id', auth()->user()->id)->first();
 
          $UserOreder =  new UserOreder();
          $UserOreder->user_id =  auth()->user()->id;
@@ -164,7 +163,7 @@ class UserController extends Controller
          $file_coo = $request->file('coo_file');
          $extension = $file_coo->getClientOriginalExtension();
          $destination_path= public_path().'/files'.'/'.auth()->user()->full_name . '/' . $userCR->cr_number;
-         $file_name = $new_date . 'شهادة بلد المنشأ '. $request->invoice_number. '.'. $extension;
+         $file_name = $new_date . 'شهادة بلد المنشأ '. $request->coo_number. '.'. $extension;
          $file_coo->move($destination_path, $file_name);
 
          $File_coo = new File();
@@ -198,100 +197,271 @@ class UserController extends Controller
 
          }
 
-         $File_el = new File();
-         $File_el->file_name = "خطاب إعفاء من التفتيش ";
-         $File_el->file_location = $request->el_file;
- 
-         $File_el->save();
+         if( $request->el_file != null ){
 
-        $exemptionLetter =  new exemptionLetter();
-        $exemptionLetter->order_id = $UserOreder->id ;
-        $exemptionLetter->el_number = $request->el_number ;
-        $exemptionLetter->expirydate = $request->el_expirydate ;
-        $exemptionLetter->file_id = $File_el->id ;
-
-        $exemptionLetter->save();
- 
-
-        $File_ms = new File();
-        $File_ms->file_name = "بيان المقاصة  ";
-        $File_ms->file_location = $request->ms_file;
-
-        $File_ms->save();
+            $file_coo = $request->file('el_file');
+            $extension = $file_coo->getClientOriginalExtension();
+            $destination_path= public_path().'/files'.'/'.auth()->user()->full_name . '/' . $userCR->cr_number;
+            $file_name = $new_date . 'خطاب إعفاء '. $request->el_number. '.'. $extension;
+            $file_coo->move($destination_path, $file_name);
+   
+            $File_el = new File();
+            $File_el->file_name = "خطاب إعفاء  ";
+            $File_el->file_location = $file_name;
+    
+            $File_el->save();
+   
+           
+            $exemptionLetter =  new exemptionLetter();
+               $exemptionLetter->order_id = $UserOreder->id ;
+               $exemptionLetter->el_number = $request->el_number ;
+               $exemptionLetter->expirydate = $request->el_expirydate ;
+               $exemptionLetter->file_id = $File_el->id ;
        
-
-       $muqassahStatement =  new muqassahStatement();
-       $muqassahStatement->order_id = $UserOreder->id;
-       $muqassahStatement->ms_number = $request->ms_number;
-       $muqassahStatement->expirydate = $request->ms_expirydate;
-       $muqassahStatement->file_id = $File_ms->id;
+               $exemptionLetter->save();
+    
+            }else{
+   
+                $File_el = new File();
+                $File_el->file_name = "خطاب إعفاء  ";
+                $File_el->file_location = $request->el_file;
+        
+                $File_el->save();
        
-       $muqassahStatement->save();
+               $exemptionLetter =  new exemptionLetter();
+               $exemptionLetter->order_id = $UserOreder->id ;
+               $exemptionLetter->el_number = $request->el_number ;
+               $exemptionLetter->expirydate = $request->el_expirydate ;
+               $exemptionLetter->file_id = $File_el->id ;
+       
+               $exemptionLetter->save();
+   
+            }
+
+
+            if( $request->ms_file != null ){
+
+                $file_coo = $request->file('ms_file');
+                $extension = $file_coo->getClientOriginalExtension();
+                $destination_path= public_path().'/files'.'/'.auth()->user()->full_name . '/' . $userCR->cr_number;
+                $file_name = $new_date . 'بيان المقاصة '. $request->ms_number. '.'. $extension;
+                $file_coo->move($destination_path, $file_name);
+                
+                
+                $File_ms = new File();
+                $File_ms->file_name = "بيان المقاصة  ";
+                $File_ms->file_location = $file_name;
+        
+                $File_ms->save();
+       
+               
+                $muqassahStatement =  new muqassahStatement();
+                $muqassahStatement->order_id = $UserOreder->id;
+                $muqassahStatement->ms_number = $request->ms_number;
+                $muqassahStatement->expirydate = $request->ms_expirydate;
+                $muqassahStatement->file_id = $File_ms->id;
+                
+                $muqassahStatement->save();
+                }else{
+       
+                    $File_ms = new File();
+                    $File_ms->file_name = "بيان المقاصة  ";
+                    $File_ms->file_location = $request->ms_file;
+            
+                    $File_ms->save();
+                   
+            
+                   $muqassahStatement =  new muqassahStatement();
+                   $muqassahStatement->order_id = $UserOreder->id;
+                   $muqassahStatement->ms_number = $request->ms_number;
+                   $muqassahStatement->expirydate = $request->ms_expirydate;
+                   $muqassahStatement->file_id = $File_ms->id;
+                   
+                   $muqassahStatement->save();
+       
+                }
+    
+ 
+
+                if( $request->pl_file != null ){
+
+                    $file_coo = $request->file('pl_file');
+                    $extension = $file_coo->getClientOriginalExtension();
+                    $destination_path= public_path().'/files'.'/'.auth()->user()->full_name . '/' . $userCR->cr_number;
+                    $file_name = $new_date . 'قائمة التعبئة  '. $request->el_number. '.'. $extension;
+                    $file_coo->move($destination_path, $file_name);
+                    
+                    $File_pl = new File();
+                    $File_pl->file_name = "قائمة التعبئة ";
+                    $File_pl->file_location = $file_name;
+             
+                    $File_pl->save();
+           
+                   
+                    $PackingList =  new PackingList();
+                    $PackingList->order_id = $UserOreder->id;
+                    $PackingList->pl_number = $request->packing_list_number;
+                    $PackingList->expirydate = $request->pl_expirydate;
+                    $PackingList->file_id = $File_pl->id;
+              
+                    $PackingList->save();
+                    }else{
+
+                        $File_pl = new File();
+                        $File_pl->file_name = "قائمة التعبئة ";
+                        $File_pl->file_location = $request->pl_file;
+                 
+                        $File_pl->save();
+                 
+                       $PackingList =  new PackingList();
+                       $PackingList->order_id = $UserOreder->id;
+                       $PackingList->pl_number = $request->packing_list_number;
+                       $PackingList->expirydate = $request->pl_expirydate;
+                       $PackingList->file_id = $File_pl->id;
+                 
+                       $PackingList->save();
+                 
+           
+                    }
+    
 
         
-       $File_pl = new File();
-       $File_pl->file_name = "قائمة التعبئة ";
-       $File_pl->file_location = $request->pl_file;
+                    if( $request->policy_file != null ){
 
-       $File_pl->save();
+                        $file_coo = $request->file('policy_file');
+                        $extension = $file_coo->getClientOriginalExtension();
+                        $destination_path= public_path().'/files'.'/'.auth()->user()->full_name . '/' . $userCR->cr_number;
+                        $file_name = $new_date . 'البوليصة   '. $request->policy_number. '.'. $extension;
+                        $file_coo->move($destination_path, $file_name);
+                        
+                        $File_pn = new File();
+                        $File_pn->file_name = "البوليصة ";
+                        $File_pn->file_location = $file_name;
+                  
+                        $File_pn->save();
+               
+                       
+                        $PolicyNumber =  new PolicyNumber();
+                        $PolicyNumber->order_id = $UserOreder->id;
+                        $PolicyNumber->policy_number = $request->policy_number ;
+                        $PolicyNumber->expirydate = $request->policy_expirydate;
+                        $PolicyNumber->file_id = $File_pn->id;
+                   
+                        $PolicyNumber->save();
+                        }else{
+     
+                            $File_pn = new File();
+                            $File_pn->file_name = "البوليصة ";
+                            $File_pn->file_location = $request->policy_file;
+                      
+                            $File_pn->save();
+                      
+                           $PolicyNumber =  new PolicyNumber();
+                           $PolicyNumber->order_id = $UserOreder->id;
+                           $PolicyNumber->policy_number = $request->policy_number ;
+                           $PolicyNumber->expirydate = $request->policy_expirydate;
+                           $PolicyNumber->file_id = $File_pn->id;
+                      
+                           $PolicyNumber->save();
+                      
+                     
+               
+                        }
+        
+      
 
-      $PackingList =  new PackingList();
-      $PackingList->order_id = $UserOreder->id;
-      $PackingList->pl_number = $request->packing_list_number;
-      $PackingList->expirydate = $request->pl_expirydate;
-      $PackingList->file_id = $File_pl->id;
+                        if( $request->rl_file != null ){
 
-      $PackingList->save();
+                            $file_coo = $request->file('rl_file');
+                            $extension = $file_coo->getClientOriginalExtension();
+                            $destination_path= public_path().'/files'.'/'.auth()->user()->full_name . '/' . $userCR->cr_number;
+                            $file_name = $new_date . 'خطاب الفسح   '. $request->release_letter_number. '.'. $extension;
+                            $file_coo->move($destination_path, $file_name);
+                            
+                            $File_rl = new File();
+                            $File_rl->file_name = "خطاب الفسح ";
+                            $File_rl->file_location = $file_name;
+                       
+                            $File_rl->save();
+                   
+                           
+                            $ReleaseLetter =  new ReleaseLetter();
+                            $ReleaseLetter->order_id = $UserOreder->id;
+                            $ReleaseLetter->rl_number = $request->release_letter_number;
+                            $ReleaseLetter->expirydate = $request->rl_expirydate;
+                            $ReleaseLetter->file_id = $File_rl->id;
+                        
+                            $ReleaseLetter->save();
+                       
+                            }else{
 
-       
-      $File_pn = new File();
-      $File_pn->file_name = "البوليصة ";
-      $File_pn->file_location = $request->policy_file;
+                                $File_rl = new File();
+                                $File_rl->file_name = "خطاب الفسح ";
+                                $File_rl->file_location = $request->rl_file;
+                           
+                                $File_rl->save();
+                           
+                               $ReleaseLetter =  new ReleaseLetter();
+                               $ReleaseLetter->order_id = $UserOreder->id;
+                               $ReleaseLetter->rl_number = $request->release_letter_number;
+                               $ReleaseLetter->expirydate = $request->rl_expirydate;
+                               $ReleaseLetter->file_id = $File_rl->id;
+                           
+                               $ReleaseLetter->save();
+                          
+                         
+                   
+                            }
 
-      $File_pn->save();
+                            if( $request->saso_file != null ){
 
-     $PolicyNumber =  new PolicyNumber();
-     $PolicyNumber->order_id = $UserOreder->id;
-     $PolicyNumber->policy_number = $request->policy_number ;
-     $PolicyNumber->expirydate = $request->policy_expirydate;
-     $PolicyNumber->file_id = $File_pn->id;
-
-     $PolicyNumber->save();
-
-
-
-          
-     $File_rl = new File();
-     $File_rl->file_name = "خطاب الفسح ";
-     $File_rl->file_location = $request->rl_file;
-
-     $File_rl->save();
-
-    $ReleaseLetter =  new ReleaseLetter();
-    $ReleaseLetter->order_id = $UserOreder->id;
-    $ReleaseLetter->rl_number = $request->release_letter_number;
-    $ReleaseLetter->expirydate = $request->rl_expirydate;
-    $ReleaseLetter->file_id = $File_rl->id;
-
-    $ReleaseLetter->save();
+                                $file_coo = $request->file('saso_file');
+                                $extension = $file_coo->getClientOriginalExtension();
+                                $destination_path= public_path().'/files'.'/'.auth()->user()->full_name . '/' . $userCR->cr_number;
+                                $file_name = $new_date . 'شهادة المطابقة    '. $request->release_letter_number. '.'. $extension;
+                                $file_coo->move($destination_path, $file_name);
+                                
+                                $File_saso = new File();
+                                $File_saso->file_name = "شهادة المطابقة  ";
+                                $File_saso->file_location = $file_name;
+                            
+                                $File_saso->save();
+                       
+                               
+                                $Saso =  new Saso();
+                                $Saso->order_id = $UserOreder->id;
+                                $Saso->saso_number = $request->saso_number;
+                                $Saso->expirydate = $request->saso_expirydate;
+                                $Saso->file_id = $File_saso->id;
+                             
+                                $Saso->save();
+                           
+                                }else{
+    
+                                    $File_saso = new File();
+                                    $File_saso->file_name = "شهادة المطابقة  ";
+                                    $File_saso->file_location = $request->saso_file;
+                                
+                                    $File_saso->save();
+                                
+                                   $Saso =  new Saso();
+                                   $Saso->order_id = $UserOreder->id;
+                                   $Saso->saso_number = $request->saso_number;
+                                   $Saso->expirydate = $request->saso_expirydate;
+                                   $Saso->file_id = $File_saso->id;
+                                
+                                   $Saso->save();
+                                 
+                             
+                       
+                                }
+    
+    
 
 
     
 
-    $File_saso = new File();
-    $File_saso->file_name = "شهادة المطابقة  ";
-    $File_saso->file_location = $request->saso_file;
-
-    $File_saso->save();
-
-   $Saso =  new Saso();
-   $Saso->order_id = $UserOreder->id;
-   $Saso->saso_number = $request->saso_number;
-   $Saso->expirydate = $request->saso_expirydate;
-   $Saso->file_id = $File_saso->id;
-
-   $Saso->save();
- 
+    
 
    
 
