@@ -23,6 +23,7 @@ use App\Saso;
 use App\Statu;
 use App\Truck;
 use Illuminate\Support\Facades\Redirect;
+use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Session;
 
 
@@ -80,7 +81,19 @@ class UserController extends Controller
             
         ],$messages);
 
-      
+        if(substr($request->invoice_file , -4 ) != '.pdf' || substr($request->saso_file  , -4 ) != '.pdf' ||substr($request->rl_file  , -4 ) != '.pdf'||
+        substr($request->policy_file  , -4 ) != '.pdf' ||substr($request->pl_file  , -4 ) != '.pdf'|| substr($request->coo_file  , -4 ) != '.pdf' ||
+        substr($request->el_file  , -4 ) != '.pdf' || substr($request->ms_file  , -4 ) != '.pdf'|| substr($request->tos_file  , -4 ) != '.pdf'||
+        substr($request->Other_file  , -4 ) != '.pdf' ){
+
+            Alert::info('يجب ادخال ملف بصيغة ','PDF file' );
+            return redirect::back();
+
+        }else{
+
+        
+               
+        
 
 
 
@@ -107,7 +120,8 @@ class UserController extends Controller
 
         
 
-     
+        $number  = UserOreder::all()->last();
+     $num = 1000 + $number->id;  
        
          //////////////////////////////////
         ////////// Get Waiting status from status table //////////////
@@ -130,7 +144,7 @@ class UserController extends Controller
          $file_Invoice = $request->file('invoice_file');
          $extension = $file_Invoice->getClientOriginalExtension();
          $destination_path= public_path().'/files'.'/'.auth()->user()->full_name . '/' . $userCR->cr_number;
-         $file_name = $new_date . 'فاتورة البضاعة '. $request->invoice_number. '.'. $extension;
+         $file_name = $num.$new_date . 'فاتورة البضاعة '. $request->invoice_number. '.'. $extension;
          $file_Invoice->move($destination_path, $file_name);
 
          $invoiceItem =  new invoiceItem();
@@ -163,7 +177,7 @@ class UserController extends Controller
          $file_coo = $request->file('coo_file');
          $extension = $file_coo->getClientOriginalExtension();
          $destination_path= public_path().'/files'.'/'.auth()->user()->full_name . '/' . $userCR->cr_number;
-         $file_name = $new_date . 'شهادة بلد المنشأ '. $request->coo_number. '.'. $extension;
+         $file_name = $num.$new_date . 'شهادة بلد المنشأ '. $request->coo_number. '.'. $extension;
          $file_coo->move($destination_path, $file_name);
 
          $File_coo = new File();
@@ -202,7 +216,7 @@ class UserController extends Controller
             $file_coo = $request->file('el_file');
             $extension = $file_coo->getClientOriginalExtension();
             $destination_path= public_path().'/files'.'/'.auth()->user()->full_name . '/' . $userCR->cr_number;
-            $file_name = $new_date . 'خطاب إعفاء '. $request->el_number. '.'. $extension;
+            $file_name = $num.$new_date . 'خطاب إعفاء '. $request->el_number. '.'. $extension;
             $file_coo->move($destination_path, $file_name);
    
             $File_el = new File();
@@ -241,10 +255,10 @@ class UserController extends Controller
 
             if( $request->ms_file != null ){
 
-                $file_coo = $request->file('ms_file');
+                $file_coo = $request->file('ms_file'); 
                 $extension = $file_coo->getClientOriginalExtension();
                 $destination_path= public_path().'/files'.'/'.auth()->user()->full_name . '/' . $userCR->cr_number;
-                $file_name = $new_date . 'بيان المقاصة '. $request->ms_number. '.'. $extension;
+                $file_name =$num. $new_date . 'بيان المقاصة '. $request->ms_number. '.'. $extension;
                 $file_coo->move($destination_path, $file_name);
                 
                 
@@ -285,10 +299,10 @@ class UserController extends Controller
 
                 if( $request->pl_file != null ){
 
-                    $file_coo = $request->file('pl_file');
+                    $file_coo = $request->file('pl_file ');
                     $extension = $file_coo->getClientOriginalExtension();
                     $destination_path= public_path().'/files'.'/'.auth()->user()->full_name . '/' . $userCR->cr_number;
-                    $file_name = $new_date . 'قائمة التعبئة  '. $request->el_number. '.'. $extension;
+                    $file_name = $num.$new_date . 'قائمة التعبئة  '. $request->el_number. '.'. $extension;
                     $file_coo->move($destination_path, $file_name);
                     
                     $File_pl = new File();
@@ -328,10 +342,10 @@ class UserController extends Controller
         
                     if( $request->policy_file != null ){
 
-                        $file_coo = $request->file('policy_file');
+                        $file_coo = $request->file('policy_file ');
                         $extension = $file_coo->getClientOriginalExtension();
                         $destination_path= public_path().'/files'.'/'.auth()->user()->full_name . '/' . $userCR->cr_number;
-                        $file_name = $new_date . 'البوليصة   '. $request->policy_number. '.'. $extension;
+                        $file_name = $num.$new_date . 'البوليصة   '. $request->policy_number. '.'. $extension;
                         $file_coo->move($destination_path, $file_name);
                         
                         $File_pn = new File();
@@ -372,10 +386,10 @@ class UserController extends Controller
 
                         if( $request->rl_file != null ){
 
-                            $file_coo = $request->file('rl_file');
+                            $file_coo = $request->file('rl_file ');
                             $extension = $file_coo->getClientOriginalExtension();
                             $destination_path= public_path().'/files'.'/'.auth()->user()->full_name . '/' . $userCR->cr_number;
-                            $file_name = $new_date . 'خطاب الفسح   '. $request->release_letter_number. '.'. $extension;
+                            $file_name = $num.$new_date . 'خطاب الفسح   '. $request->release_letter_number. '.'. $extension;
                             $file_coo->move($destination_path, $file_name);
                             
                             $File_rl = new File();
@@ -415,10 +429,10 @@ class UserController extends Controller
 
                             if( $request->saso_file != null ){
 
-                                $file_coo = $request->file('saso_file');
+                                $file_coo = $request->file('saso_file ');
                                 $extension = $file_coo->getClientOriginalExtension();
                                 $destination_path= public_path().'/files'.'/'.auth()->user()->full_name . '/' . $userCR->cr_number;
-                                $file_name = $new_date . 'شهادة المطابقة    '. $request->release_letter_number. '.'. $extension;
+                                $file_name =$num. $new_date . 'شهادة المطابقة    '. $request->release_letter_number. '.'. $extension;
                                 $file_coo->move($destination_path, $file_name);
                                 
                                 $File_saso = new File();
@@ -476,7 +490,6 @@ class UserController extends Controller
         $driver_name = $request->driver_name;
         $tos_file = $request->tos_file;
 
-
         /////////////////Save the data to other order table ////////////////////
        
     
@@ -488,7 +501,7 @@ class UserController extends Controller
             $file_Truck = $tos_file[$count];
             $extension =  $file_Truck->getClientOriginalExtension();
             $destination_path= public_path().'/files'.'/'.auth()->user()->full_name . '/' . $userCR->cr_number;
-            $file_name = $new_date . 'إستمارة ملكية الشاحنات '. $driver_name[$count]. '.'. $extension;
+            $file_name = $num.$new_date . 'إستمارة ملكية الشاحنات '. $driver_name[$count]. '.'. $extension;
            $file_Truck->move($destination_path, $file_name);
                         $File_truck = new File();
                         $File_truck->file_name = "إستمارة ملكية الشاحنات ";
@@ -520,6 +533,7 @@ class UserController extends Controller
             $Other_number = $request->Other_number;
             $Other_exp = $request->Other_exp;
             $Other_file = $request->Other_file;
+     
             /////////////////Save the data to other order table ////////////////////
  
             if( $Other_name != null && $Other_file != null  && $Other_number != null  && $Other_exp != null ) {
@@ -532,7 +546,7 @@ class UserController extends Controller
                 $file_Other = $Other_file[$count];
                 $extension = $file_Other->getClientOriginalExtension();
                 $destination_path= public_path().'/files'.'/'.auth()->user()->full_name . '/' . $userCR->cr_number;
-                $file_name = $new_date . 'أخر '. $Other_name[$count]. '.'. $extension;
+                $file_name = $num.$new_date . 'أخر '. $Other_name[$count]. '.'. $extension;
                 $file_Other->move($destination_path, $file_name);
     
                 $file_ood = new File();
@@ -568,7 +582,7 @@ class UserController extends Controller
 
         Session::flash('success','تم تسجيل طلبك');
         return Redirect('/user'); 
-
+    }
 
         
     }
@@ -622,7 +636,7 @@ class UserController extends Controller
 
         }else {
 
-            Session::flash('danger','الملف يجب ان يكون بصيغة PDF');
+            Alert::info('يجب ادخال ملف بصيغة ','PDF file' );
             return Redirect::back();
 
         }

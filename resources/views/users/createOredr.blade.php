@@ -4,6 +4,8 @@
 
 @section('content')
 @include('layouts.errmsg')
+@include('sweetalert::alert')
+
 
 
 <div class="container">   

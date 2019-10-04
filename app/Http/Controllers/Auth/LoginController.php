@@ -30,8 +30,8 @@ class LoginController extends Controller
     protected function redirectTo()
     {
         if (auth()->user()->role_id == 3) {
-            //Alert::success('مرحبا بك ',auth()->user()->full_name) ;
-            return view ('users.index');
+            Alert::success('مرحبا بك ',auth()->user()->full_name) ;
+            return '/';
         } else if (auth()->user()->role_id == 1) {
             return '/admin';
         }else{

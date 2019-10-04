@@ -8,6 +8,8 @@
             @yield('title') | الوطنية
           
           </title>
+          @include('sweetalert::alert')
+
           <link  rel="icon"  href="{!!asset('/images/Logo-Transparent-Background.png')!!}" />
       
 

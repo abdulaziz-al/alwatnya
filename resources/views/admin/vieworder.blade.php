@@ -395,6 +395,31 @@
                 @endif 
                 @endforeach
                 @endforeach
+                
+                @foreach ($comment as $comments)
+                @if ($orders->comment_id == $comments->id)
+                    
+                <div class="col-xs-6 col-md-6 col-lg-6">
+                    {{-- exemption_letter - خطاب إعفاء من التفتيش --}}
+                    <table class="table borderless table-striped text-center">
+                        <tr>
+                            <th colspan="2">تعليق من العميل </th>
+                        </tr>
+                        <tr>
+                            <td>التعليق </td>
+                            <td>تاريخ التعليق </td>
+                        </tr>
+                        <tr>
+                        <td>{{$comments->comment_description}}</td>
+                        <td>{{$exemption_letter->created_at}}</td>
+                        </tr>
+                      
+                        <tr><td colspan="2"></td></tr>
+                    </table>
+                </div>
+                @endif
+
+                @endforeach
                 @foreach ($other as $others)
                 @foreach ($file as $files)
                     
