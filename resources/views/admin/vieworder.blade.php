@@ -109,6 +109,7 @@
                             @csrf
                             <input type="submit" class="btn btn-success"  value="قبول " />
                         </form>
+                        
                         <a><button class="btn btn-warning text-right ml-auto mr-auto" data-toggle="modal" data-target="#viewAddModal">رفض  </button></a>
 
 

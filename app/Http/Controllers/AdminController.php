@@ -1,6 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\Hash;
+use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Support\Facades\Redirect;
 
 use Illuminate\Http\Request;
 use App\User;
@@ -69,8 +72,25 @@ class AdminController extends Controller
 
     // admin quick links:
     // 1 admin/ create new user
-    public function createUser() {
+    public function newUser() {
         return view('admin.newuser');
+    }
+    public function createUser(Request $request){
+
+        $subadmin =  new User();
+        $subadmin->full_name = $request->full_name;
+        $subadmin->email = $request->email;
+        $subadmin->phone = $request->phone;
+        $subadmin->active = true ;
+        $subadmin->role_id = 2;
+        $subadmin->password =  Hash::make($request->password);
+
+        $subadmin->save();
+
+        Alert::success('تمت اضافة عضو جديد ',$request->full_name );
+        return redirect('/');
+
+
     }
     // 2 admin/neworders page
     public function newOrders() {
@@ -112,7 +132,17 @@ class AdminController extends Controller
     }
     // 4 admin/returnedorders page
     public function returnedOrders() {
-        return view('admin.returnedorders');
+
+        $order = UserOreder::where('status_id' , 3 )->get();
+    
+        $invoice = Invoice::all();
+        $invoice_items = InvoiceItem::all();
+        $user = User::all();
+
+        $retrunorder =Array( 'order'=>$order ,'invoice_items'=>$invoice_items, 'invoice'=>$invoice , 'user'=>$user);
+
+        
+        return view('admin.returnedorders', $retrunorder);
     }
     // 5 admin/vieworder page
     public function viewOrder($id) {
@@ -170,6 +200,39 @@ class AdminController extends Controller
     // admin logout
     public function logout() {
         // logout & end sessions
+    }
+
+    protected function updatePasswordAdmin(Request $request){
+        if (!(Hash::check($request->get('old_password'), auth()->user()->password))) {
+            // The passwords not matches
+            //return redirect()->back()->with("error","Your current password does not matches with the password you provided. Please try again.");
+            Alert::error('كلمة المرور  القديمة غير صحيحة  Current password does not match <img src="/images/Logo-white-Transparent-Background.png" width="60" height="60">')->html();
+            //Alert::info('Random lorempixel.com :  <img src="/images/Logo-white-Transparent-Background.png" width="60" height="60">')->html();
+            //toast('!كلمة المرور  القديمة غير صحيحة','error','top-left');
+
+            return Redirect::Back();
+
+        }
+        //uncomment this if you need to validate that the new password is same as old one
+
+         if(strcmp($request->get('old_password'), $request->get('new_password')) == 0){
+            //Current password and new password are same
+            //return redirect()->back()->with("error","New Password cannot be same as your current password. Please choose a different password.");
+            Alert::error('لا يمكنك استخدام نفس كلمة المرور السابقة  ','New Password cannot be same as your current password ' , 'okay ');
+            return Redirect::Back();
+
+        }
+
+       
+        //Change Password
+       
+        User::where('id',auth()->user()->id)
+        ->update(['password' => Hash::make($request->get('new_password'))]);
+     //   Alert::info('تمت الزيادة بنسبة %',$request->input('salary') );
+
+        Alert::info('تم تغير كلمة المرور ','password has been changed ' , 'okay ');
+        return redirect('/admin');
+     
     }
  
 }

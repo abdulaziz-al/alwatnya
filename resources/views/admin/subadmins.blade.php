@@ -9,6 +9,13 @@
         <h3 class="text-center mt-3">إدارة المشرفين</h3>
         <hr>
         {{-- breadcrumb --}}
+        <button
+  [swal]="{ title: 'Enter your email', input: 'email' }"
+  (confirm)="saveEmail($event)"
+  (cancel)="handleRefusalToSetEmail($event)">
+
+  Set my e-mail address
+</button>
         <nav aria-label="breadcrumb" dir="rtl">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/admin"><i class="fas fa-home"></i> الرئيسية</a></li>

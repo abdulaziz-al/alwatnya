@@ -39,13 +39,17 @@ Route::get('/admin/settings/subadmins/new', 'AdminController@newSubAdmin');
 Route::get('/admin/settings/subadmins/viewsubadmin', 'AdminController@viewsubadmin');
 // 4 admin/settings/password page 
 Route::get('/admin/settings/password', 'AdminController@password');
+Route::post('/admin/settings/password', 'AdminController@updatePasswordAdmin')->name('updatePasswordAdmin');
+
 // 5 admin/settings/statuses page
 Route::get('/admin/settings/statuses', 'AdminController@orderStatuses');
 
 
 // admin quick links:
 // 1 admin/create new user page
-Route::get('/admin/createuser', 'AdminController@createUser');
+Route::get('/admin/createuser', 'AdminController@newUser');
+Route::post('/admin/createuser', 'AdminController@createUser')->name('createUser');
+
 // 2 admin/neworders page
 Route::get('/admin/neworders', 'AdminController@newOrders');
 // 3 admin/completedorders page
@@ -82,6 +86,7 @@ Route::get('/user/settings/info', 'UserController@viewInfoPage');
 Route::get('/user/settings/info/edit', 'UserController@viewEditPage');
 // 3 user/settings/password page
 Route::get('/user/settings/password', 'UserController@password');
+Route::post('/user/settings/password', 'UserController@updatePassword')->name('updatePassword');
 // 4 user/settings/crs page
 Route::get('/user/settings/crs', 'UserController@viewCRs');
 // 5 user/settings/crs/edit page

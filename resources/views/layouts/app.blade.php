@@ -42,16 +42,17 @@
         </style>
     </head>
     <body>
+        
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
          <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
             <img  src="/images/Logo-white-Transparent-Background.png" width="60" height="60" class="d-inline-block align-top" alt="">
-                
+        </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ ('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
          
-            </a>
+           
           
 
 
@@ -80,6 +81,30 @@
                         <li class="nav-item">
                                 <a class="nav-link" href="/admin">لوحة التحكم</a>
                             </li>
+                            <li class="nav-item dropdown">
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                   الإعدادات   <span class="caret"></span>
+                                </a>
+    
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    
+                                    <a class="dropdown-item" href="/admin/createuser"> عضو جديد <i class="fas fa-plus-circle"></i></a>
+
+                                                    <a class="dropdown-item" href="#"
+                                                       >
+                                                        {{ __('الطلبات المنفذة') }}
+                                                    </a>
+                                                            <a class="dropdown-item" href="#"
+                                                             >
+                                                                {{ __('الطلبات المعادة') }}
+                                                            </a>
+    
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        @csrf
+                                    </form>
+                                </div>
+                            </li>
+                            
 
                             @endif
                     @if (Auth::user()->role_id == 3 )
@@ -128,9 +153,13 @@
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="/user/settings/info"> 
                                     الملف الشخصي
-                                </a>   
+                                </a>  
 
+                                        <a class="dropdown-item" href="/user/settings/password"> 
+                                            تغير كلمة المرور 
+                                        </a>   
 
+                                
 
 
                                 <a class="dropdown-item" href="/user/createCR"> 

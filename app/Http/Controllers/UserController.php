@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 use App\User;
 use App\Role;
@@ -684,6 +685,35 @@ class UserController extends Controller
         return view('users.neworder');
     }
 
+    public function updatePassword(Request $request){
+        if (!(Hash::check($request->get('old_password'), auth()->user()->password))) {
+            // The passwords not matches
+            //return redirect()->back()->with("error","Your current password does not matches with the password you provided. Please try again.");
+            Alert::error('كلمة المرور  القديمة غير صحيحة  ','Current password does not match ' , 'okay ');
+            return Redirect::Back();
+
+        }
+        //uncomment this if you need to validate that the new password is same as old one
+
+         if(strcmp($request->get('old_password'), $request->get('new_password')) == 0){
+            //Current password and new password are same
+            //return redirect()->back()->with("error","New Password cannot be same as your current password. Please choose a different password.");
+            Alert::error('لا يمكنك استخدام نفس كلمة المرور السابقة  ','New Password cannot be same as your current password ' , 'okay ');
+            return Redirect::Back();
+
+        }
+
+       
+        //Change Password
+       
+        User::where('id',auth()->user()->id)
+        ->update(['password' => Hash::make($request->get('new_password'))]);
+     //   Alert::info('تمت الزيادة بنسبة %',$request->input('salary') );
+
+        Alert::info('تم تغير كلمة المرور ','password has been changed ' , 'okay ');
+        return redirect('/user');
+     
+    }
 
     
 public function PostRequest() {
