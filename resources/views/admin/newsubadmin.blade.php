@@ -14,19 +14,26 @@
                 <li class="breadcrumb-item active" aria-current="page"><a href="/admin/settings/subadmins"> <i class="fas fa-unlock-alt"></i> إدارة الإشراف</a></li>
             </ol>
         </nav>
-        <form>
-            <div class="row mb-3">
-                <div class="col text-right">
-                    <label for="username">إسم المستخدم</label>
-                    <input type="text" id='username' class="form-control" placeholder="username_123">
-                </div>
-            </div>
-            <div class="row mb-3">
-                <div class="col text-right">
-                    <label for="password">كلمة المرور</label>
-                    <input type="text" id='password' class="form-control" placeholder="********">
-                </div>
-            </div>
+        <form  method="POST" action="{{ route('createUser') }}" enctype="multipart/form-data">
+            @csrf
+
+                                <div class="form-group text-right">
+                                    <label for="username">إسم المستخدم</label>
+                                    <input class="form-control" id='full_name' placeholder="username" name="full_name" type="text">
+                                </div>
+                                <div class="form-group text-right">
+                                    <label for="email">البريد الإلكتروني</label>
+                                    <input class="form-control" id='email' placeholder="email@example.com" name="email" type="email">
+                                </div>
+                                <div class="form-group text-right">
+                                    <label for="password">كلمة المرور</label>
+                                    <input class="form-control" id='password' placeholder="********" name="password" type="password">
+                                </div>
+                                <div class="form-group text-right">
+                                    <label for="phone">رقم الجوال</label>
+                                    <input class="form-control" id='phone' placeholder="+966543210987" name="phone" type="phone">
+                                </div>
+
             <div class="row mb-3">
                 <div class="col text-right">
                     <label for="">الصلاحيات</label>

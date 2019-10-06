@@ -8,7 +8,6 @@
             @yield('title') | الوطنية
           
           </title>
-          @include('sweetalert::alert')
 
           <link  rel="icon"  href="{!!asset('/images/Logo-Transparent-Background.png')!!}" />
       
@@ -42,7 +41,8 @@
         </style>
     </head>
     <body>
-        
+        @include('sweetalert::alert')
+
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
          <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
@@ -88,17 +88,39 @@
     
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     
-                                    <a class="dropdown-item" href="/admin/createuser"> عضو جديد <i class="fas fa-plus-circle"></i></a>
+                                    <a class="dropdown-item" href="/admin/settings/subadmins/new"> عضو جديد <i class="fas fa-plus-circle"></i></a>
 
-                                                    <a class="dropdown-item" href="#"
-                                                       >
-                                                        {{ __('الطلبات المنفذة') }}
-                                                    </a>
-                                                            <a class="dropdown-item" href="#"
-                                                             >
-                                                                {{ __('الطلبات المعادة') }}
-                                                            </a>
+                                    <a class="dropdown-item" href="/admin/settings/subadmins" >
+                                        إدارة المشرفين
+                                    </a>
     
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        @csrf
+                                    </form>
+                                </div>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    {{ Auth::user()->full_name }} <span class="caret"></span>
+                                </a>
+
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="/admin/settings"> 
+                                    الملف الشخصي
+                                </a>  
+
+                                        <a class="dropdown-item" href="/admin/settings/password"> 
+                                            تغير كلمة المرور 
+                                        </a>   
+                                       
+                                    
+                         
+                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        {{ __('تسجيل خروج') }}
+                                    </a>
+
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
                                     </form>
@@ -140,7 +162,6 @@
                             </div>
                         </li>
                         
-                    @endif
 
                       
                     
@@ -183,6 +204,8 @@
                                     </form>
                                 </div>
                             </li>
+                            @endif
+
 
                         @endguest
                     </ul>

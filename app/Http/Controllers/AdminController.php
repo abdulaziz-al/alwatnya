@@ -51,15 +51,18 @@ class AdminController extends Controller
     }
     // 1 admin settings page / subadmins page
     public function subadmins() {
-        return view('admin.subadmins');
+        $sub = User::where('role_id', 2)->get();
+
+        return view('admin.subadmins'  )->with('sub',$sub);
     }
     // 2 admin/settings/subadmins/ create a new sub-admin page
     public function newSubAdmin() {
         return view('admin.newsubadmin');
     }
     // 3 admin/settings/subadmins/ view a sub-admin info page
-    public function viewsubadmin() {
-        return view('admin.viewsubadmin');
+    public function viewsubadmin($id) {
+        $sub = User::where('id', $id)->first();
+        return view('admin.viewsubadmin')->with('sub',$sub);;
     }
     // 4 admin/settings/password change password page
     public function password() {
@@ -206,8 +209,8 @@ class AdminController extends Controller
         if (!(Hash::check($request->get('old_password'), auth()->user()->password))) {
             // The passwords not matches
             //return redirect()->back()->with("error","Your current password does not matches with the password you provided. Please try again.");
-            Alert::error('كلمة المرور  القديمة غير صحيحة  Current password does not match <img src="/images/Logo-white-Transparent-Background.png" width="60" height="60">')->html();
-            //Alert::info('Random lorempixel.com :  <img src="/images/Logo-white-Transparent-Background.png" width="60" height="60">')->html();
+            Alert::error('كلمة المرور  القديمة غير صحيحة ',' Current password does not match ');
+           // Alert::html('Random lorempixel.com :' , '<img src="/images/Logo-white-Transparent-Background.png" ');
             //toast('!كلمة المرور  القديمة غير صحيحة','error','top-left');
 
             return Redirect::Back();

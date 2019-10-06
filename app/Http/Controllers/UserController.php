@@ -623,7 +623,8 @@ class UserController extends Controller
       
          $file_CR->save();
 
-            
+            //request()->ip() 
+            // $request->getClientIp();
          $CommercialRecord =  new CommercialRecord();
          $CommercialRecord->user_id = auth()->user()->id;
          $CommercialRecord->file_id = $file_CR->id;

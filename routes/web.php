@@ -36,7 +36,7 @@ Route::get('/admin/settings/subadmins', 'AdminController@subadmins');
 // 2 admin/settings/subadmins/ create a new sub-admin page
 Route::get('/admin/settings/subadmins/new', 'AdminController@newSubAdmin');
 // 3 admin/settings/subadmins/ view subadmin page
-Route::get('/admin/settings/subadmins/viewsubadmin', 'AdminController@viewsubadmin');
+Route::get('/admin/settings/subadmins/viewsubadmin{id}', 'AdminController@viewsubadmin');
 // 4 admin/settings/password page 
 Route::get('/admin/settings/password', 'AdminController@password');
 Route::post('/admin/settings/password', 'AdminController@updatePasswordAdmin')->name('updatePasswordAdmin');
