@@ -111,17 +111,29 @@ text-align: right;
 }
 /*log in */
 .btnlogin{
-    
-    margin: auto;
+  margin-top:5%;
+    margin-left: 40%;
     border: none;
     border-radius: 1.5rem;
     padding: 2%;
     background:  #5a5a5a;
     color: #fff;
     font-weight: 600;
-    width: 15%;
+    width: 20%;
     height:20%;
     
+}
+#btnRegister{
+  margin-top:5%;
+  margin-left: 40%;
+
+}
+#field{
+  margin-left: 15%;
+  width: 80%;
+  height:80%;
+  
+
 }
 
 #cardss{

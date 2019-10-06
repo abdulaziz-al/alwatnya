@@ -27,13 +27,21 @@
                     <form method="POST" action="{{ route('login') }}">
                             @csrf
                     <div class="row register-form">
-                        
-                            <button type="submit" class="btnlogin">
-                                    {{ __('تسجيل دخول') }}
-                                </button>
 
-                                <div class="form-inline">
-                                        <div class="col-md-6">
+                                <div class="row" id="field">
+                                                                    
+                                        <div class="col-lg-12">
+                           
+                                <i class="fa fa-envelope-open" aria-hidden="true" id="icon"></i>
+                                <input type="email" class=" form-control {{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autofocus placeholder="إيميل " />
+                            </div>
+                            @if ($errors->has('email'))
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $errors->first('email') }}</strong>
+                            </span>
+                        @endif
+
+                        <div class="col-lg-12">
 
                                         <i class="fa fa-lock" id="icon"></i>
 
@@ -47,21 +55,14 @@
                                     </span>
                                 @endif
         
-                                
-                        <div class="col-md-6">
-                           
-                                        <i class="fa fa-envelope-open" aria-hidden="true" id="icon"></i>
-                                        <input type="email" class="form-control {{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autofocus placeholder="إيميل " />
-                                    </div>
-                                    @if ($errors->has('email'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
 
                         </div>
+
+
+                        <button type="submit" class="btnlogin">
+                                {{ __('تسجيل دخول') }}
+                            </button>
                         
-                           
 
                     </div>
 

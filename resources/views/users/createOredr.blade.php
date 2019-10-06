@@ -11,7 +11,6 @@
 <div class="container">   
     
 
-
         <form  method="POST" action="{{ route('createOrder') }}" enctype="multipart/form-data">
                 @csrf
             <div class="form-group">
@@ -20,22 +19,25 @@
                                 <h4 style="text-align: right">                                
 
                                     فاتورة البضاعة  </h4>
-
+                                    
 
                                 
 
 
                         <div id="cardform" >
                             
-                    <input type="text" class="form-control {{ $errors->has('invoice_number') ? ' is-invalid' : '' }}" name="invoice_number" value="{{ old('invoice_number') }}" required autofocus placeholder="   رقم الفاتورة" />
-                        
+                    <input type="text" id="typesPrompt" class="form-control {{ $errors->has('invoice_number') ? ' is-invalid' : '' }}" name="invoice_number" value="{{ old('invoice_number') }}" required autofocus placeholder="   رقم الفاتورة" />
+                    <span id="typePrompt">يرجى إدخال رقم الفاتورة </span>
+
                         @if ($errors->has('invoice_number'))
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $errors->first('invoice_number') }}</strong>
                         </span>
                     @endif
     
-                    <input type="date" class="form-control {{ $errors->has('expirydate_invoice') ? ' is-invalid' : '' }}" name="expirydate" value="{{ old('expirydate_invoice') }}" required autofocus placeholder="تاريخ الإنتهاء" />
+                    <input type="date" id="typesPrompt" class="form-control {{ $errors->has('expirydate_invoice') ? ' is-invalid' : '' }}" name="expirydate" value="{{ old('expirydate_invoice') }}" required autofocus placeholder="تاريخ الإنتهاء" />
+                    <span id="typePrompt">يرجى إدخال تاريخ إنتهاء الفاتورة </span>
+
                 @if ($errors->has('expirydate_invoice'))
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $errors->first('expirydate_invoice') }}</strong>
@@ -43,8 +45,11 @@
             @endif
             
            
-            {!! Form::file('invoice_file') !!}
-
+            <br>
+<div class="fas fa-arrow-alt-circle-up">
+    {!! Form::file('invoice_file') !!}
+    
+</div>
 
 </div>
 
@@ -76,16 +81,20 @@
                     </span>
                 @endif
 
-                <input type="date" class="form-control {{ $errors->has('expirydate_coo') ? ' is-invalid' : '' }}" name="expirydate_coo" value="{{ old('expirydate_coo') }}"  autofocus placeholder="تاريخ الإنتهاء" />
+                <input type="date" id="typesPrompt" class="form-control {{ $errors->has('expirydate_coo') ? ' is-invalid' : '' }}" name="expirydate_coo" value="{{ old('expirydate_coo') }}"  autofocus placeholder="تاريخ الإنتهاء" />
+                <span id="typePrompt">يرجى إدخال تاريخ الانتهاء </span>
+
+  
             @if ($errors->has('expirydate_coo'))
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $errors->first('expirydate_coo') }}</strong>
             </span>
         @endif
-
+<br>
       
-        {!! Form::file('coo_file') !!}
-
+<div class="fas fa-arrow-alt-circle-up">
+    {!! Form::file('coo_file') !!}
+</div>
 </div>
 
         </div>
@@ -117,19 +126,20 @@
                     </span>
                 @endif
 
-                <input type="date" class="form-control {{ $errors->has('ms_expirydate') ? ' is-invalid' : '' }}" name="ms_expirydate" value="{{ old('ms_expirydate') }}"  autofocus placeholder="تاريخ الإنتهاء" />
+                <input type="date" id="typesPrompt" class="form-control {{ $errors->has('ms_expirydate') ? ' is-invalid' : '' }}" name="ms_expirydate" value="{{ old('ms_expirydate') }}"  autofocus placeholder="تاريخ الإنتهاء" />
+                <span id="typePrompt">يرجى إدخال تاريخ الانتهاء </span>
+
             @if ($errors->has('ms_expirydate'))
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $errors->first('ms_expirydate') }}</strong>
             </span>
         @endif
+<br>
+      
+<div class="fas fa-arrow-alt-circle-up">
+    {!! Form::file('invoice_file') !!}
+</div>      
 
-        <input type="file" class="{{ $errors->has('ms_file') ? ' is-invalid' : '' }}" name="ms_file" value="{{ old('ms_file') }}"  />
-    @if ($errors->has('ms_file'))
-    <span class="invalid-feedback" role="alert">
-        <strong>{{ $errors->first('ms_file') }}</strong>
-    </span>
-@endif
                             </div>
         </div>
     </div>
@@ -159,20 +169,21 @@
                     </span>
                 @endif
 
-                <input type="date" class="form-control {{ $errors->has('pl_expirydate') ? ' is-invalid' : '' }}" name="pl_expirydate" value="{{ old('pl_expirydate') }}"  autofocus placeholder="تاريخ الإنتهاء" />
+                <input type="date" id="typesPrompt" class="form-control {{ $errors->has('pl_expirydate') ? ' is-invalid' : '' }}" name="pl_expirydate" value="{{ old('pl_expirydate') }}"  autofocus placeholder="تاريخ الإنتهاء" />
+                <span id="typePrompt">يرجى إدخال تاريخ الانتهاء </span>
+
             @if ($errors->has('pl_expirydate'))
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $errors->first('pl_expirydate') }}</strong>
             </span>
         @endif
 
-        <input type="file" class="{{ $errors->has('pl_file') ? ' is-invalid' : '' }}" name="pl_file" value="{{ old('pl_file') }}"  />
-    @if ($errors->has('pl_file'))
-    <span class="invalid-feedback" role="alert">
-        <strong>{{ $errors->first('pl_file') }}</strong>
-    </span>
-@endif
-</div>
+        <br>
+      
+        <div class="fas fa-arrow-alt-circle-up">
+            {!! Form::file('invoice_file') !!}
+        </div>      
+    </div>
 </div>
         </div>
 
@@ -191,27 +202,29 @@
 
                                 <div id="cardform4" style="display: none">
 
-                        <input type="text" class="form-control {{ $errors->has('release_letter_number') ? ' is-invalid' : '' }}" name="release_letter_number" value="{{ old('release_letter_number') }}"  autofocus placeholder="  رقم فسح " />
-                    
+                        <input type="text" id="typesPrompt" class="form-control {{ $errors->has('release_letter_number') ? ' is-invalid' : '' }}" name="release_letter_number" value="{{ old('release_letter_number') }}"  autofocus placeholder="  رقم فسح " />
+                        <span id="typePrompt">يرجى إدخال رقم الفسح </span>
+
                     @if ($errors->has('release_letter_number'))
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $errors->first('release_letter_number') }}</strong>
                     </span>
                 @endif
 
-                <input type="date" class="form-control {{ $errors->has('rl_expirydate') ? ' is-invalid' : '' }}" name="rl_expirydate" value="{{ old('rl_expirydate') }}"  autofocus placeholder="تاريخ الإنتهاء" />
+                <input type="date" id="typesPrompt" class="form-control {{ $errors->has('rl_expirydate') ? ' is-invalid' : '' }}" name="rl_expirydate" value="{{ old('rl_expirydate') }}"  autofocus placeholder="تاريخ الإنتهاء" />
+                <span id="typePrompt">يرجى إدخال تاريخ الانتهاء </span>
+
             @if ($errors->has('rl_expirydate'))
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $errors->first('rl_expirydate') }}</strong>
             </span>
         @endif
 
-        <input type="file" class="{{ $errors->has('rl_file') ? ' is-invalid' : '' }}" name="rl_file" value="{{ old('rl_file') }}"  />
-    @if ($errors->has('rl_file'))
-    <span class="invalid-feedback" role="alert">
-        <strong>{{ $errors->first('rl_file') }}</strong>
-    </span>
-@endif
+        <br>
+      
+        <div class="fas fa-arrow-alt-circle-up">
+            {!! Form::file('invoice_file') !!}
+        </div> 
 </div>
 </div>
         </div>
@@ -231,27 +244,28 @@
                         شهادة المطابقة  </h4>
                         
                                 <div id="cardform5" style="display: none">
-                        <input type="text" class="form-control {{ $errors->has('saso_number') ? ' is-invalid' : '' }}" name="saso_number" value="{{ old('saso_number') }}"  autofocus placeholder="  رقم الشهادة " />
-                    
+                        <input type="text" id="typesPrompt" class="form-control {{ $errors->has('saso_number') ? ' is-invalid' : '' }}" name="saso_number" value="{{ old('saso_number') }}"  autofocus placeholder="  رقم الشهادة " />
+                        <span id="typePrompt">يرجى إدخال رقم الشهادة </span>
+
                     @if ($errors->has('saso_number'))
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $errors->first('saso_number') }}</strong>
                     </span>
                 @endif
 
-                <input type="date" class="form-control {{ $errors->has('saso_expirydate') ? ' is-invalid' : '' }}" name="saso_expirydate" value="{{ old('saso_expirydate') }}"  autofocus placeholder="تاريخ الإنتهاء" />
+                <input type="date" id="typesPrompt" class="form-control {{ $errors->has('saso_expirydate') ? ' is-invalid' : '' }}" name="saso_expirydate" value="{{ old('saso_expirydate') }}"  autofocus placeholder="تاريخ الإنتهاء" />
+                <span id="typePrompt">يرجى إدخال تاريخ الانتهاء </span>
+
             @if ($errors->has('saso_expirydate'))
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $errors->first('saso_expirydate') }}</strong>
             </span>
         @endif
-
-        <input type="file" class="{{ $errors->has('saso_file') ? ' is-invalid' : '' }}" name="saso_file" value="{{ old('saso_file') }}"  />
-    @if ($errors->has('saso_file'))
-    <span class="invalid-feedback" role="alert">
-        <strong>{{ $errors->first('saso_file') }}</strong>
-    </span>
-@endif
+        <br>
+      
+        <div class="fas fa-arrow-alt-circle-up">
+            {!! Form::file('invoice_file') !!}
+        </div> 
 
         </div>
 
@@ -277,27 +291,29 @@
     
                                 <div id="cardform6" style="display: none">
 
-                        <input type="text" class="form-control {{ $errors->has('policy_number') ? ' is-invalid' : '' }}" name="policy_number" value="{{ old('policy_number') }}"  autofocus placeholder="  رقم البوليصة " />
-                    
+                        <input type="text" id="typesPrompt" class="form-control {{ $errors->has('policy_number') ? ' is-invalid' : '' }}" name="policy_number" value="{{ old('policy_number') }}"  autofocus placeholder="  رقم البوليصة " />
+                        <span id="typePrompt">يرجى إدخال رقم البوليصة </span>
+
                     @if ($errors->has('policy_number'))
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $errors->first('policy_number') }}</strong>
                     </span>
                 @endif
 
-                <input type="date" class="form-control {{ $errors->has('policy_expirydate') ? ' is-invalid' : '' }}" name="policy_expirydate" value="{{ old('policy_expirydate') }}"  autofocus placeholder="تاريخ الإنتهاء" />
+                <input type="date" id="typesPrompt" class="form-control {{ $errors->has('policy_expirydate') ? ' is-invalid' : '' }}" name="policy_expirydate" value="{{ old('policy_expirydate') }}"  autofocus placeholder="تاريخ الإنتهاء" />
+                <span id="typePrompt">يرجى إدخال تاريخ الانتهاء </span>
+
             @if ($errors->has('policy_expirydate'))
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $errors->first('policy_expirydate') }}</strong>
             </span>
         @endif
 
-        <input type="file" class="{{ $errors->has('policy_file') ? ' is-invalid' : '' }}" name="policy_file" value="{{ old('policy_file') }}"  />
-    @if ($errors->has('policy_file'))
-    <span class="invalid-feedback" role="alert">
-        <strong>{{ $errors->first('policy_file') }}</strong>
-    </span>
-@endif
+        <br>
+      
+        <div class="fas fa-arrow-alt-circle-up">
+            {!! Form::file('invoice_file') !!}
+        </div> 
                                 </div>
                         </div>
                 </div>
@@ -327,19 +343,19 @@
                 </span>
             @endif
 
-            <input type="date" class="form-control {{ $errors->has('el_expirydate') ? ' is-invalid' : '' }}" name="el_expirydate" value="{{ old('el_expirydate') }}"  autofocus placeholder="تاريخ الإنتهاء" />
+            <input type="date" id="typesPrompt" class="form-control {{ $errors->has('el_expirydate') ? ' is-invalid' : '' }}" name="el_expirydate" value="{{ old('el_expirydate') }}"  autofocus placeholder="تاريخ الإنتهاء" />
+            <span id="typePrompt">يرجى إدخال تاريخ الانتهاء </span>
+
         @if ($errors->has('el_expirydate'))
         <span class="invalid-feedback" role="alert">
             <strong>{{ $errors->first('el_expirydate') }}</strong>
         </span>
     @endif
-
-    <input type="file" class="{{ $errors->has('el_file') ? ' is-invalid' : '' }}" name="el_file" value="{{ old('el_file') }}"  />
-@if ($errors->has('el_file'))
-<span class="invalid-feedback" role="alert">
-    <strong>{{ $errors->first('el_file') }}</strong>
-</span>
-@endif
+    <br>
+      
+    <div class="fas fa-arrow-alt-circle-up">
+        {!! Form::file('invoice_file') !!}
+    </div>
 </div>
 </div>
     </div>
