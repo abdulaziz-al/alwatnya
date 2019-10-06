@@ -39,12 +39,17 @@ Route::get('/admin/settings/subadmins/new', 'AdminController@newSubAdmin');
 Route::get('/admin/settings/subadmins/viewsubadmin', 'AdminController@viewsubadmin');
 // 4 admin/settings/password page 
 Route::get('/admin/settings/password', 'AdminController@password');
+Route::post('/admin/settings/password', 'AdminController@updatePasswordAdmin')->name('updatePasswordAdmin');
+
 // 5 admin/settings/statuses page
 Route::get('/admin/settings/statuses', 'AdminController@orderStatuses');
 
+
 // admin quick links:
 // 1 admin/create new user page
-Route::get('/admin/createuser', 'AdminController@createUser');
+Route::get('/admin/createuser', 'AdminController@newUser');
+Route::post('/admin/createuser', 'AdminController@createUser')->name('createUser');
+
 // 2 admin/neworders page
 Route::get('/admin/neworders', 'AdminController@newOrders');
 // 3 admin/completedorders page
@@ -52,7 +57,10 @@ Route::get('/admin/completedorders', 'AdminController@completedOrders');
 // 4 admin/returnedorders page
 Route::get('/admin/returnedorders', 'AdminController@returnedOrders');
 // 5 admin/vieworder page
-Route::get('/admin/vieworder', 'AdminController@viewOrder');
+Route::get('/admin/vieworder{id}', 'AdminController@viewOrder');
+Route::post('/admin/vieworder{id}', 'AdminController@OrderCompleted');
+Route::post('/admin/vieworder{id}', 'AdminController@OrderReject')->name('OrderReject');
+
 // 6 admin/search page
 Route::get('/admin/search', 'AdminController@search');
 // admin logout
@@ -63,6 +71,7 @@ Route::get('/admin/logout', 'AdminController@logout');
 // -- user controller --
 // user dashboard
 Route::get('/user', 'UserController@index');
+Route::get('/user/post','UserController@PostRequest');
 Route::get('/user/createCR', 'UserController@showCRcreate');
 Route::post('/user/createCR', 'UserController@CreateCR')->name('CreateCR');
 
@@ -77,6 +86,7 @@ Route::get('/user/settings/info', 'UserController@viewInfoPage');
 Route::get('/user/settings/info/edit', 'UserController@viewEditPage');
 // 3 user/settings/password page
 Route::get('/user/settings/password', 'UserController@password');
+Route::post('/user/settings/password', 'UserController@updatePassword')->name('updatePassword');
 // 4 user/settings/crs page
 Route::get('/user/settings/crs', 'UserController@viewCRs');
 // 5 user/settings/crs/edit page

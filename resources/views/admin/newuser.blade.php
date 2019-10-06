@@ -17,11 +17,12 @@
                 <div class="col-md-4 ml-auto mr-auto">
                     <div class="panel panel-default">
                         <div class="panel-body">
-                            <form accept-charset="UTF-8" role="form">
-                            <fieldset>
+                            <form  method="POST" action="{{ route('createUser') }}" enctype="multipart/form-data">
+                                @csrf
+                                <fieldset>
                                 <div class="form-group text-right">
                                     <label for="username">إسم المستخدم</label>
-                                    <input class="form-control" id='username' placeholder="username" name="username" type="text">
+                                    <input class="form-control" id='full_name' placeholder="username" name="full_name" type="text">
                                 </div>
                                 <div class="form-group text-right">
                                     <label for="email">البريد الإلكتروني</label>

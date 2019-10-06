@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('select')
+@include('sweetalert::alert')
 
 <div class="dropdown">
         <button onclick="myFunction()" class="dropbtn">إختار سجلك التجاري</button>
@@ -32,7 +33,6 @@
         
 
         <div class="container">
-{{substr(Auth::user()->cr_image , -4)}}
 
 
 

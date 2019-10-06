@@ -21,5 +21,9 @@
         "sass": "^1.15.2",
         "sass-loader": "^7.1.0",
         "vue": "^2.5.17"
+    },
+    "dependencies": {
+        "@sweetalert2/ngx-sweetalert2": "^6.0.1",
+        "sweetalert2": "^8.18.0"
     }
 }

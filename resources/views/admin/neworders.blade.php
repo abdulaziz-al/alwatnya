@@ -12,60 +12,31 @@
                 <tr>
                     <td>
                         <div class="list-group">
-                            <a href="vieworder" class="list-group-item list-group-item-action">
-                                <i class="fas fa-fire text-danger"></i>
+                                @foreach ($order as $orders)
+
+                                <a href="vieworder{{$orders->id}}" class="list-group-item list-group-item-action">
+                                    <i class="fas fa-fire text-danger"></i>
                                 <span class="badge badge-pill badge-primary">جديد</span>
                                 <div class="d-flex w-100 justify-content-between">
-                                <h5 class="mb-1 ml-auto mr-auto">#CDC-1090 طلب تخليص جمركي رقم</h5>
-                                <small>منذ يوم</small>
+                                    @foreach ($invoice as $invoices)
+                                    @foreach ($invoice_items as $invoice_item)
+                                        @if ($invoices->id == $orders->invoice_id && $invoices->invoiceItems_id == $invoice_item->id )
+                                        <h5 class="mb-1 ml-auto mr-auto">{{substr($invoice_item->invoiceItems_description , 0,-3) }}   طلب تخليص جمركي رقم</h5>
+
+                                        @endif
+                                    @endforeach
+                                    @endforeach
+                                    <small> {{substr ($orders->created_at,0,10)}}  :منذ </small>
                                 </div>
-                                <p class="mb-1">@kamal1199 - +966554433221</p>
+                                @foreach ($user as $users)
+                                @if ($users->id == $orders->user_id)
+                                    
+                            <p class="mb-1">{{$users->full_name}}  -  +{{$users->phone}} </p>
+                            @endif
+                            @endforeach
                             </a>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <div class="list-group">
-                            <a href="vieworder" class="list-group-item list-group-item-action">
-                                <i class="fas fa-fire text-danger"></i>
-                                <span class="badge badge-pill badge-primary">جديد</span>
-                                <div class="d-flex w-100 justify-content-between">
-                                <h5 class="mb-1 ml-auto mr-auto">#CDC-1091 طلب تخليص جمركي رقم</h5>
-                                <small>منذ 3 أيام</small>
-                            </div>
-                                <p class="mb-1">@hussam9911 - +966554354321</p>
-                            </a>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <div class="list-group">
-                            <a href="vieworder" class="list-group-item list-group-item-action">
-                                <i class="fas fa-fire text-danger"></i>
-                                <span class="badge badge-pill badge-primary">جديد</span>
-                                <div class="d-flex w-100 justify-content-between">
-                                <h5 class="mb-1 ml-auto mr-auto">#CDC-1092 طلب تخليص جمركي رقم</h5>
-                                <small>منذ 4 أيام</small>
-                                </div>
-                                <p class="mb-1">@ahmad91 - +96655000999</p>
-                            </a>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <div class="list-group">
-                            <a href="vieworder" class="list-group-item list-group-item-action">
-                                <i class="fas fa-fire text-danger"></i>
-                                <span class="badge badge-pill badge-primary">جديد</span>
-                                <div class="d-flex w-100 justify-content-between">
-                                <h5 class="mb-1 ml-auto mr-auto">#CDC-1093 طلب تخليص جمركي رقم</h5>
-                                <small>منذ 4 أيام</small>
-                                </div>
-                                <p class="mb-1">@ali91 - +96655999000</p>
-                            </a>
+                            @endforeach
+
                         </div>
                     </td>
                 </tr>

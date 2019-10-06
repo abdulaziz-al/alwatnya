@@ -4,6 +4,8 @@
 
 @section('content')
 @include('layouts.errmsg')
+@include('sweetalert::alert')
+
 
 
 <div class="container">   
@@ -91,7 +93,7 @@
 <br>
       
 <div class="fas fa-arrow-alt-circle-up">
-    {!! Form::file('invoice_file') !!}
+    {!! Form::file('coo_file') !!}
 </div>
 </div>
 
@@ -366,7 +368,8 @@
                 <input type="text" class="form-control" name="driver_name[]" placeholder="أسم السائق" required/>
                 <input type="text" class="form-control" name="truck_ownership_number1[]" placeholder="الرقم الهاتف الدولي" required/>
                 <input type="text" class="form-control" name="truck_ownership_number2[]" placeholder="الرقم الهاتف المحلي" required/>
-            {!! Form::file('tos_file') !!}
+                <input type="file" class="form-control" name="tos_file[]"  required/>
+
             </div>
 
         </div>
@@ -434,7 +437,7 @@
         var maxField = 10; //Input fields increment limitation
         var addButton = $('.add_button'); //Add button selector
         var wrapper = $('.field_wrapper'); //Input field wrapper
-        var fieldHTML = '<div > <br/><input type="text" name="Truck_ownership[]" class="form-control" placeholder="رقم السيارة  " required><input type="text" class="form-control" name="driver_name[]" placeholder="أسم السائق"/><input type="text" class="form-control" name="truck_ownership_number1[]" placeholder="الرقم الهاتف الدولي"/><input type="text" class="form-control" name="truck_ownership_number2[]" placeholder="الرقم الهاتف المحلي"/><input style="width: 20%" class="btn btn-danger remove_button" value="حذف" /> </div>'; //New input field html 
+        var fieldHTML = '<div > <br/><input type="text" name="Truck_ownership[]" class="form-control" placeholder="رقم السيارة  " required><input type="text" class="form-control" name="driver_name[]" placeholder="أسم السائق"/><input type="text" class="form-control" name="truck_ownership_number1[]" placeholder="الرقم الهاتف الدولي"/><input type="text" class="form-control" name="truck_ownership_number2[]" placeholder="الرقم الهاتف المحلي"/><input type="file" class="form-control" name="tos_file[]"  required/><input style="width: 20%" class="btn btn-danger remove_button" value="حذف" /> </div>'; //New input field html 
         var x = 1; //Initial field counter is 1
         
         //Once add button is clicked
