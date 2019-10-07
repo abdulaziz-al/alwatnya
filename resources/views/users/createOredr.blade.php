@@ -13,6 +13,24 @@
 
         <form  method="POST" action="{{ route('createOrder') }}" enctype="multipart/form-data">
                 @csrf
+                <div class="form-group">
+                    <div class="   table-striped" id="newcard" style="width: 65%" >
+                   
+                                    <h4 style="text-align: right">                                
+    
+                                        إستيراد أو تصدير </h4>
+                                        <div class="radio-toolbar">
+                                            <input type="radio" id="radioA" name="radioF" value="إستيراد" checked>
+                                            <label for="radioA">إستيراد</label>
+                                        
+                                            <input type="radio" id="radioB" name="radioF" value="تصدير">
+                                            <label for="radioB">تصدير</label>
+                                        
+                                        </div>
+                                    </div>
+
+                    </div>
+
             <div class="form-group">
                 <div class="   table-striped" id="newcard" style="width: 65%" >
                
@@ -368,7 +386,7 @@
                 <input type="text" class="form-control" name="driver_name[]" placeholder="أسم السائق" required/>
                 <input type="text" class="form-control" name="truck_ownership_number1[]" placeholder="الرقم الهاتف الدولي" required/>
                 <input type="text" class="form-control" name="truck_ownership_number2[]" placeholder="الرقم الهاتف المحلي" required/>
-                <input type="file" class="form-control" name="tos_file[]"  required/>
+                <input type="file" class="form-control " name="tos_file[]"  required/>
 
             </div>
 
