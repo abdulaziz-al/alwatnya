@@ -11,7 +11,7 @@
 <div class="container">   
     
 
-        <form  method="POST" action="{{ route('createOrder') }}" enctype="multipart/form-data">
+        <form  method="POST" action="{{ route('createOrder') }}" enctype="multipart/form-data" >
                 @csrf
             <div class="form-group">
                 <div class="   table-striped" id="newcard" style="width: 65%" >
@@ -46,10 +46,12 @@
             
            
             <br>
-<div class="fas fa-arrow-alt-circle-up">
-    {!! Form::file('invoice_file') !!}
-    
-</div>
+          
+            {!! Form::file('invoice_file',['required']) !!}
+            
+
+ 
+  
 
 </div>
 
@@ -137,7 +139,7 @@
 <br>
       
 <div class="fas fa-arrow-alt-circle-up">
-    {!! Form::file('invoice_file') !!}
+    {!! Form::file('ms_file') !!}
 </div>      
 
                             </div>
@@ -181,7 +183,7 @@
         <br>
       
         <div class="fas fa-arrow-alt-circle-up">
-            {!! Form::file('invoice_file') !!}
+            {!! Form::file('pl_file') !!}
         </div>      
     </div>
 </div>
@@ -223,7 +225,7 @@
         <br>
       
         <div class="fas fa-arrow-alt-circle-up">
-            {!! Form::file('invoice_file') !!}
+            {!! Form::file('rl_file') !!}
         </div> 
 </div>
 </div>
@@ -264,7 +266,7 @@
         <br>
       
         <div class="fas fa-arrow-alt-circle-up">
-            {!! Form::file('invoice_file') !!}
+            {!! Form::file('saso_file') !!}
         </div> 
 
         </div>
@@ -312,7 +314,7 @@
         <br>
       
         <div class="fas fa-arrow-alt-circle-up">
-            {!! Form::file('invoice_file') !!}
+            {!! Form::file('policy_file') !!}
         </div> 
                                 </div>
                         </div>
@@ -354,7 +356,7 @@
     <br>
       
     <div class="fas fa-arrow-alt-circle-up">
-        {!! Form::file('invoice_file') !!}
+        {!! Form::file('el_file') !!}
     </div>
 </div>
 </div>
@@ -368,7 +370,7 @@
                 <input type="text" class="form-control" name="driver_name[]" placeholder="أسم السائق" required/>
                 <input type="text" class="form-control" name="truck_ownership_number1[]" placeholder="الرقم الهاتف الدولي" required/>
                 <input type="text" class="form-control" name="truck_ownership_number2[]" placeholder="الرقم الهاتف المحلي" required/>
-                <input type="file" class="form-control" name="tos_file[]"  required/>
+                <input type="file"  name="tos_file[]"  required/>
 
             </div>
 
@@ -437,7 +439,7 @@
         var maxField = 10; //Input fields increment limitation
         var addButton = $('.add_button'); //Add button selector
         var wrapper = $('.field_wrapper'); //Input field wrapper
-        var fieldHTML = '<div > <br/><input type="text" name="Truck_ownership[]" class="form-control" placeholder="رقم السيارة  " required><input type="text" class="form-control" name="driver_name[]" placeholder="أسم السائق"/><input type="text" class="form-control" name="truck_ownership_number1[]" placeholder="الرقم الهاتف الدولي"/><input type="text" class="form-control" name="truck_ownership_number2[]" placeholder="الرقم الهاتف المحلي"/><input type="file" class="form-control" name="tos_file[]"  required/><input style="width: 20%" class="btn btn-danger remove_button" value="حذف" /> </div>'; //New input field html 
+        var fieldHTML = '<div > <br/><input type="text" name="Truck_ownership[]" class="form-control" placeholder="رقم السيارة  " required><input type="text" class="form-control" name="driver_name[]" placeholder="أسم السائق"/><input type="text" class="form-control" name="truck_ownership_number1[]" placeholder="الرقم الهاتف الدولي"/><input type="text" class="form-control" name="truck_ownership_number2[]" placeholder="الرقم الهاتف المحلي"/><input type="file"  name="tos_file[]"  required/><input style="width: 20%" class="btn btn-danger remove_button" value="حذف" /> </div>'; //New input field html 
         var x = 1; //Initial field counter is 1
         
         //Once add button is clicked

@@ -70,29 +70,10 @@ class UserController extends Controller
 
     public function createOrder(Request $request ){
 
-        $messages = [
-    
-            'Other_file.*'=>'ولد لازم '
-            
-        ];
         
-        $this->validate($request, [
-            'comment_order'=>'required',
-           
-            
-        ],$messages);
 
-        if(substr($request->invoice_file , -4 ) != '.pdf' || substr($request->saso_file  , -4 ) != '.pdf' ||substr($request->rl_file  , -4 ) != '.pdf'||
-        substr($request->policy_file  , -4 ) != '.pdf' ||substr($request->pl_file  , -4 ) != '.pdf'|| substr($request->coo_file  , -4 ) != '.pdf' ||
-        substr($request->el_file  , -4 ) != '.pdf' || substr($request->ms_file  , -4 ) != '.pdf'|| substr($request->tos_file  , -4 ) != '.pdf'||
-        substr($request->Other_file  , -4 ) != '.pdf' ){
+       
 
-            Alert::info('يجب ادخال ملف بصيغة ','PDF file' );
-            return redirect::back();
-
-        }else{
-
-        
                
         
 
@@ -143,10 +124,11 @@ class UserController extends Controller
 
 //////////////////// Invoice Table ////////////////////////////////////////
          $file_Invoice = $request->file('invoice_file');
-         $extension = $file_Invoice->getClientOriginalExtension();
+         $extension = $request->file('invoice_file')->getClientOriginalExtension();
          $destination_path= public_path().'/files'.'/'.auth()->user()->full_name . '/' . $userCR->cr_number;
          $file_name = $num.$new_date . 'فاتورة البضاعة '. $request->invoice_number. '.'. $extension;
          $file_Invoice->move($destination_path, $file_name);
+         
 
          $invoiceItem =  new invoiceItem();
          $invoiceItem->invoiceItems_description =$file_name ;
@@ -580,11 +562,12 @@ class UserController extends Controller
   
     
 
+         
+         Alert::success('تم تسجيل طلبك  ',  $invoiceItem->invoiceItems_description );
 
-        Session::flash('success','تم تسجيل طلبك');
         return Redirect('/user'); 
-    }
-
+    
+    
         
     }
     protected function showCRcreate(){
@@ -633,7 +616,8 @@ class UserController extends Controller
          $CommercialRecord->active = 0 ;
          $CommercialRecord->save();
  
-         Session::flash('success','تم إرسال المعلومات ');
+         Alert::success(' تم إرسال المعلومات  للسجل التجاري برقم  ',$request->cr_number );
+
          return Redirect('/user'); 
 
         }else {

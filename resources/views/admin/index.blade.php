@@ -28,7 +28,7 @@
                         <td>عدد الطلبات بإنتظار التنفيذ على النظام <i class="far fa-clock text-danger"></i></td>
                     </tr>
                     <tr>
-                        <td><u>{{$order_Reject->count()}}</u></td>
+                        <td> <a href="/admin/returnedorders"><u>{{$order_Reject->count()}}</u></a></td>
                         <td>عدد الطلبات المعادة للتحديث <i class="far fa-undo text-warning"></i></td>
                     </tr>
                 </table>
