@@ -11,7 +11,8 @@
 |
 
 */
-
+Route::group(['prefix' => LaravelLocalization::setLocale()], function()
+{
 // -- home controller --
 // home / guest view
 Route::get('/','HomeController@index');
@@ -118,3 +119,6 @@ Route::get('/user/logout', function() {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+
+});

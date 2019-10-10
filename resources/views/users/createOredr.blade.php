@@ -20,10 +20,10 @@
     
                                         إستيراد أو تصدير </h4>
                                         <div class="radio-toolbar">
-                                            <input type="radio" id="radioA" name="radioF" value="إستيراد" checked>
+                                            <input type="radio" id="radioA" name="radioF" value="0" checked>
                                             <label for="radioA">إستيراد</label>
                                         
-                                            <input type="radio" id="radioB" name="radioF" value="تصدير">
+                                            <input type="radio" id="radioB" name="radioF" value="1">
                                             <label for="radioB">تصدير</label>
                                         
                                         </div>

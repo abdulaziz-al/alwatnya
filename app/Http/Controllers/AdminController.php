@@ -98,7 +98,7 @@ class AdminController extends Controller
     // 2 admin/neworders page
     public function newOrders() {
 
-        $order = UserOreder::where('status_id' , 1 )->get();
+        $order = UserOreder::where('status_id' , 1 )->orderBy('created_at','DESC')->paginate(10);
     
         $invoice = Invoice::all();
         $invoice_items = InvoiceItem::all();

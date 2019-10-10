@@ -11,7 +11,7 @@
             <h4>أهلا وسهلا</h4>
             <p> شركة الوطنية للتخليص الجمركي</p>
             <a href="/login" > 
-            <input type="submit" name=""  value="تسجيل دخول"/>
+            <input type="submit" name=""  value="{{trans('main.Login')}} "/>
             </a>
             <br/>
 
@@ -21,7 +21,7 @@
             
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                    <h1 class="register-heading">سجل</h1>
+                    <h1 class="register-heading">{{trans('main.sigup')}}</h1>
                     <form method="POST" action="{{ route('register') }}" >
 
                         @csrf
@@ -82,7 +82,7 @@
                                             <span id="typePrompt">يرجى إعادة أدخال كلمة المرور </span>
 
                     </div>
-                    <input type="submit" id="btnRegister" class="btnRegister"  value="إنشاء حساب" />
+                    <input type="submit" id="btnRegister" class="btnRegister"  value="{{trans('main.sigup')}}" />
 
                 </div>   
                     </form>

@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title>  
-            @yield('title') | الوطنية
+            @yield('title')  {{trans('main.title')}}
           
           </title>
 
@@ -46,6 +46,24 @@
 
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
          <div class="container">
+             
+                <li class="nav-item dropdown">
+                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                {{trans('main.lang')}} <span class="caret"></span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+
+
+            @foreach (LaravelLocalization::getSupportedLocales() as $key => $value)
+
+              <a class="dropdown-item" href="{{LaravelLocalization::getLocalizedUrl($key)}}">
+                 {{$value['native']}} 
+                </a>
+
+             @endforeach   
+            </div>
+                </li>
+                
                 <a class="navbar-brand" href="{{ url('/') }}">
             <img  src="/images/Logo-white-Transparent-Background.png" width="60" height="60" class="d-inline-block align-top" alt="">
         </a>
@@ -54,28 +72,28 @@
                 </button>
          
            
-          
+               
 
 
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                      <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="/contact-us">تواصل معنا</a>
+                        <a class="nav-link" href="/contact-us">{{trans('main.contactUs')}}</a>
                     </li>
                  
 
                      <li class="nav-item">
-                        <a class="nav-link" href="/">الرئيسية</a>
+                        <a class="nav-link" href="/">{{trans('main.home')}}</a>
                     </li>
     
                             @guest
            
               <li class="nav-item">
-                           <a class="nav-link" href="/login">الدخول  <span class="sr-only">(current)</span></a>
+                           <a class="nav-link" href="/login">{{trans('main.Login')}}  <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/register">التسجيل</a>
+                        <a class="nav-link" href="/register">{{trans('main.sigup')}}</a>
                     </li>
                         @else
                         @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2 )

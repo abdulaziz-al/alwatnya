@@ -26,7 +26,14 @@ use App\Truck;
 use Illuminate\Support\Facades\Redirect;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Session;
+/*
 
+    php artisan config:clear
+    php artisan cache:clear
+    composer dump-autoload
+
+Optional composer update
+*/
 
 
 class UserController extends Controller
@@ -70,17 +77,47 @@ class UserController extends Controller
 
     public function createOrder(Request $request ){
 
+        $messages = [
+    
+           'invoice_file'=> 'PDF only ',
+            
+        ];
+        
+        $this->validate($request, [
+            'invoice_file'=>'required|mimes:pdf|max:1300',
+            'saso_file'=>'mimes:pdf|max:1300',
+            'rl_file'=>'mimes:pdf|max:1300',
+            'policy_file'=>'mimes:pdf|max:1300',
+            'pl_file'=>'mimes:pdf|max:1300',
+            'coo_file'=>'mimes:pdf|max:1300',
+            'el_file'=>'mimes:pdf|max:1300',
+            'ms_file'=>'mimes:pdf|max:1300',
+           
+
+        
+            
+        ],$messages);
+
         
 
-       
+        if(substr($request->tos_file , -3 ) != 'pdf') {
+            Alert::info('يجب ادخال ملف بصيغة ','PDF file' );
+            return redirect::back();
+        }
+   
+
+
+/*
+  if( substr($request->invoice_file , -3 ) != 'pdf'  ){
+
+            Alert::info('يجب ادخال ملف بصيغة ','PDF file' );
+            return redirect::back();
+
+        }else{
 
                
         
 
-
-
-
-/*
         'comment_description','comment_by_user','comment_to_user'
         'user_id','order_id','file_id','cr_number','cr_expiry'
         'order_id','coo_number','expirydate','file_id'
@@ -148,7 +185,7 @@ class UserController extends Controller
          $UserOreder->admin_id = null ;
          $UserOreder->cr_id = $userCR->id  ;
          $UserOreder->invoice_id =  $Invoice->id;
-         $UserOreder->importeport_id = false ;
+         $UserOreder->importeport_id = $request->radioF ;
          $UserOreder->number_of_trucks =$countTrunl;
          $UserOreder->status_id = $Statu->id;
          $UserOreder->comment_id = $Comment->id;
@@ -562,7 +599,7 @@ class UserController extends Controller
   
     
 
-         
+    
          Alert::success('تم تسجيل طلبك  ',  $invoiceItem->invoiceItems_description );
 
         return Redirect('/user'); 
@@ -608,6 +645,7 @@ class UserController extends Controller
 
             //request()->ip() 
             // $request->getClientIp();
+            // $request->header('User-Agent');
          $CommercialRecord =  new CommercialRecord();
          $CommercialRecord->user_id = auth()->user()->id;
          $CommercialRecord->file_id = $file_CR->id;
