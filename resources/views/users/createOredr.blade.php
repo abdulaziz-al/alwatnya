@@ -53,8 +53,12 @@
                         </span>
                     @endif
     
-                    <input type="date" id="typesPrompt" class="form-control {{ $errors->has('expirydate_invoice') ? ' is-invalid' : '' }}" name="expirydate" value="{{ old('expirydate_invoice') }}" required autofocus placeholder="تاريخ الإنتهاء" />
-                    <span id="typePrompt">يرجى إدخال تاريخ إنتهاء الفاتورة </span>
+            
+                                <div class="input-group date">
+                                    <input type='text' name="expirydate_invoice" class="form-control" id="hijri-date-input" placeholder="يرجى إدخال تاريخ إنتهاء الفاتورة " />
+                                   
+                                </div>
+                            
 
                 @if ($errors->has('expirydate_invoice'))
                 <span class="invalid-feedback" role="alert">
@@ -101,9 +105,12 @@
                     </span>
                 @endif
 
-                <input type="date" id="typesPrompt" class="form-control {{ $errors->has('expirydate_coo') ? ' is-invalid' : '' }}" name="expirydate_coo" value="{{ old('expirydate_coo') }}"  autofocus placeholder="تاريخ الإنتهاء" />
-                <span id="typePrompt">يرجى إدخال تاريخ الانتهاء </span>
-
+            
+                <div class="input-group date">
+                    <input type='text' name="expirydate_coo" class="form-control" id="hijri-date-input" placeholder="يرجى إدخال تاريخ إنتهاء الفاتورة " />
+                   
+                </div>
+          
   
             @if ($errors->has('expirydate_coo'))
             <span class="invalid-feedback" role="alert">
