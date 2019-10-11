@@ -16,10 +16,17 @@ class CreateAdminsTable extends Migration
         Schema::create('admins', function (Blueprint $table) {
             $table->engine = 'InnoDB';
 
-            $table->increments('admin_id');
-            $table->integer('role_id');//fk
-            $table->string('username');
-            $table->string('password');
+    //<---------- FK from User tables ------------>//
+    $table->integer('admin_id')->unsigned()->index();
+    $table->foreign('admin_id')->references('id')->on('users')->onDelete('cascade');
+  //----------------------FK form roles -------------------//
+  $table->integer('role_id')->unsigned()->index();
+  $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');
+            
+  
+            //----------------------FK form previliges -------------------//
+            $table->integer('previlige_id')->unsigned()->index();
+            $table->foreign('previlige_id')->references('id')->on('previliges')->onDelete('cascade');
             $table->timestamps();
         });
     }

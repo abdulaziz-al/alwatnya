@@ -17,7 +17,10 @@ class CreateUserLogsTable extends Migration
             $table->engine = 'InnoDB';
 
             $table->increments('logs_id');
-            $table->integer('user_id');//for key
+       //<---------- FK from User tables ------------>//
+       $table->integer('user_id')->unsigned()->index();
+       $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            
             $table->string('source_ip');
             $table->string('description');
             $table->date('created_on');

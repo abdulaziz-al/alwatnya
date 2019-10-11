@@ -17,7 +17,8 @@ class CreatePreviligesTable extends Migration
             $table->engine = 'InnoDB';
 
 
-            $table->increments('previliges_id');
+            $table->increments('id');
+             
             $table->string('previliges_name');
             
 

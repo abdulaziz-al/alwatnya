@@ -41,9 +41,6 @@ class CreateUserOredersTable extends Migration
             $table->integer('status_id')->unsigned()->index();
             $table->foreign('status_id')->references('id')->on('status')->onDelete('cascade');
             
-                //<---------- FK from Comment tables ------------>//
-            $table->integer('comment_id')->unsigned()->index();
-            $table->foreign('comment_id')->references('id')->on('comments')->onDelete('cascade');
             
             
 

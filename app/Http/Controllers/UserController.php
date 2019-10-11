@@ -23,6 +23,8 @@ use App\ReleaseLetter;
 use App\Saso;
 use App\Statu;
 use App\Truck;
+use App\UserLogs;
+
 use Illuminate\Support\Facades\Redirect;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Session;
