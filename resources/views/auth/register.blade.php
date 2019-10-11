@@ -27,17 +27,18 @@
                         @csrf
     
                     <div class="row register-form">
-                            <div class="col-lg-12">
+                            <div class="col-lg-12 ">
 
 
                                         <i class="fa fa-user" aria-hidden="true" id="icon" ></i>
                              <input id="typesPrompt" name="full_name" type="text"  class="form-control" placeholder="الإسم الكامل" id="typesPrompt" >
                              <span id="typePrompt">يرجى إدخال إسم المستخدم الكامل</span>
     
-                            
+                            </div>
                               
 
 
+                            <div class="col-lg-12 ">
 
                              
                             
@@ -45,13 +46,14 @@
                                 <input id="typesPrompt"  name="email" type="text" class="form-control" placeholder="إيميل " value="" />
                                 <span id="typePrompt">يرجى إدخال الإيميل</span>
 
-                            
+                            </div>                            
                             
 
                            
 
                            
 
+                            <div class="col-lg-12 ">
 
                         
 
@@ -60,13 +62,11 @@
                                     <input  id="typesPrompt" type="text" minlength="10" maxlength="10" name="phone" class="form-control" placeholder="رقم جوال*" value="" />
                                     <span id="typePrompt">يرجى إدخال الجوال</span>
     
-    
+                            </div>
                             
                             
-                        
-    
-
-                                        <i class="fa fa-lock" id="icon"></i>
+                            <div class="col-lg-12 ">
+                             <i class="fa fa-lock" id="icon"></i>
                                             <input id="typesPrompt" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password"  placeholder="الرقم السري " required>
                                             <span id="typePrompt">يرجى ادخال كلمة مرور مكونة من حروف وارقام </span>
 
@@ -75,14 +75,20 @@
                                                     <strong>{{ $errors->first('password') }}</strong>
                                                 </span>
                                             @endif
-            
+                            </div>
+                            <div class="col-lg-12 ">
+
                                             <i class="fa fa-lock" id="icon" ></i>
                                             <input id="typesPrompt" type="password" class="form-control" name="password_confirmation" placeholder="تأكيد الرقم السري  " required>
                                   
                                             <span id="typePrompt">يرجى إعادة أدخال كلمة المرور </span>
+                            </div>
+                            <div class="col-lg-12 ">
+
+                                            <input type="submit" id="btnRegister" class="btnRegister"  value="{{trans('main.sigup')}}" />
+
 
                     </div>
-                    <input type="submit" id="btnRegister" class="btnRegister"  value="{{trans('main.sigup')}}" />
 
                 </div>   
                     </form>

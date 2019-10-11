@@ -13,9 +13,12 @@
       
 
         <!-- Fonts -->
-        <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-        <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+        <link href="css/bootstrap.css" rel="stylesheet" />
+        <link href="css/bootstrap-datetimepicker.css" rel="stylesheet" />
+    
+
+  
         <script src="https://kit.fontawesome.com/6606739ea1.js" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 
@@ -46,24 +49,7 @@
 
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
          <div class="container">
-             
-                <li class="nav-item dropdown">
-                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                {{trans('main.lang')}} <span class="caret"></span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-
-
-            @foreach (LaravelLocalization::getSupportedLocales() as $key => $value)
-
-              <a class="dropdown-item" href="{{LaravelLocalization::getLocalizedUrl($key)}}">
-                 {{$value['native']}} 
-                </a>
-
-             @endforeach   
-            </div>
-                </li>
-                
+            
                 <a class="navbar-brand" href="{{ url('/') }}">
             <img  src="/images/Logo-white-Transparent-Background.png" width="60" height="60" class="d-inline-block align-top" alt="">
         </a>
@@ -73,11 +59,30 @@
          
            
                
-
-
-
+                     <!-- -->
+                     
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                     <ul class="navbar-nav ml-auto">
+                    <ul class="navbar-nav ml-auto">
+
+                     <li class="nav-item dropdown">
+                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                {{trans('main.lang')}} <span class="caret"></span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+    
+                        
+            @foreach (LaravelLocalization::getSupportedLocales() as $key => $value)
+    
+              <a class="dropdown-item" href="{{LaravelLocalization::getLocalizedUrl($key)}}">
+                 {{$value['native']}} 
+                </a>
+    
+             @endforeach   
+            </div>
+                </li>
+                
+
+
                     <li class="nav-item">
                         <a class="nav-link" href="/contact-us">{{trans('main.contactUs')}}</a>
                     </li>
@@ -149,6 +154,9 @@
 
                             @endif
                     @if (Auth::user()->role_id == 3 )
+
+
+
                     
                     <li class="nav-item">
                             <a class="nav-link" href="/user">لوحة التحكم</a>
@@ -241,84 +249,59 @@
                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
                 <!-- Include all compiled plugins (below), or include individual files as needed -->
                 <script src="{{ asset('js/bootstrap/bootstrap.min.js') }}"></script>
-        <script>
-            var currDate = '';
-            function initWork() {
-                // get today's date in Hijri
-                currDate = HijriJS.today().toString();
-                // to remove H from yearH ex: 1440H, drop the last character to be 1440
-                currDate = currDate.substring(0, currDate.length - 1);
-                // reformat date from dd/mm/yyyy to dd-mm-yyyy
-                currDate = currDate.split('/').join('-');
-                // set the date input field to currDate so, datepicker sets it as the current date automatically
-                $('#datepicker').val(currDate);
-                
-            }
-            $( function() {
-                $( "#datepicker" ).datepicker({
-                    // changeMonth: true, // show months menu
-                    changeYear: true, // show years menu
-                    dayNamesMin: [ "س", "ج", "خ", "ر", "ث", "ن", "ح" ], // arabic days names
-                    // dayNames: [ "السبت", "الجمعة", "الخميس", "الأربعاء", "الثلاثاء", "الأُثنين", "الأحد" ],
-                    dateFormat: "dd-mm-yy", // set format to dd-mm-yyyy
-                    monthNames: [ "محرم", "صفر", "ربيع الأول", "ربيع الثاني", "جمادى الأول", "جمادى الثاني", "رجب", "شعبان", "رمضان", "شوال", "ذو القعدة", "ذو الحجة" ],
-                    yearRange: "c-0:c+15", // year range in Hijri from current year and +15 years
-                    monthNamesShort: [ "محرم", "صفر", "ربيع ١", "ربيع ٢", "جمادى ١", "جمادى ٢", "رجب", "شعبان", "رمضان", "شوال", "ذو القعدة", "ذو الحجة" ],
-                    showAnim: 'bounce'
-                });
-            } );
-            </script>
-
-<script type="text/javascript" src="{{ asset('js/Hijri.js') }}"></script>
-<script>
-    var currDate = '';
-    function initWork() {
-        // get today's date in Hijri
-        currDate = HijriJS.today().toString();
-        // to remove H from yearH ex: 1440H, drop the last character to be 1440
-        currDate = currDate.substring(0, currDate.length - 1);
-        // reformat date from dd/mm/yyyy to dd-mm-yyyy
-        currDate = currDate.split('/').join('-');
-        // set the date input field to currDate so, datepicker sets it as the current date automatically
-        // $('#datepicker').val(currDate);
         
-    }
-    $( function() {
-        $( "#datepicker" ).datepicker({
-            // changeMonth: true, // show months menu
-            changeYear: true, // show years menu
-            dayNamesMin: [ "س", "ج", "خ", "ر", "ث", "ن", "ح" ], // arabic days names
-            // dayNames: [ "السبت", "الجمعة", "الخميس", "الأربعاء", "الثلاثاء", "الأُثنين", "الأحد" ],
-            dateFormat: "dd-mm-yy", // set format to dd-mm-yyyy
-            monthNames: [ "محرم", "صفر", "ربيع الأول", "ربيع الثاني", "جمادى الأول", "جمادى الثاني", "رجب", "شعبان", "رمضان", "شوال", "ذو القعدة", "ذو الحجة" ],
-            yearRange: "c-0:c+15", // year range in Hijri from current year and +15 years
-            monthNamesShort: [ "محرم", "صفر", "ربيع ١", "ربيع ٢", "جمادى ١", "جمادى ٢", "رجب", "شعبان", "رمضان", "شوال", "ذو القعدة", "ذو الحجة" ],
-            showAnim: 'bounce'
+    <script src="js/jquery-3.3.1.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/momentjs.js"></script>
+    <script src="js/moment-with-locales.js"></script>
+    <script src="js/moment-hijri.js"></script>
+    <script src="js/bootstrap-hijri-datetimepicker.js"></script>
+    <script type="text/javascript">
+
+
+        $(function () {
+
+            initHijrDatePicker();
+
+            //initHijrDatePickerDefault();
+
         });
-    } );
+
+        function initHijrDatePicker() {
+
+            $("#hijri-date-input").hijriDatePicker({
+                locale: "ar-sa",
+
+                format:"هـ iYYYY-iMM-iDD " + "DD-MM-YYYY م" ,
+                hijriFormat:"هـ iYYYY-iMM-iDD " + "DD-MM-YYYY م" ,
+
+                dayViewHeaderFormat: "MMMM YYYY",
+                hijriDayViewHeaderFormat: "iMMMM iYYYY",
+                showSwitcher: true,
+
+                allowInputToggle: true,
+                showTodayButton: false,
+                useCurrent: true,
+                isRTL: false,
+                keepOpen: false,
+                hijri: true,
+                debug: true,
+                showClear: true,
+                showTodayButton: true,
+                showClose: true
+
+            });
+
+        }
+
+        function initHijrDatePickerDefault() {
+
+            $("#hijri-date-input").hijriDatePicker();
+        }
+
 
     </script>
-<script>
-        $('.del-btn').on('click', function() {
-            swal({
-                title: "هل أنت متأكد؟",
-                text: "!بعد الحذف لن تتمكن من استعادة البيانات المحذوفة",
-                icon: "warning",
-                buttons: true,
-                dangerMode: true,
-            })
-            .then((willDelete) => {
-                if (willDelete) {
-                    swal("درررررم تم الحذف بنجاح", {
-                        icon: "success",
-                    });
-                } else {
-                    swal("تم إلغاء عملية الحذف");
-                }
-            });
-        })
-    </script>
-    
+
     </body>
 </html>
 

@@ -41,9 +41,11 @@
 
 </div>
 
-<div class="form-group row">
-<input id="cr_exp" name="cr_exp" type="date" class="form-control" placeholder="تاريخ انتهاء السجل التجاري  " value="" required />
+<div class="input-group date">
+    <input type='text' name="cr_exp" class="form-control" id="hijri-date-input" placeholder="يرجى إدخال تاريخ إنتهاء الفاتورة " />
+   
 </div>
+
 <input type="submit" class="btnRegister "  value="إضافة السجل" />
 
             </form>
