@@ -41,7 +41,27 @@
 
         <!-- Styles -->
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-        <style>
+        @if (App::getLocale() == 'en')
+                   <style>
+                   p,h4,input.form-control,div.form-group{
+                text-align: left;
+                direction: ltr;
+
+                   }
+                   
+                   </style>
+                   @else
+                   <style>
+                        td,p,h4,input.form-control,div.form-group{
+                     text-align: right;
+                     direction: rtl;
+
+                        }
+                        </style>
+                   @endif
+       
+       
+       <style>
             html, body {
                 background-color: #fff;
                 color: #636b6f;
@@ -50,6 +70,7 @@
                 height: 100vh;
                 margin: 0;
             }
+
 
         </style>
     </head>
@@ -112,7 +133,7 @@
                         @else
                         @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2 )
                         <li class="nav-item">
-                                <a class="nav-link" href="/admin">لوحة التحكم</a>
+                                <a class="nav-link" href="/admin">{{trans('main.dashboard')}} </a>
                             </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -168,12 +189,12 @@
 
                     
                     <li class="nav-item">
-                            <a class="nav-link" href="/user">لوحة التحكم</a>
+                            <a class="nav-link" href="/user"> {{trans('main.dashboard')}}</a>
                         </li>
 
                     <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                الوصل السريع  <span class="caret"></span>
+                                    {{trans('main.Quick')}}  <span class="caret"></span>
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
@@ -181,15 +202,15 @@
                                 @yield('select')
 
                                         <a class="dropdown-item" href="/user/neworders">
-                                            {{ __('الطلبات الحالية ') }}
+                                            {{trans('main.Current_requests')}}
                                         </a>
                                                 <a class="dropdown-item" href="#"
                                                    >
-                                                    {{ __('الطلبات المنفذة') }}
+                                                   {{trans('main.Executed_requests')}}
                                                 </a>
                                                         <a class="dropdown-item" href="#"
                                                          >
-                                                            {{ __('الطلبات المعادة') }}
+                                                         {{trans('main.Returned_requests')}}
                                                         </a>
 
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -209,30 +230,30 @@
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="/user/settings/info"> 
-                                    الملف الشخصي
+                                    {{trans('main.profile')}}
                                 </a>  
 
                                         <a class="dropdown-item" href="/user/settings/password"> 
-                                            تغير كلمة المرور 
+                                            {{trans('main.change_password')}}
                                         </a>   
 
                                 
 
 
                                 <a class="dropdown-item" href="/user/createCR"> 
-                                   إضافة سجل التجاري
+                                    {{trans('main.Commercial_record')}}
                                  
                                 
                                     </a>   
                                     <a class="dropdown-item" href="/user/settings/crs">
-                                        تعديل السجل التجاري
+                                        {{trans('main.edit_Commercial_record')}}
                                     </a>
                                     
                          
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                        {{ __('تسجيل خروج') }}
+                                        {{trans('main.Logout')}}
                                     </a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

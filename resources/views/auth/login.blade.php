@@ -19,11 +19,15 @@
 
             
         </div>
+        
         <div class="col-md-9 register-right">
             
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                     <h4 class="register-heading"> {{trans('main.Login')}}</h4>
+                    
+                       
+
                     <form method="POST" action="{{ route('login') }}">
                             @csrf
                     <div class="row register-form">
@@ -66,7 +70,8 @@
 
                     </div>
 
-
+                
+                
                     </form>
                    </div>
                 </div>
