@@ -200,9 +200,11 @@
                         <strong>{{ $errors->first('packing_list_number') }}</strong>
                     </span>
                 @endif
-
-                <input type="date" id="typesPrompt" class="form-control {{ $errors->has('pl_expirydate') ? ' is-invalid' : '' }}" name="pl_expirydate" value="{{ old('pl_expirydate') }}"  autofocus placeholder="تاريخ الإنتهاء" />
-                <span id="typePrompt">يرجى إدخال تاريخ الانتهاء </span>
+               
+                <div class="input-group date">
+                    <input type='text'   id="hijri-date-input5" name="pl_expirydate" class="form-control"  placeholder="يرجى إدخال تاريخ إنتهاء الفاتورة " />
+                   
+                </div>
 
             @if ($errors->has('pl_expirydate'))
             <span class="invalid-feedback" role="alert">
@@ -243,8 +245,10 @@
                     </span>
                 @endif
 
-                <input type="date" id="typesPrompt" class="form-control {{ $errors->has('rl_expirydate') ? ' is-invalid' : '' }}" name="rl_expirydate" value="{{ old('rl_expirydate') }}"  autofocus placeholder="تاريخ الإنتهاء" />
-                <span id="typePrompt">يرجى إدخال تاريخ الانتهاء </span>
+                <div class="input-group date">
+                    <input type='text'   id="hijri-date-input6" name="rl_expirydate" class="form-control"  placeholder="يرجى إدخال تاريخ إنتهاء الفاتورة " />
+                   
+                </div>
 
             @if ($errors->has('rl_expirydate'))
             <span class="invalid-feedback" role="alert">
@@ -285,8 +289,10 @@
                     </span>
                 @endif
 
-                <input type="date" id="typesPrompt" class="form-control {{ $errors->has('saso_expirydate') ? ' is-invalid' : '' }}" name="saso_expirydate" value="{{ old('saso_expirydate') }}"  autofocus placeholder="تاريخ الإنتهاء" />
-                <span id="typePrompt">يرجى إدخال تاريخ الانتهاء </span>
+                <div class="input-group date">
+                    <input type='text'   id="hijri-date-input7" name="saso_expirydate" class="form-control"  placeholder="يرجى إدخال تاريخ إنتهاء الفاتورة " />
+                   
+                </div>
 
             @if ($errors->has('saso_expirydate'))
             <span class="invalid-feedback" role="alert">
@@ -332,9 +338,10 @@
                     </span>
                 @endif
 
-                <input type="date" id="typesPrompt" class="form-control {{ $errors->has('policy_expirydate') ? ' is-invalid' : '' }}" name="policy_expirydate" value="{{ old('policy_expirydate') }}"  autofocus placeholder="تاريخ الإنتهاء" />
-                <span id="typePrompt">يرجى إدخال تاريخ الانتهاء </span>
-
+                <div class="input-group date">
+                    <input type='text'   id="hijri-date-input8" name="policy_expirydate" class="form-control"  placeholder="يرجى إدخال تاريخ إنتهاء الفاتورة " />
+                   
+                </div>
             @if ($errors->has('policy_expirydate'))
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $errors->first('policy_expirydate') }}</strong>
@@ -375,8 +382,10 @@
                 </span>
             @endif
 
-            <input type="date" id="typesPrompt" class="form-control {{ $errors->has('el_expirydate') ? ' is-invalid' : '' }}" name="el_expirydate" value="{{ old('el_expirydate') }}"  autofocus placeholder="تاريخ الإنتهاء" />
-            <span id="typePrompt">يرجى إدخال تاريخ الانتهاء </span>
+            <div class="input-group date">
+                <input type='text'   id="hijri-date-input9" name="el_expirydate" class="form-control"  placeholder="يرجى إدخال تاريخ إنتهاء الفاتورة " />
+               
+            </div>
 
         @if ($errors->has('el_expirydate'))
         <span class="invalid-feedback" role="alert">
