@@ -24,7 +24,7 @@ use App\Saso;
 use App\Statu;
 use App\Truck;
 use App\UserLogs;
-
+use DateTime;
 use Illuminate\Support\Facades\Redirect;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Session;
@@ -629,7 +629,13 @@ class UserController extends Controller
 
 
         $extension = $request->file('cr_image')->getClientOriginalExtension();
+        $datee = new  \DateTime();
+        if(substr($request->cr_exp, 15  ) <  $datee  ){
+            Alert::error('Heeeeey the date is die  ','' );
+            return Redirect::back();
+        }else {
 
+        
         if($extension == 'pdf'){
 
             $file_TT = $request->file('cr_image');
@@ -648,11 +654,12 @@ class UserController extends Controller
             //request()->ip() 
             // $request->getClientIp();
             // $request->header('User-Agent');
+         $mi =  substr($request->cr_exp, 15 )  ;
          $CommercialRecord =  new CommercialRecord();
          $CommercialRecord->user_id = auth()->user()->id;
          $CommercialRecord->file_id = $file_CR->id;
          $CommercialRecord->cr_number = $request->cr_number;
-         $CommercialRecord->cr_expiry = $request->cr_exp;
+         $CommercialRecord->cr_expiry = $mi;
          $CommercialRecord->active = 0 ;
          $CommercialRecord->save();
  
@@ -666,7 +673,7 @@ class UserController extends Controller
             return Redirect::back();
 
         }
-
+    }
 
 
     }
