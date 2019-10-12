@@ -54,8 +54,9 @@
                     @endif
     
             
+                            
                                 <div class="input-group date">
-                                    <input type='text' name="expirydate_invoice" class="form-control" id="hijri-date-input" placeholder="يرجى إدخال تاريخ إنتهاء الفاتورة " />
+                                    <input type='text'   id="hijri-date-input1" name="expirydate_invoice" class="form-control"  placeholder="يرجى إدخال تاريخ إنتهاء الفاتورة " />
                                    
                                 </div>
                             
@@ -104,13 +105,14 @@
                         <strong>{{ $errors->first('coo_number') }}</strong>
                     </span>
                 @endif
-
             
-                <div class="input-group date">
-                    <input type='text' name="expirydate_coo" class="form-control" id="hijri-date-input" placeholder="يرجى إدخال تاريخ إنتهاء الفاتورة " />
-                   
+                <div class="form-group">
+                    <div class="input-group date">
+                        <input type='text' id="hijri-date-input2" name="expirydate_coo" class="form-control"  placeholder="يرجى إدخال تاريخ إنتهاء الفاتورة " />
+                       
+                    </div>
                 </div>
-          
+
   
             @if ($errors->has('expirydate_coo'))
             <span class="invalid-feedback" role="alert">
@@ -152,9 +154,12 @@
                         <strong>{{ $errors->first('ms_number') }}</strong>
                     </span>
                 @endif
-
-                <input type="date" id="typesPrompt" class="form-control {{ $errors->has('ms_expirydate') ? ' is-invalid' : '' }}" name="ms_expirydate" value="{{ old('ms_expirydate') }}"  autofocus placeholder="تاريخ الإنتهاء" />
-                <span id="typePrompt">يرجى إدخال تاريخ الانتهاء </span>
+        
+                            
+                <div class="input-group date">
+                    <input type='text'   id="hijri-date-input4" name="ms_expirydate" class="form-control"  placeholder="يرجى إدخال تاريخ إنتهاء الفاتورة " />
+                   
+                </div>
 
             @if ($errors->has('ms_expirydate'))
             <span class="invalid-feedback" role="alert">
