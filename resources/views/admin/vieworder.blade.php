@@ -105,7 +105,7 @@
 
                 <tr>
                     <td>
-                        <form method="post" action="/admin/vieworder{{$orders->id}}">
+                        <form method="post" action="/admin/vieworderC{{$orders->id}}">
                             @csrf
                             <input type="submit" class="btn btn-success"  value="قبول " />
                         </form>
@@ -398,7 +398,6 @@
                 @endforeach
                 
                 @foreach ($comment as $comments)
-                @if ($orders->comment_id == $comments->id)
                     
                 <div class="col-xs-6 col-md-6 col-lg-6">
                     {{-- exemption_letter - خطاب إعفاء من التفتيش --}}
@@ -418,7 +417,6 @@
                         <tr><td colspan="2"></td></tr>
                     </table>
                 </div>
-                @endif
 
                 @endforeach
                 @foreach ($other as $others)

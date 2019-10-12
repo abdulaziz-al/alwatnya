@@ -59,7 +59,7 @@ Route::get('/admin/completedorders', 'AdminController@completedOrders');
 Route::get('/admin/returnedorders', 'AdminController@returnedOrders');
 // 5 admin/vieworder page
 Route::get('/admin/vieworder{id}', 'AdminController@viewOrder');
-Route::post('/admin/vieworder{id}', 'AdminController@OrderCompleted');
+Route::post('/admin/vieworderC{id}', 'AdminController@OrderCompleted');
 Route::post('/admin/vieworder{id}', 'AdminController@OrderReject')->name('OrderReject');
 
 // 6 admin/search page
@@ -76,7 +76,7 @@ Route::get('/user/post','UserController@PostRequest');
 Route::get('/user/createCR', 'UserController@showCRcreate');
 Route::post('/user/createCR', 'UserController@CreateCR')->name('CreateCR');
 
-Route::get('/createOrder', 'UserController@showCreatePage');
+Route::get('/createOrder{number}', 'UserController@showCreatePage');
 Route::post('/createOrder', 'UserController@createOrder')->name('createOrder');
 
 // user/settings page:

@@ -160,7 +160,7 @@ class AdminController extends Controller
         $cr = CommercialRecord::all();
         $other = OrderOtherdocs::where('order_id', $id)->get();
         $coo = Coo::where('order_id', $id)->get();
-        $comment = Comment::all();
+        $comment = Comment::where('order_id', $id)->get();
         $el = exemptionLetter::where('order_id' , $id)->get();
         $ms = muqassahStatement::where('order_id',$id)->get();
         $pl = PackingList::where('order_id',$id)->get();
@@ -176,10 +176,12 @@ class AdminController extends Controller
 
         return view('admin.vieworder' , $Accorder );
     }
+
     public function OrderCompleted($id){
         UserOreder::where('id', $id)
         ->update(['admin_id' => auth()->user()->id , 'status_id'=> 2]);
-     //   Alert::info('تمت الزيادة بنسبة %',$request->input('salary') );
+        $order = UserOreder::where('id', $id )->first();
+        Alert::success('تم قبول الطلب رقم ',$order->id );
         return redirect('/admin');
     }
     public function OrderReject(Request $request , $id){
@@ -190,7 +192,7 @@ class AdminController extends Controller
         $Comment =  new Comment();
         $Comment->comment_description = $request->comment ;
         $Comment->comment_by_user = auth()->user()->id;
-        $Comment->comment_to_user = $userInfo->user_id;
+        $Comment->order_id = $userInfo->id;
         $Comment->save(); 
             //   Alert::info('تمت الزيادة بنسبة %',$request->input('salary') );
         return redirect('/admin');

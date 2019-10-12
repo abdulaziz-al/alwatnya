@@ -11,26 +11,9 @@
 <div class="container">   
     
 
-        <form  method="POST" action="{{ route('createOrder') }}" enctype="multipart/form-data"  >
+        <form  method="POST" action="#" enctype="multipart/form-data" >
                 @csrf
-                <div class="form-group">
-                    <div class="   table-striped" id="newcard" style="width: 65%" >
-                   
-                                    <h4 style="text-align: right">                                
-    
-                                       إستيراد أو تصدير </h4>
-                                    <input type="text" name="cr_number"  value="{{$userCR->cr_number}}" readonly="true" hidden  />
-                                        <div class="radio-toolbar">
-                                            <input type="radio" id="radioA" name="radioF" value="0" checked>
-                                            <label for="radioA">إستيراد</label>
-                                        
-                                            <input type="radio" id="radioB" name="radioF" value="1">
-                                            <label for="radioB">تصدير</label>
-                                        
-                                        </div>
-                                    </div>
-
-                    </div>
+               
 
             <div class="form-group">
                 <div class="   table-striped" id="newcard" style="width: 65%" >

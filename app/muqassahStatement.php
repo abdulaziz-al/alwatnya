@@ -8,7 +8,7 @@ class muqassahStatement extends Model
 {
     
     protected $fillable = [
-        'order_id','ms_number','expirydate','file_id'
+        'order_id','ms_number','expirydateH','expirydateM','file_id'
 
     ];
     

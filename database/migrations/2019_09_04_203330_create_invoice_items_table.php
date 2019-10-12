@@ -18,6 +18,8 @@ class CreateInvoiceItemsTable extends Migration
 
             $table->increments('id');
             $table->string('invoiceItems_description');
+            $table->string('expirydateH');
+            $table->string('expirydateM');
             $table->integer('subtotal')->nullable();
             
             

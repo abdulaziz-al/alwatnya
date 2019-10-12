@@ -25,6 +25,8 @@ use App\Statu;
 use App\Truck;
 use App\UserLogs;
 use DateTime;
+use Illuminate\Support\Facades\Validator;
+
 use Illuminate\Support\Facades\Redirect;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Session;
@@ -69,9 +71,9 @@ class UserController extends Controller
         return view('users.index' ,$userInfo);
     }
 
-    public function showCreatePage(){
+    public function showCreatePage($number){
 
-        $userCR = CommercialRecord::where('user_id',auth()->user()->id)->first();
+        $userCR = CommercialRecord::where('cr_number',$number)->first();
 
         
      return view('users.createOredr')->with('userCR',$userCR);
@@ -101,13 +103,14 @@ class UserController extends Controller
         ],$messages);
 
         
+    /*    $extensiontest = $request->tos_file->getClientOriginalExtension();
 
-        if(substr($request->tos_file , -3 ) != 'pdf') {
+        if($extensiontest != 'pdf') {
             Alert::info('يجب ادخال ملف بصيغة ','PDF file' );
             return redirect::back();
         }
    
-
+*/
 
 /*
   if( substr($request->invoice_file , -3 ) != 'pdf'  ){
@@ -140,9 +143,14 @@ class UserController extends Controller
 */
 
         
-
+            
         $number  = UserOreder::all()->last();
-     $num = 1000 + $number->id;  
+        if($number == null ){
+            $num = 1000 ;
+        }else{
+            $num = 1000 + $number->id;
+        }
+          
        
          //////////////////////////////////
         ////////// Get Waiting status from status table //////////////
@@ -150,16 +158,10 @@ class UserController extends Controller
          ////////// Get admin role  from Role table //////////////
          $Role =   Role::find(1);
          ///////////////////////////////
-         
-         $Comment =  new Comment();
-         $Comment->comment_description = $request->comment_order ;
-         $Comment->comment_by_user = auth()->user()->id;
-         $Comment->comment_to_user = $Role->id;
-         $Comment->save();
+         $userCR = CommercialRecord::where('cr_number',$request->cr_number)->first();
 
-         $userCR = CommercialRecord::where('user_id', auth()->user()->id)->first();
-
-         $new_date = $Comment->created_at->format('dmY');
+       
+         $new_date = date('dmY');
 
 //////////////////// Invoice Table ////////////////////////////////////////
          $file_Invoice = $request->file('invoice_file');
@@ -170,7 +172,9 @@ class UserController extends Controller
          
 
          $invoiceItem =  new invoiceItem();
-         $invoiceItem->invoiceItems_description =$file_name ;
+         $invoiceItem->invoiceItems_description =$file_name;
+         $invoiceItem->expirydateH = substr($request->expirydate_invoice , 0 ,-14  );
+         $invoiceItem->expirydateM =  substr($request->expirydate_invoice , 15  ); 
          $invoiceItem->save();
 
          $Invoice =  new Invoice();
@@ -190,8 +194,13 @@ class UserController extends Controller
          $UserOreder->importeport_id = $request->radioF ;
          $UserOreder->number_of_trucks =$countTrunl;
          $UserOreder->status_id = $Statu->id;
-         $UserOreder->comment_id = $Comment->id;
          $UserOreder->save();
+
+         $Comment =  new Comment();
+         $Comment->comment_description = $request->comment_order ;
+         $Comment->comment_by_user = auth()->user()->id;
+         $Comment->order_id = $UserOreder->id;
+         $Comment->save();
 
 
 
@@ -211,7 +220,9 @@ class UserController extends Controller
          $Coo =  new Coo();
          $Coo->order_id = $UserOreder->id;
          $Coo->coo_number = $request->coo_number;
-         $Coo->expirydate = $request->expirydate_coo ;
+         $Coo->expirydateH = substr($request->expirydate_coo , 0 ,-14  );
+         $Coo->expirydateM =  substr($request->expirydate_coo , 15  ); 
+
          $Coo->file_id = $File_coo->id ;
  
          $Coo->save();
@@ -226,7 +237,8 @@ class UserController extends Controller
             $Coo =  new Coo();
             $Coo->order_id = $UserOreder->id;
             $Coo->coo_number = $request->coo_number;
-            $Coo->expirydate = $request->expirydate_coo ;
+            $Coo->expirydateH = $request->expirydate_coo ;
+            $Coo->expirydateM = $request->expirydate_coo ;
             $Coo->file_id = $File_coo->id ;
     
             $Coo->save();
@@ -251,7 +263,8 @@ class UserController extends Controller
             $exemptionLetter =  new exemptionLetter();
                $exemptionLetter->order_id = $UserOreder->id ;
                $exemptionLetter->el_number = $request->el_number ;
-               $exemptionLetter->expirydate = $request->el_expirydate ;
+               $exemptionLetter->expirydateH = substr($request->el_expirydate , 0 ,-14  );
+               $exemptionLetter->expirydateM =  substr($request->el_expirydate , 15  ); 
                $exemptionLetter->file_id = $File_el->id ;
        
                $exemptionLetter->save();
@@ -267,7 +280,8 @@ class UserController extends Controller
                $exemptionLetter =  new exemptionLetter();
                $exemptionLetter->order_id = $UserOreder->id ;
                $exemptionLetter->el_number = $request->el_number ;
-               $exemptionLetter->expirydate = $request->el_expirydate ;
+               $exemptionLetter->expirydateH = $request->el_expirydate ;
+               $exemptionLetter->expirydateM = $request->el_expirydate ;
                $exemptionLetter->file_id = $File_el->id ;
        
                $exemptionLetter->save();
@@ -294,7 +308,8 @@ class UserController extends Controller
                 $muqassahStatement =  new muqassahStatement();
                 $muqassahStatement->order_id = $UserOreder->id;
                 $muqassahStatement->ms_number = $request->ms_number;
-                $muqassahStatement->expirydate = $request->ms_expirydate;
+                $muqassahStatement->expirydateH = substr($request->ms_expirydate , 0 ,-14  );
+                $muqassahStatement->expirydateM =  substr($request->ms_expirydate , 15  ); 
                 $muqassahStatement->file_id = $File_ms->id;
                 
                 $muqassahStatement->save();
@@ -310,7 +325,8 @@ class UserController extends Controller
                    $muqassahStatement =  new muqassahStatement();
                    $muqassahStatement->order_id = $UserOreder->id;
                    $muqassahStatement->ms_number = $request->ms_number;
-                   $muqassahStatement->expirydate = $request->ms_expirydate;
+                   $muqassahStatement->expirydateH = $request->ms_expirydate;
+                   $muqassahStatement->expirydateM = $request->ms_expirydate;
                    $muqassahStatement->file_id = $File_ms->id;
                    
                    $muqassahStatement->save();
@@ -321,7 +337,7 @@ class UserController extends Controller
 
                 if( $request->pl_file != null ){
 
-                    $file_coo = $request->file('pl_file ');
+                    $file_coo = $request->file('pl_file');
                     $extension = $file_coo->getClientOriginalExtension();
                     $destination_path= public_path().'/files'.'/'.auth()->user()->full_name . '/' . $userCR->cr_number;
                     $file_name = $num.$new_date . 'قائمة التعبئة  '. $request->el_number. '.'. $extension;
@@ -337,7 +353,8 @@ class UserController extends Controller
                     $PackingList =  new PackingList();
                     $PackingList->order_id = $UserOreder->id;
                     $PackingList->pl_number = $request->packing_list_number;
-                    $PackingList->expirydate = $request->pl_expirydate;
+                    $PackingList->expirydateH = substr($request->pl_expirydate , 0 ,-14  );
+                    $PackingList->expirydateM =  substr($request->pl_expirydate , 15  ); 
                     $PackingList->file_id = $File_pl->id;
               
                     $PackingList->save();
@@ -352,7 +369,9 @@ class UserController extends Controller
                        $PackingList =  new PackingList();
                        $PackingList->order_id = $UserOreder->id;
                        $PackingList->pl_number = $request->packing_list_number;
-                       $PackingList->expirydate = $request->pl_expirydate;
+                       $PackingList->expirydateH = $request->pl_expirydate;
+                       $PackingList->expirydateM = $request->pl_expirydate;
+
                        $PackingList->file_id = $File_pl->id;
                  
                        $PackingList->save();
@@ -364,7 +383,7 @@ class UserController extends Controller
         
                     if( $request->policy_file != null ){
 
-                        $file_coo = $request->file('policy_file ');
+                        $file_coo = $request->file('policy_file');
                         $extension = $file_coo->getClientOriginalExtension();
                         $destination_path= public_path().'/files'.'/'.auth()->user()->full_name . '/' . $userCR->cr_number;
                         $file_name = $num.$new_date . 'البوليصة   '. $request->policy_number. '.'. $extension;
@@ -380,7 +399,8 @@ class UserController extends Controller
                         $PolicyNumber =  new PolicyNumber();
                         $PolicyNumber->order_id = $UserOreder->id;
                         $PolicyNumber->policy_number = $request->policy_number ;
-                        $PolicyNumber->expirydate = $request->policy_expirydate;
+                        $PolicyNumber->expirydateH = substr($request->policy_expirydate , 0 ,-14  );
+                        $PolicyNumber->expirydateM =  substr($request->policy_expirydate , 15  ); 
                         $PolicyNumber->file_id = $File_pn->id;
                    
                         $PolicyNumber->save();
@@ -395,7 +415,9 @@ class UserController extends Controller
                            $PolicyNumber =  new PolicyNumber();
                            $PolicyNumber->order_id = $UserOreder->id;
                            $PolicyNumber->policy_number = $request->policy_number ;
-                           $PolicyNumber->expirydate = $request->policy_expirydate;
+                           $PolicyNumber->expirydateH = $request->policy_expirydate;
+                           $PolicyNumber->expirydateM = $request->policy_expirydate;
+
                            $PolicyNumber->file_id = $File_pn->id;
                       
                            $PolicyNumber->save();
@@ -408,7 +430,7 @@ class UserController extends Controller
 
                         if( $request->rl_file != null ){
 
-                            $file_coo = $request->file('rl_file ');
+                            $file_coo = $request->file('rl_file');
                             $extension = $file_coo->getClientOriginalExtension();
                             $destination_path= public_path().'/files'.'/'.auth()->user()->full_name . '/' . $userCR->cr_number;
                             $file_name = $num.$new_date . 'خطاب الفسح   '. $request->release_letter_number. '.'. $extension;
@@ -424,7 +446,8 @@ class UserController extends Controller
                             $ReleaseLetter =  new ReleaseLetter();
                             $ReleaseLetter->order_id = $UserOreder->id;
                             $ReleaseLetter->rl_number = $request->release_letter_number;
-                            $ReleaseLetter->expirydate = $request->rl_expirydate;
+                            $ReleaseLetter->expirydateH = substr($request->rl_expirydate , 0 ,-14  );
+                            $ReleaseLetter->expirydateM =  substr($request->rl_expirydate , 15  ); 
                             $ReleaseLetter->file_id = $File_rl->id;
                         
                             $ReleaseLetter->save();
@@ -440,7 +463,8 @@ class UserController extends Controller
                                $ReleaseLetter =  new ReleaseLetter();
                                $ReleaseLetter->order_id = $UserOreder->id;
                                $ReleaseLetter->rl_number = $request->release_letter_number;
-                               $ReleaseLetter->expirydate = $request->rl_expirydate;
+                               $ReleaseLetter->expirydateH = $request->rl_expirydate;
+                               $ReleaseLetter->expirydateM = $request->rl_expirydate;
                                $ReleaseLetter->file_id = $File_rl->id;
                            
                                $ReleaseLetter->save();
@@ -451,7 +475,7 @@ class UserController extends Controller
 
                             if( $request->saso_file != null ){
 
-                                $file_coo = $request->file('saso_file ');
+                                $file_coo = $request->file('saso_file');
                                 $extension = $file_coo->getClientOriginalExtension();
                                 $destination_path= public_path().'/files'.'/'.auth()->user()->full_name . '/' . $userCR->cr_number;
                                 $file_name =$num. $new_date . 'شهادة المطابقة    '. $request->release_letter_number. '.'. $extension;
@@ -467,7 +491,8 @@ class UserController extends Controller
                                 $Saso =  new Saso();
                                 $Saso->order_id = $UserOreder->id;
                                 $Saso->saso_number = $request->saso_number;
-                                $Saso->expirydate = $request->saso_expirydate;
+                                $Saso->expirydateH = substr($request->saso_expirydate , 0 ,-14  );
+                                $Saso->expirydateM =  substr($request->saso_expirydate , 15  ); 
                                 $Saso->file_id = $File_saso->id;
                              
                                 $Saso->save();
@@ -483,7 +508,9 @@ class UserController extends Controller
                                    $Saso =  new Saso();
                                    $Saso->order_id = $UserOreder->id;
                                    $Saso->saso_number = $request->saso_number;
-                                   $Saso->expirydate = $request->saso_expirydate;
+                                   $Saso->expirydateH = $request->saso_expirydate;
+                                   $Saso->expirydateM = $request->saso_expirydate;
+
                                    $Saso->file_id = $File_saso->id;
                                 
                                    $Saso->save();
@@ -596,7 +623,13 @@ class UserController extends Controller
   
         
 
-      
+        $log = new  UserLogs();
+        $log->user_id = auth()->user()->id;
+        $log->source_ip = $request->getClientIp();
+        $log->description = "تسجيل طلب برقم  " . $invoiceItem->invoiceItems_description ;
+        $log->created_on = date('Y-m-d');
+        $log->save();
+ 
 
   
     
@@ -617,20 +650,26 @@ class UserController extends Controller
     protected function CreateCR(Request $request){
         $messages = [
     
-            'Other_file.*'=>'ولد لازم '
+            'cr_number.*'=> 'رقم السجل محجوز  CR number already taken  ',
+            'cr_image.*'=>'يجب ان يكون الملف بصيغة PDF ',
+
             
         ];
         
-        $this->validate($request, [
-            'cr_number'=>'required|unique:commercial_records'
-        
+        $validator = validator::make($request->all(), [
+            'cr_number'=>'required|unique:commercial_records',
+            'cr_image'=>'mimes:pdf|max:1300',
             
         ],$messages);
 
+        if($validator->fails()){
+            return back()->with('error', $validator->messages());
+        }
+
 
         $extension = $request->file('cr_image')->getClientOriginalExtension();
-        $datee = new  \DateTime();
-        if(substr($request->cr_exp, 15  ) <  $datee  ){
+        $datee = date("Y-m-d");
+        if(substr($request->cr_exp, 14 ,-1  ) <  $datee  ){
             Alert::error('Heeeeey the date is die  ','' );
             return Redirect::back();
         }else {
@@ -662,15 +701,17 @@ class UserController extends Controller
          $CommercialRecord->cr_expiry = $mi;
          $CommercialRecord->active = 0 ;
          $CommercialRecord->save();
+
+         $log = new  UserLogs();
+        $log->user_id = auth()->user()->id;
+        $log->source_ip = $request->getClientIp();
+        $log->description = "اضافة سجل جديد " . $CommercialRecord->cr_number ;
+        $log->created_on = date('Y-m-d');
+        $log->save();
  
          Alert::success(' تم إرسال المعلومات  للسجل التجاري برقم  ',$request->cr_number );
 
          return Redirect('/user'); 
-
-        }else {
-
-            Alert::info('يجب ادخال ملف بصيغة ','PDF file' );
-            return Redirect::back();
 
         }
     }
@@ -722,6 +763,8 @@ class UserController extends Controller
             // The passwords not matches
             //return redirect()->back()->with("error","Your current password does not matches with the password you provided. Please try again.");
             Alert::error('كلمة المرور  القديمة غير صحيحة  ','Current password does not match ' , 'okay ');
+            //Alert::html('Random lorempixel.com :' , '<img src="/images/Logo-white-Transparent-Background.png" ');
+            //Alert::image('Image Title!','Image Description','/images/Logo-Transparent-Background.png','5','5');
             return Redirect::Back();
 
         }

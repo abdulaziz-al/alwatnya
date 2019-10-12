@@ -8,7 +8,7 @@ class exemptionLetter extends Model
 {
  
     protected $fillable = [
-        'order_id','el_number','expirydate','file_id'
+        'order_id','el_number','expirydateH','expirydateM','file_id'
 
     ];
 }

@@ -18,8 +18,8 @@ class CreateMuqassahStatementsTable extends Migration
 
             $table->increments('id');
             $table->string('ms_number')->nullable();
-            $table->date('expirydate')->nullable();
-
+            $table->string('expirydateH')->nullable();
+            $table->string('expirydateM')->nullable();
 
             //<---------- FK from order tables ------------>//
             $table->integer('order_id')->unsigned()->index();

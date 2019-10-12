@@ -21,7 +21,7 @@ class CreateInvoicesTable extends Migration
             //<---------- FK from Invoice  tables ------------>//
             $table->integer('invoiceItems_id')->unsigned()->index();
             $table->foreign('invoiceItems_id')->references('id')->on('invoice_items')->onDelete('cascade');
-                        
+     
         });
     }
 
