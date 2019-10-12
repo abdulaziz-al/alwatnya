@@ -14,14 +14,23 @@
 
         <!-- Fonts -->
 
-        <link href="css/bootstrap.css" rel="stylesheet" />
-        <link href="css/bootstrap-datetimepicker.css" rel="stylesheet" />
+        <link href="/css/bootstrap.css" rel="stylesheet" />
+        <link href="/css/bootstrap-datetimepicker.css" rel="stylesheet" />
     
 
-  
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="https://kit.fontawesome.com/6606739ea1.js" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 
+
+        <script src="/js/jquery-3.3.1.js"></script>
+        <script src="/js/bootstrap.js"></script>
+        <script src="/js/momentjs.js"></script>
+        <script src="/js/moment-with-locales.js"></script>
+        <script src="/js/moment-hijri.js"></script>
+        <script src="/js/bootstrap-hijri-datetimepicker.js"></script>
      {{--   <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet" type="text/css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 
@@ -246,30 +255,18 @@
         @yield('content')
                 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 
-                <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-                <!-- Include all compiled plugins (below), or include individual files as needed -->
-                <script src="{{ asset('js/bootstrap/bootstrap.min.js') }}"></script>
-        
-    <script src="js/jquery-3.3.1.js"></script>
-    <script src="js/bootstrap.js"></script>
-    <script src="js/momentjs.js"></script>
-    <script src="js/moment-with-locales.js"></script>
-    <script src="js/moment-hijri.js"></script>
-    <script src="js/bootstrap-hijri-datetimepicker.js"></script>
+          
+ 
     <script type="text/javascript">
 
 
-        $(function () {
+    
+        $(function initHijrDatePicker() {
+         
+          for(var i=1; i<=4; i++){
+            var el = document.getElementById("hijri-date-input" + i);
 
-            initHijrDatePicker();
-
-            //initHijrDatePickerDefault();
-
-        });
-
-        function initHijrDatePicker() {
-
-            $("#hijri-date-input").hijriDatePicker({
+            $(el).hijriDatePicker({
                 locale: "ar-sa",
 
                 format:"هـ iYYYY-iMM-iDD " + "DD-MM-YYYY م" ,
@@ -291,13 +288,9 @@
                 showClose: true
 
             });
+          }
 
-        }
-
-        function initHijrDatePickerDefault() {
-
-            $("#hijri-date-input").hijriDatePicker();
-        }
+        })
 
 
     </script>

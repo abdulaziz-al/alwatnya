@@ -3,7 +3,6 @@
 @section('content')
 @include('layouts.errmsg')
 
-@include('sweetalert::alert')
 
 @if (Session::has('danger'))
 <div class="alert alert-danger">{{Session::get('danger')}}</div>
@@ -28,6 +27,13 @@
 </div>
 
 
+<div class="form-group">
+
+    <div class="input-group date">
+        <input type='text' name="cr_exp" class="form-control" id="hijri-date-input3" placeholder="يرجى إدخال تاريخ إنتهاء الفاتورة " />
+    </div>   
+    </div> 
+
 <div class="form-group row ">            
 
 <i class="fa fa-arrow-circle-down" aria-hidden="true" ></i>
@@ -39,11 +45,6 @@
         </span>
     @endif
 
-</div>
-
-<div class="input-group date">
-    <input type='text' name="cr_exp" class="form-control" id="hijri-date-input" placeholder="يرجى إدخال تاريخ إنتهاء الفاتورة " />
-   
 </div>
 
 <input type="submit" class="btnRegister "  value="إضافة السجل" />
