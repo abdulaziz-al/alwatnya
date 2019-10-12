@@ -4,15 +4,15 @@
 @include('sweetalert::alert')
 
 <div class="dropdown">
-        <button onclick="myFunction()" class="dropbtn">إختار سجلك التجاري</button>
+        <button onclick="myFunction()" class="dropbtn">                  {{trans('main.chose')}}            
+        </button>
         
         <div id="myDropdown" class="dropdown-content">
         
 
                 <a class="dropdown-item" href="/createOrder"
                 ><!--add count for each option-->
-                {{ __('إنشاء طلب ') }}
-
+                {{trans('main.create_order')}}
             </a>
 @foreach ($cr_number as $cr_numbers)
 
@@ -43,7 +43,7 @@
 
         
 
-        <h1 class="text-center mt-3"> {{Auth::user()->full_name}} لوحة تحكم</h1>
+        <h1 class="text-center mt-3"> {{Auth::user()->full_name}} {{trans('main.dashboard')}} </h1>
         
         
 
@@ -55,11 +55,18 @@
 
             <hr>
             <div class="jumbotron rounded-lg">
-                <h3 class="text-right"> تقرير مبسط <i class="fas fa-tachometer-alt"></i></h3>
+                <h4> {{trans('main.report')}} <i class="fas fa-tachometer-alt"></i></h4>
                 <table class="borderless table text-right h4">
                     <tr>
+                            @if (App::getLocale() == 'en') 
+                           <td>  <div class="form-group">{{trans('main.number_of_order')}} <i class="far fa-file text-info"></i></div></td>
+
+                            <td><u>{{$order->count()}}</u></td>
+                       
+                            @else 
                     <td><u>{{$order->count()}}</u></td>
-                        <td>عدد طلباتي المسجلة <i class="far fa-file text-info"></i></td>
+                        <td>  <div class="form-group">{{trans('main.number_of_order')}} <i class="far fa-file text-info"></i></div></td>
+                    @endif
                     </tr>
                     <tr>
                     <td><u>{{$order_Accepte->count()}}</u></td>
