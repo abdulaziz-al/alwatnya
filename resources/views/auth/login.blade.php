@@ -13,7 +13,7 @@
             <img id="image_reg" src="/images/Logo-Transparent-Background.png" alt=""/>
 
             <h5>{{trans('main.welcome')}}</h5>
-            <p> {{trans('main.welcome2')}}</p>
+            <h5> {{trans('main.welcome2')}}</h5>
             
             <br/>
 

@@ -18,14 +18,18 @@
                    
                                     <h4 style="text-align: right">                                
     
+<<<<<<< HEAD
                                        إستيراد أو تصدير </h4>
                                     <input type="text" name="cr_number"  value="{{$userCR->cr_number}}" readonly="true" hidden  />
+=======
+                                        {{trans('main.export_or_import')}} </h4>
+>>>>>>> fc3f7989cb14ee004828ce98ad0778358516a836
                                         <div class="radio-toolbar">
                                             <input type="radio" id="radioA" name="radioF" value="0" checked>
-                                            <label for="radioA">إستيراد</label>
+                                            <label for="radioA">{{trans('main.import')}}</label>
                                         
                                             <input type="radio" id="radioB" name="radioF" value="1">
-                                            <label for="radioB">تصدير</label>
+                                            <label for="radioB">{{trans('main.export')}}</label>
                                         
                                         </div>
                                     </div>
@@ -37,7 +41,7 @@
                
                                 <h4 style="text-align: right">                                
 
-                                    فاتورة البضاعة  </h4>
+                                    {{trans('main.invoice')}}  </h4>
                                     
 
                                 
@@ -45,7 +49,7 @@
 
                         <div id="cardform" >
                             
-                    <input type="text" id="typesPrompt" class="form-control {{ $errors->has('invoice_number') ? ' is-invalid' : '' }}" name="invoice_number" value="{{ old('invoice_number') }}" required autofocus placeholder="   رقم الفاتورة" />
+                    <input type="text" id="typesPrompt" class="form-control {{ $errors->has('invoice_number') ? ' is-invalid' : '' }}" name="invoice_number" value="{{ old('invoice_number') }}" required autofocus placeholder="{{trans('main.number_invoice')}}" />
                     <span id="typePrompt">يرجى إدخال رقم الفاتورة </span>
 
                         @if ($errors->has('invoice_number'))
@@ -57,7 +61,7 @@
             
                             
                                 <div class="input-group date">
-                                    <input type='text'   id="hijri-date-input1" name="expirydate_invoice" class="form-control"  placeholder="يرجى إدخال تاريخ إنتهاء الفاتورة " />
+                                    <input type='text'   id="hijri-date-input1" name="expirydate_invoice" class="form-control"  placeholder="{{trans('main.exp')}}" />
                                    
                                 </div>
                             
@@ -86,19 +90,19 @@
 
         <div class="table-striped" id="cardss" >
 
-                <div class="form-group"  >
+                <div class="form-group">
                     
-                    <h4 style="text-align: right">
+                    <h3>
                         <label class="cont">
               <input  type="checkbox" id="myCheck1" onclick="myFunction()">
               <span class="checkmark"></span>
             </label>
 
-                        شهادة بلد المنشأ </h4>
+            {{trans('main.Country_of_origin_certificate')}} </h3>
                                 <div id="cardform1" style="display: none" >
 
                         
-                        <input type="text" class="form-control {{ $errors->has('coo_number') ? ' is-invalid' : '' }}" name="coo_number" id="typesPrompt" value="{{ old('coo_number') }}"  autofocus placeholder="    رقم الشهادة" />
+                        <input type="text" class="form-control {{ $errors->has('coo_number') ? ' is-invalid' : '' }}" name="coo_number" id="typesPrompt" value="{{ old('coo_number') }}"  autofocus placeholder="{{trans('main.number_of_certificate')}}" />
                         <span id="typePrompt">يرجى إدخال رقم الشهادة لهذا الطلب</span>
 
                     @if ($errors->has('coo_number'))
@@ -109,7 +113,7 @@
             
                 <div class="form-group">
                     <div class="input-group date">
-                        <input type='text' id="hijri-date-input2" name="expirydate_coo" class="form-control"  placeholder="يرجى إدخال تاريخ إنتهاء الفاتورة " />
+                        <input type='text' id="hijri-date-input2" name="expirydate_coo" class="form-control"  placeholder="{{trans('main.exp')}}" />
                        
                     </div>
                 </div>
@@ -135,19 +139,19 @@
 
                 <div class="form-group"  >
                     
-                    <h4 style="text-align: right">
+                    <h3>
                         <label class="cont">
 
                     <input type="checkbox" id="myCheck2" onclick="myFunction()" >
                     <span class="checkmark"></span>
                 </label>
     
-                        بيان المقاصة
+                {{trans('main.Clearing_statement')}}
                     
-                    </h4>
+                    </h3>
                             <div id="cardform2" style="display: none">
 
-                        <input type="text" class="form-control {{ $errors->has('ms_number') ? ' is-invalid' : '' }}" name="ms_number" id="typesPrompt" value="{{ old('ms_number') }}"  autofocus placeholder=" رقم البيان  " />
+                        <input type="text" class="form-control {{ $errors->has('ms_number') ? ' is-invalid' : '' }}" name="ms_number" id="typesPrompt" value="{{ old('ms_number') }}"  autofocus placeholder="{{trans('main.number_of_statement')}}" />
                         <span id="typePrompt">الرجاء إدخال رقم المرجع والموجودعلى بيان المقاصة</span>
 
                     @if ($errors->has('ms_number'))
@@ -158,7 +162,7 @@
         
                             
                 <div class="input-group date">
-                    <input type='text'   id="hijri-date-input4" name="ms_expirydate" class="form-control"  placeholder="يرجى إدخال تاريخ إنتهاء الفاتورة " />
+                    <input type='text'   id="hijri-date-input4" name="ms_expirydate" class="form-control"  placeholder="{{trans('main.exp')}}" />
                    
                 </div>
 
@@ -183,16 +187,16 @@
 
                 <div class="form-group"  >
                     
-                    <h4 style="text-align: right">
+                    <h3>
                         <label class="cont">
 
                 <input type="checkbox" id="myCheck3" onclick="myFunction()">
                 <span class="checkmark"></span>
             </label>
-
-                        قائمة التعبئة </h4>
+            {{trans('main.number_of_statement')}}
+                         </h3>
                                 <div id="cardform3" style="display: none">
-                        <input type="text" class="form-control {{ $errors->has('packing_list_number') ? ' is-invalid' : '' }}" name="packing_list_number" id="typesPrompt" value="{{ old('packing_list_number') }}"  autofocus placeholder="  رقم القائمة " />
+                        <input type="text" class="form-control {{ $errors->has('packing_list_number') ? ' is-invalid' : '' }}" name="packing_list_number" id="typesPrompt" value="{{ old('packing_list_number') }}"  autofocus placeholder="{{trans('main.packing_list')}}" />
                         <span id="typePrompt">الرجاء إدخال الرقم المرجعي لقائمة التعبئة </span>
 
     
@@ -203,7 +207,7 @@
                 @endif
                
                 <div class="input-group date">
-                    <input type='text'   id="hijri-date-input5" name="pl_expirydate" class="form-control"  placeholder="يرجى إدخال تاريخ إنتهاء الفاتورة " />
+                    <input type='text'   id="hijri-date-input5" name="pl_expirydate" class="form-control"  placeholder="{{trans('main.exp')}} " />
                    
                 </div>
 
@@ -226,18 +230,18 @@
 
                 <div class="form-group"  >
                     
-                    <h4 style="text-align: right">
+                    <h3>
                         <label class="cont">
 
                             <input type="checkbox" id="myCheck4" onclick="myFunction()">
                             <span class="checkmark"></span>
                         </label>
-            
-                        خطاب الفسح </h4>
+                        {{trans('main.Glade_speech')}}             
+                     </h3>
 
                                 <div id="cardform4" style="display: none">
 
-                        <input type="text" id="typesPrompt" class="form-control {{ $errors->has('release_letter_number') ? ' is-invalid' : '' }}" name="release_letter_number" value="{{ old('release_letter_number') }}"  autofocus placeholder="  رقم فسح " />
+                        <input type="text" id="typesPrompt" class="form-control {{ $errors->has('release_letter_number') ? ' is-invalid' : '' }}" name="release_letter_number" value="{{ old('release_letter_number') }}"  autofocus placeholder="{{trans('main.number_of_speach')}} " />
                         <span id="typePrompt">يرجى إدخال رقم الفسح </span>
 
                     @if ($errors->has('release_letter_number'))
@@ -247,7 +251,7 @@
                 @endif
 
                 <div class="input-group date">
-                    <input type='text'   id="hijri-date-input6" name="rl_expirydate" class="form-control"  placeholder="يرجى إدخال تاريخ إنتهاء الفاتورة " />
+                    <input type='text'   id="hijri-date-input6" name="rl_expirydate" class="form-control"  placeholder="{{trans('main.exp')}} " />
                    
                 </div>
 
@@ -270,18 +274,18 @@
 
                 <div class="form-group"  >
                     
-                    <h4 style="text-align: right">
+                    <h3 >
                         <label class="cont">
 
 
              <input type="checkbox" id="myCheck5" onclick="myFunction()">
              <span class="checkmark"></span>
             </label>
-
-                        شهادة المطابقة  </h4>
+            {{trans('main.Certificate_of_Conformity')}}
+                          </h3>
                         
                                 <div id="cardform5" style="display: none">
-                        <input type="text" id="typesPrompt" class="form-control {{ $errors->has('saso_number') ? ' is-invalid' : '' }}" name="saso_number" value="{{ old('saso_number') }}"  autofocus placeholder="  رقم الشهادة " />
+                        <input type="text" id="typesPrompt" class="form-control {{ $errors->has('saso_number') ? ' is-invalid' : '' }}" name="saso_number" value="{{ old('saso_number') }}"  autofocus placeholder=" {{trans('main.number_of_Certificate')}}  " />
                         <span id="typePrompt">يرجى إدخال رقم الشهادة </span>
 
                     @if ($errors->has('saso_number'))
@@ -291,7 +295,7 @@
                 @endif
 
                 <div class="input-group date">
-                    <input type='text'   id="hijri-date-input7" name="saso_expirydate" class="form-control"  placeholder="يرجى إدخال تاريخ إنتهاء الفاتورة " />
+                    <input type='text'   id="hijri-date-input7" name="saso_expirydate" class="form-control"  placeholder="{{trans('main.exp')}}" />
                    
                 </div>
 
@@ -319,18 +323,19 @@
 
                 <div class="form-group"  >
                     
-                    <h4 style="text-align: right">
+                    <h3>
                         <label class="cont">
 
                 <input  type="checkbox" id="myCheck6" onclick="myFunction()">
                 <span class="checkmark"></span>
             </label>
 
-                        البوليصة</h4>
+            {{trans('main.The_policy')}}
+        </h3>
     
                                 <div id="cardform6" style="display: none">
 
-                        <input type="text" id="typesPrompt" class="form-control {{ $errors->has('policy_number') ? ' is-invalid' : '' }}" name="policy_number" value="{{ old('policy_number') }}"  autofocus placeholder="  رقم البوليصة " />
+                        <input type="text" id="typesPrompt" class="form-control {{ $errors->has('policy_number') ? ' is-invalid' : '' }}" name="policy_number" value="{{ old('policy_number') }}"  autofocus placeholder="{{trans('main.number_of_policy')}}" />
                         <span id="typePrompt">يرجى إدخال رقم البوليصة </span>
 
                     @if ($errors->has('policy_number'))
@@ -340,7 +345,7 @@
                 @endif
 
                 <div class="input-group date">
-                    <input type='text'   id="hijri-date-input8" name="policy_expirydate" class="form-control"  placeholder="يرجى إدخال تاريخ إنتهاء الفاتورة " />
+                    <input type='text'   id="hijri-date-input8" name="policy_expirydate" class="form-control"  placeholder="{{trans('main.exp')}} " />
                    
                 </div>
             @if ($errors->has('policy_expirydate'))
@@ -363,18 +368,19 @@
 
             <div class="form-group"  >
                 
-                <h4 style="text-align: right">
+                <h3>
                     <label class="cont">
 
                         <input  type="checkbox" id="myCheck7" onclick="myFunction()">
                         <span class="checkmark"></span>
                     </label>
         
-                    خطاب إعفاء
-                 </h4>
+                    {{trans('main.Letter_of_exemption')}}
+
+                 </h3>
                  
                         <div id="cardform7" style="display: none">
-                    <input type="text" class="form-control {{ $errors->has('el_number') ? ' is-invalid' : '' }}" name="el_number" id="typesPrompt" value="{{ old('el_number') }}"  autofocus placeholder="  الرقم المرجعي للخطاب " />
+                    <input type="text" class="form-control {{ $errors->has('el_number') ? ' is-invalid' : '' }}" name="el_number" id="typesPrompt" value="{{ old('el_number') }}"  autofocus placeholder=" {{trans('main.number_of_Letter')}}" />
                     <span id="typePrompt">الرجاء إدخال الرقم المرجعي لخطاب الإعفاء</span>
 
                 @if ($errors->has('el_number'))
@@ -384,7 +390,7 @@
             @endif
 
             <div class="input-group date">
-                <input type='text'   id="hijri-date-input9" name="el_expirydate" class="form-control"  placeholder="يرجى إدخال تاريخ إنتهاء الفاتورة " />
+                <input type='text'   id="hijri-date-input9" name="el_expirydate" class="form-control"  placeholder="{{trans('main.exp')}}" />
                
             </div>
 
@@ -404,19 +410,19 @@
 
     <div div class="table-striped" id="cardss" >
     <div class="field_wrapper" >
-            <h3>معلومات المركبات </h3>
-            <input type="text" name="Truck_ownership[]" class="form-control" placeholder="رقم السيارة  " required/>
+            <h3>{{trans('main.Vehicle_Information')}} </h3>
+            <input type="text" name="Truck_ownership[]" class="form-control" placeholder="{{trans('main.number_of_car')}}" required/>
             <div>
-                <input type="text" class="form-control" name="driver_name[]" placeholder="أسم السائق" required/>
-                <input type="text" class="form-control" name="truck_ownership_number1[]" placeholder="الرقم الهاتف الدولي" required/>
-                <input type="text" class="form-control" name="truck_ownership_number2[]" placeholder="الرقم الهاتف المحلي" required/>
+                <input type="text" class="form-control" name="driver_name[]" placeholder="{{trans('main.name_of_driver')}}" required/>
+                <input type="text" class="form-control" name="truck_ownership_number1[]" placeholder="{{trans('main.International_telephone_number')}}" required/>
+                <input type="text" class="form-control" name="truck_ownership_number2[]" placeholder="{{trans('main.Local_phone_number')}}" required/>
                 <input type="file"  name="tos_file[]"  required/>
 
             </div>
 
         </div>
 
-        <a class="add_button" title="Add field">إضافة سائق اخر </a>
+        <a class="add_button" title="Add field">{{trans('main.add_driver')}}</a>
     </div>
                <div class="col-xs-12 col-md-6 col-lg-12  table-bordered table-striped" style="width: 100%" >
 
@@ -424,7 +430,7 @@
     <div class=" amber-textarea active-amber-textarea-2">
             <i class="fas fa-pencil-alt prefix"></i>
             <textarea id="comment_order" name="comment_order" class="md-textarea form-control" rows="5" required></textarea>
-            <div  id="comment_div"> <h4> أترك ملاحظة </h4>
+            <div  id="comment_div"> <h4>{{trans('main.note')}}  </h4>
              </div>
           </div>
 
@@ -446,11 +452,11 @@
               <thead>
                <tr>
                     <th width="20%">+ </th>
-                    <th width="20%">الملف</th>
-                    <th width="20%">تاريخ الإنتهاء </th>
-                    <th width="20%">الرقم</th>
+                    <th width="20%">{{trans('main.file')}}</th>
+                    <th width="20%">{{trans('main.exp')}}</th>
+                    <th width="20%">{{trans('main.number')}}</th>
 
-                   <th width="20%">أخرى</th>
+                   <th width="20%">{{trans('main.other')}}</th>
                    
                </tr>
               </thead>
@@ -520,10 +526,10 @@
                    html += '<td><button type="button" name="remove" id="" class="btn btn-danger remove">Remove</button></td>';
                    html += '<td><input type="file" name="Other_file[]" /></td>';     
         
-               html += '<td><input type="date" name="Other_exp[]" class="form-control" placeholder="تاريخ الإنتهاء" /></td>';
-                 html += '<td><input type="text"  name="Other_number[]" class="form-control" placeholder="الرقم" / ></td>';
+               html += '<td><input type="date" name="Other_exp[]" class="form-control" placeholder="{{trans('main.exp')}}" /></td>';
+                 html += '<td><input type="text"  name="Other_number[]" class="form-control" placeholder="{{trans('main.number')}}" / ></td>';
         
-               html += '<td><input type="text"  name="Other_name[]" class="form-control"  placeholder="الاسم"  /></td></tr>';
+               html += '<td><input type="text"  name="Other_name[]" class="form-control"  placeholder="{{trans('main.name')}}"  /></td></tr>';
         
                    $('tbody').append(html);
                }
@@ -532,10 +538,10 @@
                    html += '<td><button type="button" name="add" id="add" class="btn btn-success">Add</button></td>';
                    html += '<td><input type="file" name="Other_file[]" /></td>';     
         
-               html += '<td><input type="date" name="Other_exp[]" class="form-control" placeholder="تاريخ الإنتهاء" /></td>';
-                 html += '<td><input type="text"  name="Other_number[]" class="form-control" placeholder="الرقم" / ></td>';
+               html += '<td><input type="date" name="Other_exp[]" class="form-control" placeholder="{{trans('main.exp')}}" /></td>';
+                 html += '<td><input type="text"  name="Other_number[]" class="form-control" placeholder="{{trans('main.number')}}" / ></td>';
         
-               html += '<td><input type="text"  name="Other_name[]" class="form-control"  placeholder="الاسم"  /></td></tr>';
+               html += '<td><input type="text"  name="Other_name[]" class="form-control"  placeholder="{{trans('main.name')}}"  /></td></tr>';
         
                    $('tbody').html(html);
                }

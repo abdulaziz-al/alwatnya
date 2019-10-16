@@ -732,8 +732,9 @@ class UserController extends Controller
         return view('users.viewCRs')->with('crUser',$crUser);
     }
     // 5 user/settings/crs/edit page
-    public function crEditView() {
-        return view('users.editcr');
+    public function crEditView($id) {
+        $crUser = CommercialRecord::where('id',$id)->get();
+        return view('users.editcr')->with('crUser',$crUser);
     }
 
     // user quick links:
