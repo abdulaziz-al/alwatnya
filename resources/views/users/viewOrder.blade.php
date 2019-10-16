@@ -424,17 +424,15 @@
                 </div>
 
 
+
+
               
 
                 @endif
                 @endforeach
                 @endforeach
 
-                <input type="submit"  name="save" id="save" style="width: 100%" class="btn btn-primary" value="Save" />
-
-            </form>
-
-            </div>
+            
 
 
            
@@ -454,6 +452,24 @@
         @endforeach
         @endforeach                    
         @endforeach
+        
+        <div class="col-xs-12 col-md-6 col-lg-12  table-bordered table-striped" style="width: 100%" >
+
+
+                <div class=" amber-textarea active-amber-textarea-2">
+                        <i class="fas fa-pencil-alt prefix"></i>
+                        <textarea id="comment_order" name="comment_order" class="md-textarea form-control" rows="5" required></textarea>
+                        <div  id="comment_div"> <h4> أترك ملاحظة </h4>
+                         </div>
+                      </div>
+            
+                    
+                          </div>
+<input type="submit"  name="save" id="save" style="width: 100%" class="btn btn-primary" value="Save" />
+
+</form>
+
+</div>
 
 
 

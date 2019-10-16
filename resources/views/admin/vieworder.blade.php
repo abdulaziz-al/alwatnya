@@ -403,11 +403,15 @@
                     {{-- exemption_letter - خطاب إعفاء من التفتيش --}}
                     <table class="table borderless table-striped text-center">
                         <tr>
-                            <th colspan="2">تعليق من العميل </th>
-                        </tr>
-                        <tr>
+                            
                             <td>التعليق </td>
-                            <td>تاريخ التعليق </td>
+
+                            @if ($comments->comment_by_user == $users->id)
+                            <th colspan="2">تعليق من العميل </th>
+                            @else 
+                            <th colspan="2">تعليق من المشرف  </th>
+
+                            @endif
                         </tr>
                         <tr>
                         <td>{{$comments->comment_description}}</td>

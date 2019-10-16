@@ -1007,6 +1007,11 @@ class UserController extends Controller
                             
                                 }
 
+                                $Comment =  new Comment();
+                                $Comment->comment_description = $request->comment_order ;
+                                $Comment->comment_by_user = auth()->user()->id;
+                                $Comment->order_id = $id;
+                                $Comment->save();
 
 
 
