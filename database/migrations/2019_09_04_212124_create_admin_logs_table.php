@@ -17,7 +17,9 @@ class CreateAdminLogsTable extends Migration
             $table->engine = 'InnoDB';
 
             $table->increments('logs_id');
-            $table->integer('admin_id');//for key 
+       //<---------- FK from User tables ------------>//
+       $table->integer('admin_id')->unsigned()->index();
+       $table->foreign('admin_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('source_ip');
             $table->string('description');
             $table->date('created_on');

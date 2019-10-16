@@ -4,19 +4,19 @@
 @include('sweetalert::alert')
 
 <div class="dropdown">
-        <button onclick="myFunction()" class="dropbtn">                  {{trans('main.chose')}}            
+        <button onclick="myFunction()" class="dropbtn">{{trans('main.chose')}}            
         </button>
         
         <div id="myDropdown" class="dropdown-content">
         
 
-                <a class="dropdown-item" href="/createOrder"
+                <a class="dropdown-item" href="#"
                 ><!--add count for each option-->
                 {{trans('main.create_order')}}
             </a>
 @foreach ($cr_number as $cr_numbers)
 
-<a href="#" name="{{$cr_numbers->cr_number }}" class="dropdown-item">  {{$cr_numbers->cr_number }}</a>
+        <a href="/createOrder{{$cr_numbers->cr_number }}" name="{{$cr_numbers->cr_number }}" class="dropdown-item">  {{$cr_numbers->cr_number }}</a>
 
 
  @endforeach  

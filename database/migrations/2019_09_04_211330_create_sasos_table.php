@@ -19,8 +19,7 @@ class CreateSasosTable extends Migration
             $table->increments('id');
 
             $table->string('saso_number')->nullable();
-            $table->date('expirydate')->nullable();
-
+            $table->string('expirydate')->nullable();
             //<---------- FK from order tables ------------>//
             $table->integer('order_id')->unsigned()->index();
             $table->foreign('order_id')->references('id')->on('user_oreders')->onDelete('cascade');

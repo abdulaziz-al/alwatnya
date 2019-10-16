@@ -59,7 +59,7 @@ Route::get('/admin/completedorders', 'AdminController@completedOrders');
 Route::get('/admin/returnedorders', 'AdminController@returnedOrders');
 // 5 admin/vieworder page
 Route::get('/admin/vieworder{id}', 'AdminController@viewOrder');
-Route::post('/admin/vieworder{id}', 'AdminController@OrderCompleted');
+Route::post('/admin/vieworderC{id}', 'AdminController@OrderCompleted');
 Route::post('/admin/vieworder{id}', 'AdminController@OrderReject')->name('OrderReject');
 
 // 6 admin/search page
@@ -76,7 +76,7 @@ Route::get('/user/post','UserController@PostRequest');
 Route::get('/user/createCR', 'UserController@showCRcreate');
 Route::post('/user/createCR', 'UserController@CreateCR')->name('CreateCR');
 
-Route::get('/createOrder', 'UserController@showCreatePage');
+Route::get('/createOrder{number}', 'UserController@showCreatePage');
 Route::post('/createOrder', 'UserController@createOrder')->name('createOrder');
 
 // user/settings page:
@@ -92,6 +92,13 @@ Route::post('/user/settings/password', 'UserController@updatePassword')->name('u
 Route::get('/user/settings/crs', 'UserController@viewCRs');
 // 5 user/settings/crs/edit page
 Route::get('/user/settings/crs/edit{id}', 'UserController@crEditView');
+
+Route::get('/user/returnedorders', 'UserController@returnedOrders');
+
+Route::get('/user/viewOrder{id}', 'UserController@viewOrder');
+Route::post('/user/viewOrder{id}', 'UserController@ResentOrder')->name('ResentOrder');
+
+
 
 // user quick links:
 // 1 user/neworder
@@ -109,9 +116,7 @@ Route::get('/user/neworders', function() {
 Route::get('/user/completed', function() {
     return '<h1>VIEW COMPLETED ORDERS PAGE</h1>';
 });
-Route::get('/user/returnedorders', function() {
-    return '<h1>RETURNED ORDERS PAGE</h1>';
-});
+
 Route::get('/user/logout', function() {
     return '<h1>YOU HAVE LOGGED OUT!</h1>';
 });

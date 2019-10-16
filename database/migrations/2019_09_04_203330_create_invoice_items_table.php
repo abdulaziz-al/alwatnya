@@ -17,7 +17,9 @@ class CreateInvoiceItemsTable extends Migration
             $table->engine = 'InnoDB';
 
             $table->increments('id');
+            $table->string('invoice_number');
             $table->string('invoiceItems_description');
+            $table->string('expirydate');
             $table->integer('subtotal')->nullable();
             
             

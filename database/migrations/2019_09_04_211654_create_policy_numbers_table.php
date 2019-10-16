@@ -19,7 +19,7 @@ class CreatePolicyNumbersTable extends Migration
             $table->increments('id');
 
             $table->string('policy_number')->nullable();
-            $table->date('expirydate')->nullable();
+            $table->string('expirydate')->nullable();
 
             //<---------- FK from order tables ------------>//
             $table->integer('order_id')->unsigned()->index();

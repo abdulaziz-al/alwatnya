@@ -291,7 +291,7 @@
     
         $(function initHijrDatePicker() {
          
-          for(var i=1; i<=10; i++){
+          for(var i=1; i<=24; i++){
             var el = document.getElementById("hijri-date-input" + i);
 
             $(el).hijriDatePicker({

@@ -4,7 +4,7 @@
 
         <title> #CDC-1090 الوطنية - عرض طلب</title>
         <div class="container">
-            {{$order->count()}}
+            
             @foreach ($order as $orders)
             @foreach ($invoice as $invoices)
             @foreach ($invoice_items as $invoice_item)
@@ -17,19 +17,25 @@
                 @if ($users->id == $orders->user_id && $orders->cr_id == $crs->id && $crs->file_id == $files->id)
 
                
-            <h1 class="text-center mt-3"> {{substr($invoice_item->invoiceItems_description , 0,-4) }} عرض طلب</h1>
+            <h1 class="text-center mt-3"> عرض الطلب {{str_replace('فاتورة البضاعة .pdf' , '',$invoice_item->invoiceItems_description) }}  </h1>
    
       
-
+        <form  method="POST" action="/user/viewOrder{{$orders->id}}" enctype="multipart/form-data"  >
+                @csrf
        
             <hr>
             <table class="table borderless table-striped text-center">
+                    
                 <tr>
-                    <td> <a href="/files/{{$users->full_name}}/{{$crs->cr_number}}/{{$invoice_item->invoiceItems_description}}" download="{{$invoice_item->invoiceItems_description}}">
+                <td><input type="text" name="invoice_number" readonly="true" value="{{$invoice_item->invoice_number}}" />
+                        <input type="text" id="hijri-date-input21"  value="{{$invoice_item->expirydate}}" name="expirydate_invoice" />
+                         <input type="file"  name="invoice_file"  value="{{$invoice_item->invoiceItems_description}}" />
+                         <a href="/files/{{$users->full_name}}/{{$crs->cr_number}}/{{$invoice_item->invoiceItems_description}}" download="{{$invoice_item->invoiceItems_description}}">
          
                         {{$invoice_item->invoiceItems_description}}
                     </i>
-                </a><i class="far fa-file text-primary"></i></td>
+                </a>
+                <i class="far fa-file text-primary"></i></td>
                     <td>رقم الطلب</td>
 
                 </tr>
@@ -53,28 +59,30 @@
              
 
                     @foreach ($truck as $trucks)
+                    @foreach ($file as $files)
+                        
+                    @if( $trucks->file_id == $files->id  )
 
                     <tr>
                         
-                        <td>{{$trucks->driver_name}} <i class="fas fa-truck-moving text-primary"></i></td>
+                        <td><input type="text" name="driver_name[]" value="{{$trucks->driver_name}}" /> <i class="fas fa-truck-moving text-primary"></i></td>
                         <td>إسم السائق</td>
                     </tr>
                     <tr>
-                        <td>{{$trucks->driver_mobile_2}} <i class="fas fa-mobile-alt text-primary"></i></td>
+                        <td><input type="text" value="{{$trucks->driver_mobile_2}}" name="truck_ownership_number2[]"/><i class="fas fa-mobile-alt text-primary"></i></td>
                         <td> رقم جوال السائق المحلي </td>
                     </tr>
     
                         <tr>
-                        <td> {{$trucks->driver_mobile_1}} <i class="fas fa-mobile-alt text-primary"></i></td>
+                        <td><input type="text" value="{{$trucks->driver_mobile_1}}" name="truck_ownership_number1[]" /> <i class="fas fa-mobile-alt text-primary"></i></td>
     
                         <td> رقم جوال السائق الدولي </td>
                     </tr>
-                    @foreach ($file as $files)
-                        
-                    @if( $trucks->file_id == $files->id  )
+                   
                    
                     <tr>
-                            <td><a href="/files/{{$users->full_name}}/{{$crs->cr_number}}/{{$files->file_location}}" download="{{$files->file_location}}">
+                            <td> <input type="file"  name="tos_file[]"/>
+                                <a href="/files/{{$users->full_name}}/{{$crs->cr_number}}/{{$files->file_location}}" download="{{$files->file_location}}">
              
                                 {{$files->file_location}}
                         </a><i class="far fa-file text-primary"></i></td>
@@ -103,55 +111,7 @@
                 @endif
 
 
-                <tr>
-                    <td>
-                        <form method="post" action="/admin/vieworderC{{$orders->id}}">
-                            @csrf
-                            <input type="submit" class="btn btn-success"  value="قبول " />
-                        </form>
-                        
-                        <a><button class="btn btn-warning text-right ml-auto mr-auto" data-toggle="modal" data-target="#viewAddModal">رفض  </button></a>
-
-
-                        </td>
-                        <div class="modal fade" id="viewAddModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content container">
-                                    <div class="modal-header">
-                                        <h4 class="modal-title" id="exampleModalLabel">ملاحظة الرفض </h4>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="card text-center">
-                                            <div class="card-header">
-                                            <h3>أترك ملاحظة للعميل  </h3>
-                                        </div>
-                        
-                        
-                            <div class="card-body">
-                                    <form method="POST" action="{{ route('OrderReject',[$orders->id]) }}" >
-                                        
-                                            @csrf
-                        <div class="form-group row">
-                                                        
-                            <i class="fa fa-comment" aria-hidden="true" id="icon"></i>
-                        <input id="comment" name="comment" type="text" class="form-control"  placeholder=" ملاحظة" required/>
-                        </div>
-                        
-                        <input type="submit" class=" btn btn-warning "  value="إرسال الملاحظة" />
-                        
-                                    </form>
-                        </div>
-                        </div>
-                                </div>
-                            </div>
-                            </div>
-                         
-                       
-
-                    <td>إجراء</td>
-                </tr>
+               
             </table>
             <hr>
             <h3 class="text-center text-primary">الملفات المرفقة</h3>
@@ -171,7 +131,7 @@
                             <td>تاريخ السجل</td>
                         </tr>
                         <tr>
-                            <td>{{$crs->cr_number}}</td>
+                            <td><input   value="{{$crs->cr_number}}" name="cr_number" readonly="true"/></td>
                             <td>{{$crs->cr_expiry}}</td>
                         </tr>
                     
@@ -204,11 +164,12 @@
                             <td>تاريخ الشهادة</td>
                         </tr>
                         <tr>
-                        <td>{{$coos->coo_number}}</td>
-                        <td>{{$coos->expirydate}}</td>
+                        <td><input type="text"  value="{{$coos->coo_number}}" name="coo_number"  /></td>
+                        <td><input type="text" id="hijri-date-input13"  value="{{$coos->expirydate}}" name="expirydate_coo" /></td>
                         </tr>
                         <tr>
-                                <td colspan="2"><a href="/files/{{$users->full_name}}/{{$crs->cr_number}}/{{$files->file_location}}" download="{{$files->file_location}}">
+                                <td colspan="2"><input type="file"   name="coo_file" />
+                                     <a href="/files/{{$users->full_name}}/{{$crs->cr_number}}/{{$files->file_location}}" download="{{$files->file_location}}">
              
                                     {{$files->file_location}}
                             </a><i class="far fa-file text-primary"></i></td>
@@ -234,12 +195,14 @@
                             <td>تاريخ القائمة</td>
                         </tr>
                         <tr>
-                            <td>{{$packList->pl_number}}</td>
-                        <td>{{$packList->expirydate}}</td>
+                            <td><input type="text"  value="{{$packList->pl_number}}" name="packing_list_number" /></td>
+                        <td><input type="text" id="hijri-date-input14"  value="{{$packList->expirydate}}" name="pl_expirydate" /></td>
                         </tr>
 
                         <tr>
-                                <td colspan="2"><a href="/files/{{$users->full_name}}/{{$crs->cr_number}}/{{$files->file_location}}" download="{{$files->file_location}}">
+                                <td colspan="2">
+                                        <input type="file"  name="pl_file" />
+                                    <a href="/files/{{$users->full_name}}/{{$crs->cr_number}}/{{$files->file_location}}" download="{{$files->file_location}}">
              
                                     {{$files->file_location}}
                             </a><i class="far fa-file text-primary"></i></td>
@@ -265,11 +228,12 @@
                             <td>تاريخ البيان</td>
                         </tr>
                         <tr>
-                            <td>{{$Muqassah->ms_number}}</td>
-                        <td>{{$Muqassah->expirydate}}</td>
+                            <td><input type="text" value="{{$Muqassah->ms_number}}" name="ms_number" /></td>
+                        <td><input type="text" id="hijri-date-input15" value="{{$Muqassah->expirydate}}" name="ms_expirydate" /></td>
                         </tr>
                         <tr>
-                                <td colspan="2"><a href="/files/{{$users->full_name}}/{{$crs->cr_number}}/{{$files->file_location}}" download="{{$files->file_location}}">
+                                <td colspan="2"> <input type="file"   name="ms_file" />
+                                    <a href="/files/{{$users->full_name}}/{{$crs->cr_number}}/{{$files->file_location}}" download="{{$files->file_location}}">
              
                                     {{$files->file_location}}
                             </a><i class="far fa-file text-primary"></i></td>
@@ -294,11 +258,12 @@
                             <td>تاريخ الشهادة</td>
                         </tr>
                         <tr>
-                            <td>{{$sasos->saso_number}}</td>
-                        <td>{{$sasos->expirydate}}</td>
+                            <td><input type="text" value="{{$sasos->saso_number}}" name="saso_number" /></td>
+                        <td><input type="text" id="hijri-date-input16" value="{{$sasos->expirydate}}" name="saso_expirydate"/></td>
                         </tr>
                         <tr>
-                                <td colspan="2"><a href="/files/{{$users->full_name}}/{{$crs->cr_number}}/{{$files->file_location}}" download="{{$files->file_location}}">
+                                <td colspan="2"><input type="file" name="saso_file" />
+                                    <a href="/files/{{$users->full_name}}/{{$crs->cr_number}}/{{$files->file_location}}" download="{{$files->file_location}}">
              
                                     {{$files->file_location}}
                             </a><i class="far fa-file text-primary"></i></td>
@@ -323,11 +288,12 @@
                             <td>تاريخ الفسح</td>
                         </tr>
                         <tr>
-                            <td>{{$Release->rl_number}}</td>
-                        <td>{{$Release->expirydate}}</td>
+                            <td><input type="text" value="{{$Release->rl_number}}" name="release_letter_number" /> </td>
+                        <td><input type="text" id="hijri-date-input17"  value="{{$Release->expirydate}}" name="rl_expirydate" /> </td>
                         </tr>
                         <tr>
-                                <td colspan="2"><a href="/files/{{$users->full_name}}/{{$crs->cr_number}}/{{$files->file_location}}" download="{{$files->file_location}}">
+                                <td colspan="2"><input type="file" name="rl_file" />
+                                    <a href="/files/{{$users->full_name}}/{{$crs->cr_number}}/{{$files->file_location}}" download="{{$files->file_location}}">
              
                                     {{$files->file_location}}
                             </a><i class="far fa-file text-primary"></i></td>
@@ -352,11 +318,12 @@
                             <td>تاريخ البوليصة</td>
                         </tr>
                         <tr>
-                            <td>{{$Policy->policy_number}}</td>
-                        <td>{{$Policy->expirydate}}</td>
+                            <td><input type="text" value="{{$Policy->policy_number}}" name="policy_number" /> </td>
+                        <td><input type="text" id="hijri-date-input18"  value="{{$Policy->expirydate}}" name="policy_expirydate" /></td>
                         </tr>
                         <tr>
-                                <td colspan="2"><a href="/files/{{$users->full_name}}/{{$crs->cr_number}}/{{$files->file_location}}" download="{{$files->file_location}}">
+                                <td colspan="2"><input type="file" name="policy_file" />
+                                    <a href="/files/{{$users->full_name}}/{{$crs->cr_number}}/{{$files->file_location}}" download="{{$files->file_location}}">
              
                                     {{$files->file_location}}
                             </a><i class="far fa-file text-primary"></i></td>
@@ -381,11 +348,12 @@
                             <td>تاريخ الخطاب</td>
                         </tr>
                         <tr>
-                        <td>{{$exemption_letter->el_number}}</td>
-                        <td>{{$exemption_letter->expirydate}}</td>
+                        <td><input type="text" value="{{$exemption_letter->el_number}}" name="el_number" /></td>
+                        <td><input type="text" id="hijri-date-input19"  value="{{$exemption_letter->expirydate}}" name="el_expirydate" /></td>
                         </tr>
                         <tr>
-                                <td colspan="2"><a href="/files/{{$users->full_name}}/{{$crs->cr_number}}/{{$files->file_location}}" download="{{$files->file_location}}">
+                                <td colspan="2"><input type="file" name="el_file" />
+                                    <a href="/files/{{$users->full_name}}/{{$crs->cr_number}}/{{$files->file_location}}" download="{{$files->file_location}}">
              
                                     {{$files->file_location}}
                             </a><i class="far fa-file text-primary"></i></td>
@@ -403,15 +371,17 @@
                     {{-- exemption_letter - خطاب إعفاء من التفتيش --}}
                     <table class="table borderless table-striped text-center">
                         <tr>
+                            @if ($comments->comment_by_user == auth()->user()->id)
                             <th colspan="2">تعليق من العميل </th>
+                            @else 
+                            <th colspan="2">تعليق من المشرف  </th>
+
+                            @endif
                         </tr>
+                      
+
                         <tr>
-                            <td>التعليق </td>
-                            <td>تاريخ التعليق </td>
-                        </tr>
-                        <tr>
-                        <td>{{$comments->comment_description}}</td>
-                        <td>{{$exemption_letter->created_at}}</td>
+                        <th colspan="2">{{$comments->comment_description}}</th>
                         </tr>
                       
                         <tr><td colspan="2"></td></tr>
@@ -438,12 +408,13 @@
                             <td>تاريخ الاستمارة</td>
                         </tr>
                         <tr>
-                            <td>{{$others->ood_number}}</td>
-                        <td>{{$others->expirydate}}</td>
+                            <td><input type="text" value="{{$others->ood_number}}" name="Other_number[]" /></td>
+                        <td><input type="date"   value="{{$others->expirydate}}" name="Other_exp[]" /></td>
                         </tr>
 
                         <tr>
-                                <td colspan="2"><a href="/files/{{$users->full_name}}/{{$crs->cr_number}}/{{$files->file_location}}" download="{{$files->file_location}}">
+                                <td colspan="2"><input type="file" name="Other_file[]" />
+                                    <a href="/files/{{$users->full_name}}/{{$crs->cr_number}}/{{$files->file_location}}" download="{{$files->file_location}}">
              
                                     {{$files->file_location}}
                             </a><i class="far fa-file text-primary"></i></td>
@@ -451,27 +422,27 @@
                         <tr><td colspan="2"></td></tr>
                     </table>
                 </div>
+
+
+              
+
                 @endif
                 @endforeach
                 @endforeach
 
+                <input type="submit"  name="save" id="save" style="width: 100%" class="btn btn-primary" value="Save" />
+
+            </form>
+
             </div>
 
 
-            </div>
-            <div class="row">
-                <div class="col-xs-6 col-md-6 col-lg-6">
-
-                </div>
-                <div class="col-xs-6 col-md-6 col-lg-6">
-
-                </div>
-            </div>
+           
     
 
                           {{-- <img src="http://pngimg.com/uploads/simpsons/simpsons_PNG8.png" class="d-block w-100" height="650" alt="..."> --}}
                  
-        </div>
+
 
         @endif
         @endforeach

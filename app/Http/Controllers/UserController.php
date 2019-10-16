@@ -23,6 +23,10 @@ use App\ReleaseLetter;
 use App\Saso;
 use App\Statu;
 use App\Truck;
+use App\UserLogs;
+use DateTime;
+use Illuminate\Support\Facades\Validator;
+
 use Illuminate\Support\Facades\Redirect;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Session;
@@ -67,9 +71,9 @@ class UserController extends Controller
         return view('users.index' ,$userInfo);
     }
 
-    public function showCreatePage(){
+    public function showCreatePage($number){
 
-        $userCR = CommercialRecord::where('user_id',auth()->user()->id)->first();
+        $userCR = CommercialRecord::where('cr_number',$number)->first();
 
         
      return view('users.createOredr')->with('userCR',$userCR);
@@ -99,13 +103,14 @@ class UserController extends Controller
         ],$messages);
 
         
+    /*    $extensiontest = $request->tos_file->getClientOriginalExtension();
 
-        if(substr($request->tos_file , -3 ) != 'pdf') {
+        if($extensiontest != 'pdf') {
             Alert::info('يجب ادخال ملف بصيغة ','PDF file' );
             return redirect::back();
         }
    
-
+*/
 
 /*
   if( substr($request->invoice_file , -3 ) != 'pdf'  ){
@@ -138,9 +143,14 @@ class UserController extends Controller
 */
 
         
-
+            
         $number  = UserOreder::all()->last();
-     $num = 1000 + $number->id;  
+        if($number == null ){
+            $num = 1000 ;
+        }else{
+            $num = 1000 + $number->id +1 ;
+        }
+          
        
          //////////////////////////////////
         ////////// Get Waiting status from status table //////////////
@@ -148,27 +158,23 @@ class UserController extends Controller
          ////////// Get admin role  from Role table //////////////
          $Role =   Role::find(1);
          ///////////////////////////////
-         
-         $Comment =  new Comment();
-         $Comment->comment_description = $request->comment_order ;
-         $Comment->comment_by_user = auth()->user()->id;
-         $Comment->comment_to_user = $Role->id;
-         $Comment->save();
+         $userCR = CommercialRecord::where('cr_number',$request->cr_number)->first();
 
-         $userCR = CommercialRecord::where('user_id', auth()->user()->id)->first();
-
-         $new_date = $Comment->created_at->format('dmY');
+       
+         $new_date = date('dmY');
 
 //////////////////// Invoice Table ////////////////////////////////////////
          $file_Invoice = $request->file('invoice_file');
          $extension = $request->file('invoice_file')->getClientOriginalExtension();
          $destination_path= public_path().'/files'.'/'.auth()->user()->full_name . '/' . $userCR->cr_number;
-         $file_name = $num.$new_date . 'فاتورة البضاعة '. $request->invoice_number. '.'. $extension;
+         $file_name = $num.$new_date . $request->invoice_number. 'فاتورة البضاعة '.  '.'. $extension;
          $file_Invoice->move($destination_path, $file_name);
          
 
          $invoiceItem =  new invoiceItem();
-         $invoiceItem->invoiceItems_description =$file_name ;
+         $invoiceItem->invoice_number = $request->invoice_number ;
+         $invoiceItem->invoiceItems_description =$file_name;
+         $invoiceItem->expirydate = $request->expirydate_invoice ;
          $invoiceItem->save();
 
          $Invoice =  new Invoice();
@@ -188,8 +194,13 @@ class UserController extends Controller
          $UserOreder->importeport_id = $request->radioF ;
          $UserOreder->number_of_trucks =$countTrunl;
          $UserOreder->status_id = $Statu->id;
-         $UserOreder->comment_id = $Comment->id;
          $UserOreder->save();
+
+         $Comment =  new Comment();
+         $Comment->comment_description = $request->comment_order ;
+         $Comment->comment_by_user = auth()->user()->id;
+         $Comment->order_id = $UserOreder->id;
+         $Comment->save();
 
 
 
@@ -197,7 +208,7 @@ class UserController extends Controller
          $file_coo = $request->file('coo_file');
          $extension = $file_coo->getClientOriginalExtension();
          $destination_path= public_path().'/files'.'/'.auth()->user()->full_name . '/' . $userCR->cr_number;
-         $file_name = $num.$new_date . 'شهادة بلد المنشأ '. $request->coo_number. '.'. $extension;
+         $file_name = $num.$new_date . $request->coo_number.'شهادة بلد المنشأ '.  '.'. $extension;
          $file_coo->move($destination_path, $file_name);
 
          $File_coo = new File();
@@ -209,7 +220,8 @@ class UserController extends Controller
          $Coo =  new Coo();
          $Coo->order_id = $UserOreder->id;
          $Coo->coo_number = $request->coo_number;
-         $Coo->expirydate = $request->expirydate_coo ;
+         $Coo->expirydate = $request->expirydate_coo;
+
          $Coo->file_id = $File_coo->id ;
  
          $Coo->save();
@@ -224,7 +236,7 @@ class UserController extends Controller
             $Coo =  new Coo();
             $Coo->order_id = $UserOreder->id;
             $Coo->coo_number = $request->coo_number;
-            $Coo->expirydate = $request->expirydate_coo ;
+            $Coo->expirydate = $request->expirydate_coo;
             $Coo->file_id = $File_coo->id ;
     
             $Coo->save();
@@ -236,7 +248,7 @@ class UserController extends Controller
             $file_coo = $request->file('el_file');
             $extension = $file_coo->getClientOriginalExtension();
             $destination_path= public_path().'/files'.'/'.auth()->user()->full_name . '/' . $userCR->cr_number;
-            $file_name = $num.$new_date . 'خطاب إعفاء '. $request->el_number. '.'. $extension;
+            $file_name = $num.$new_date .$request->el_number. 'خطاب إعفاء '.  '.'. $extension;
             $file_coo->move($destination_path, $file_name);
    
             $File_el = new File();
@@ -249,7 +261,7 @@ class UserController extends Controller
             $exemptionLetter =  new exemptionLetter();
                $exemptionLetter->order_id = $UserOreder->id ;
                $exemptionLetter->el_number = $request->el_number ;
-               $exemptionLetter->expirydate = $request->el_expirydate ;
+               $exemptionLetter->expirydate = $request->el_expirydate;
                $exemptionLetter->file_id = $File_el->id ;
        
                $exemptionLetter->save();
@@ -265,7 +277,7 @@ class UserController extends Controller
                $exemptionLetter =  new exemptionLetter();
                $exemptionLetter->order_id = $UserOreder->id ;
                $exemptionLetter->el_number = $request->el_number ;
-               $exemptionLetter->expirydate = $request->el_expirydate ;
+               $exemptionLetter->expirydate = $request->el_expirydate;
                $exemptionLetter->file_id = $File_el->id ;
        
                $exemptionLetter->save();
@@ -278,7 +290,7 @@ class UserController extends Controller
                 $file_coo = $request->file('ms_file'); 
                 $extension = $file_coo->getClientOriginalExtension();
                 $destination_path= public_path().'/files'.'/'.auth()->user()->full_name . '/' . $userCR->cr_number;
-                $file_name =$num. $new_date . 'بيان المقاصة '. $request->ms_number. '.'. $extension;
+                $file_name =$num. $new_date . $request->ms_number.'بيان المقاصة '.  '.'. $extension;
                 $file_coo->move($destination_path, $file_name);
                 
                 
@@ -319,10 +331,10 @@ class UserController extends Controller
 
                 if( $request->pl_file != null ){
 
-                    $file_coo = $request->file('pl_file ');
+                    $file_coo = $request->file('pl_file');
                     $extension = $file_coo->getClientOriginalExtension();
                     $destination_path= public_path().'/files'.'/'.auth()->user()->full_name . '/' . $userCR->cr_number;
-                    $file_name = $num.$new_date . 'قائمة التعبئة  '. $request->el_number. '.'. $extension;
+                    $file_name = $num.$new_date . $request->el_number. 'قائمة التعبئة  '.  '.'. $extension;
                     $file_coo->move($destination_path, $file_name);
                     
                     $File_pl = new File();
@@ -335,7 +347,7 @@ class UserController extends Controller
                     $PackingList =  new PackingList();
                     $PackingList->order_id = $UserOreder->id;
                     $PackingList->pl_number = $request->packing_list_number;
-                    $PackingList->expirydate = $request->pl_expirydate;
+                    $PackingList->expirydate = $request->pl_expirydate ;
                     $PackingList->file_id = $File_pl->id;
               
                     $PackingList->save();
@@ -350,7 +362,8 @@ class UserController extends Controller
                        $PackingList =  new PackingList();
                        $PackingList->order_id = $UserOreder->id;
                        $PackingList->pl_number = $request->packing_list_number;
-                       $PackingList->expirydate = $request->pl_expirydate;
+                       $PackingList->expirydate = $request->pl_expirydate ;
+   
                        $PackingList->file_id = $File_pl->id;
                  
                        $PackingList->save();
@@ -362,10 +375,10 @@ class UserController extends Controller
         
                     if( $request->policy_file != null ){
 
-                        $file_coo = $request->file('policy_file ');
+                        $file_coo = $request->file('policy_file');
                         $extension = $file_coo->getClientOriginalExtension();
                         $destination_path= public_path().'/files'.'/'.auth()->user()->full_name . '/' . $userCR->cr_number;
-                        $file_name = $num.$new_date . 'البوليصة   '. $request->policy_number. '.'. $extension;
+                        $file_name = $num.$new_date . $request->policy_number.'البوليصة   '.  '.'. $extension;
                         $file_coo->move($destination_path, $file_name);
                         
                         $File_pn = new File();
@@ -406,10 +419,10 @@ class UserController extends Controller
 
                         if( $request->rl_file != null ){
 
-                            $file_coo = $request->file('rl_file ');
+                            $file_coo = $request->file('rl_file');
                             $extension = $file_coo->getClientOriginalExtension();
                             $destination_path= public_path().'/files'.'/'.auth()->user()->full_name . '/' . $userCR->cr_number;
-                            $file_name = $num.$new_date . 'خطاب الفسح   '. $request->release_letter_number. '.'. $extension;
+                            $file_name = $num.$new_date .$request->release_letter_number. 'خطاب الفسح   '.  '.'. $extension;
                             $file_coo->move($destination_path, $file_name);
                             
                             $File_rl = new File();
@@ -449,10 +462,10 @@ class UserController extends Controller
 
                             if( $request->saso_file != null ){
 
-                                $file_coo = $request->file('saso_file ');
+                                $file_coo = $request->file('saso_file');
                                 $extension = $file_coo->getClientOriginalExtension();
                                 $destination_path= public_path().'/files'.'/'.auth()->user()->full_name . '/' . $userCR->cr_number;
-                                $file_name =$num. $new_date . 'شهادة المطابقة    '. $request->release_letter_number. '.'. $extension;
+                                $file_name =$num. $new_date . $request->release_letter_number. 'شهادة المطابقة    '.  '.'. $extension;
                                 $file_coo->move($destination_path, $file_name);
                                 
                                 $File_saso = new File();
@@ -465,7 +478,7 @@ class UserController extends Controller
                                 $Saso =  new Saso();
                                 $Saso->order_id = $UserOreder->id;
                                 $Saso->saso_number = $request->saso_number;
-                                $Saso->expirydate = $request->saso_expirydate;
+                                $Saso->expirydate = $request->saso_expirydate ;
                                 $Saso->file_id = $File_saso->id;
                              
                                 $Saso->save();
@@ -481,7 +494,7 @@ class UserController extends Controller
                                    $Saso =  new Saso();
                                    $Saso->order_id = $UserOreder->id;
                                    $Saso->saso_number = $request->saso_number;
-                                   $Saso->expirydate = $request->saso_expirydate;
+                                   $Saso->expirydate = $request->saso_expirydate ;
                                    $Saso->file_id = $File_saso->id;
                                 
                                    $Saso->save();
@@ -521,7 +534,7 @@ class UserController extends Controller
             $file_Truck = $tos_file[$count];
             $extension =  $file_Truck->getClientOriginalExtension();
             $destination_path= public_path().'/files'.'/'.auth()->user()->full_name . '/' . $userCR->cr_number;
-            $file_name = $num.$new_date . 'إستمارة ملكية الشاحنات '. $driver_name[$count]. '.'. $extension;
+            $file_name = $num.$new_date . $driver_name[$count].'إستمارة ملكية الشاحنات '.  '.'. $extension;
            $file_Truck->move($destination_path, $file_name);
                         $File_truck = new File();
                         $File_truck->file_name = "إستمارة ملكية الشاحنات ";
@@ -566,7 +579,7 @@ class UserController extends Controller
                 $file_Other = $Other_file[$count];
                 $extension = $file_Other->getClientOriginalExtension();
                 $destination_path= public_path().'/files'.'/'.auth()->user()->full_name . '/' . $userCR->cr_number;
-                $file_name = $num.$new_date . 'أخر '. $Other_name[$count]. '.'. $extension;
+                $file_name = $num.$new_date . $Other_name[$count]. 'أخر '.  '.'. $extension;
                 $file_Other->move($destination_path, $file_name);
     
                 $file_ood = new File();
@@ -594,7 +607,13 @@ class UserController extends Controller
   
         
 
-      
+        $log = new  UserLogs();
+        $log->user_id = auth()->user()->id;
+        $log->source_ip = $request->getClientIp();
+        $log->description = "تسجيل طلب برقم  " . $invoiceItem->invoiceItems_description ;
+        $log->created_on = date('Y-m-d');
+        $log->save();
+ 
 
   
     
@@ -615,19 +634,31 @@ class UserController extends Controller
     protected function CreateCR(Request $request){
         $messages = [
     
-            'Other_file.*'=>'ولد لازم '
+            'cr_number.*'=> 'رقم السجل محجوز  CR number already taken  ',
+            'cr_image.*'=>'يجب ان يكون الملف بصيغة PDF ',
+
             
         ];
         
-        $this->validate($request, [
-            'cr_number'=>'required|unique:commercial_records'
-        
+        $validator = validator::make($request->all(), [
+            'cr_number'=>'required|unique:commercial_records',
+            'cr_image'=>'mimes:pdf|max:1300',
             
         ],$messages);
 
+        if($validator->fails()){
+            return back()->with('error', $validator->messages());
+        }
+
 
         $extension = $request->file('cr_image')->getClientOriginalExtension();
+        $datee = date("Y-m-d");
+        if(substr($request->cr_exp, 14 ,-1  ) <  $datee  ){
+            Alert::error('Heeeeey the date is die  ','' );
+            return Redirect::back();
+        }else {
 
+        
         if($extension == 'pdf'){
 
             $file_TT = $request->file('cr_image');
@@ -646,25 +677,28 @@ class UserController extends Controller
             //request()->ip() 
             // $request->getClientIp();
             // $request->header('User-Agent');
+         $mi =  substr($request->cr_exp, 15 )  ;
          $CommercialRecord =  new CommercialRecord();
          $CommercialRecord->user_id = auth()->user()->id;
          $CommercialRecord->file_id = $file_CR->id;
          $CommercialRecord->cr_number = $request->cr_number;
-         $CommercialRecord->cr_expiry = $request->cr_exp;
+         $CommercialRecord->cr_expiry = $mi;
          $CommercialRecord->active = 0 ;
          $CommercialRecord->save();
+
+         $log = new  UserLogs();
+        $log->user_id = auth()->user()->id;
+        $log->source_ip = $request->getClientIp();
+        $log->description = "اضافة سجل جديد " . $CommercialRecord->cr_number ;
+        $log->created_on = date('Y-m-d');
+        $log->save();
  
          Alert::success(' تم إرسال المعلومات  للسجل التجاري برقم  ',$request->cr_number );
 
          return Redirect('/user'); 
 
-        }else {
-
-            Alert::info('يجب ادخال ملف بصيغة ','PDF file' );
-            return Redirect::back();
-
         }
-
+    }
 
 
     }
@@ -714,6 +748,8 @@ class UserController extends Controller
             // The passwords not matches
             //return redirect()->back()->with("error","Your current password does not matches with the password you provided. Please try again.");
             Alert::error('كلمة المرور  القديمة غير صحيحة  ','Current password does not match ' , 'okay ');
+            //Alert::html('Random lorempixel.com :' , '<img src="/images/Logo-white-Transparent-Background.png" ');
+            //Alert::image('Image Title!','Image Description','/images/Logo-Transparent-Background.png','5','5');
             return Redirect::Back();
 
         }
@@ -739,7 +775,300 @@ class UserController extends Controller
      
     }
 
+
+
+    public function returnedOrders(){
+        
+        $order = UserOreder::where('status_id' , 3 )
+        ->where('user_id', auth()->user()->id)->get();
     
+        $invoice = Invoice::all();
+        $invoice_items = InvoiceItem::all();
+        $user = User::all();
+
+        $retrunorder =Array( 'order'=>$order ,'invoice_items'=>$invoice_items, 'invoice'=>$invoice , 'user'=>$user);
+
+        
+        return view('users.returnedorders', $retrunorder);
+    }
+
+    public function viewOrder($id){
+       
+        $order = UserOreder::where('id',$id )->get();
+    
+        $invoice = Invoice::all();
+        $invoice_items = InvoiceItem::all();
+        $user = User::all();
+        $truck = Truck::where('order_id' , $id)->get();
+        $file = File::all();
+        $cr = CommercialRecord::all();
+        $other = OrderOtherdocs::where('order_id', $id)->get();
+        $coo = Coo::where('order_id', $id)->get();
+        $comment = Comment::where('order_id', $id)->get();
+        $el = exemptionLetter::where('order_id' , $id)->get();
+        $ms = muqassahStatement::where('order_id',$id)->get();
+        $pl = PackingList::where('order_id',$id)->get();
+        $pn = PolicyNumber::where('order_id',$id)->get();
+        $rl = ReleaseLetter::where('order_id',$id)->get();
+        $saso = Saso::where('order_id' , $id)->get();
+        $Accorder =Array( 'order'=>$order ,'invoice_items'=>$invoice_items,
+        'truck'=>$truck , 'invoice'=>$invoice , 'user'=>$user,
+        'file'=>$file , 'cr'=>$cr , 'other'=>$other , 'coo'=>$coo,
+        'comment'=>$comment , 'el'=>$el , 'ms'=>$ms , 'pl'=>$pl,
+        'pn'=>$pn , 'rl'=>$rl , 'saso'=>$saso);
+
+
+        return view('users.viewOrder' , $Accorder);
+
+
+    }
+    public function ResentOrder(Request $request , $id){
+       
+       
+        //////////////////////////////////
+       ////////// Get Waiting status from status table //////////////
+        $Statu =   Statu::find(1);
+    
+        ///////////////////////////////
+        $userCR = CommercialRecord::where('cr_number',$request->cr_number)->first();
+        $invoiceItem = invoiceItem::where('id',$id)->first();
+
+        $Num_date = UserOreder::where('status_id', 3)
+       ->leftJoin('invoices', 'user_oreders.invoice_id', '=', 'invoices.id')
+       ->leftJoin('invoice_items' , 'invoices.invoiceItems_id' , '=' , 'invoice_items.id' )->first();
+
+       $userCR = CommercialRecord::where('cr_number',$request->cr_number)->first();
+
+         ////////////////// Invoice Table ////////////////////////////////////////
+       if($request->file('invoice_file')  != null ){
+        $file_Invoice = $request->file('invoice_file');
+        $extension = $request->file('invoice_file')->getClientOriginalExtension();
+        $destination_path= public_path().'/files'.'/'.auth()->user()->full_name . '/' . $userCR->cr_number;
+        $file_name = substr($Num_date->invoiceItems_description, 0 , 12 ) . $request->invoice_number . 'فاتورة البضاعة '. '.'. $extension;
+        $file_Invoice->move($destination_path, $file_name);
+       
+        
+        invoiceItem::where('id', $id)
+        ->update(['invoiceItems_description' => $file_name, 'expirydate'=> $request->expirydate_invoice]);
+
+        //$invoiceItem = invoiceItem::where('id', $id)->first();
+       }else {
+           invoiceItem::where('id', $id)
+           ->update(['expirydate'=>$request->expirydate_invoice]);
+       }
+
+       if( $request->coo_file != null ){
+           $file_coo = $request->file('coo_file');
+           $extension = $file_coo->getClientOriginalExtension();
+           $destination_path= public_path().'/files'.'/'.auth()->user()->full_name . '/' . $userCR->cr_number;
+           $file_name = substr($Num_date->invoiceItems_description, 0 , 12 ) . $request->coo_number.'شهادة بلد المنشأ '.  '.'. $extension;
+           $file_coo->move($destination_path, $file_name);
+  
+           $coo = Coo::where('order_id',$id)->first();
+               
+           File::where('id',$coo->file_id)
+           ->update(['file_location'=>$file_name , ]);
+            Coo::where('order_id',$id)
+          ->update(['coo_number'=>$request->coo_number, 'expirydate'=> $request->expirydate_coo]);
+           }else{
+               Coo::where('order_id',$id)
+               ->update(['coo_number'=>$request->coo_number, 'expirydate'=> $request->expirydate_coo]);
+           }
+        
+           if( $request->pl_file != null ){
+
+            $file_coo = $request->file('pl_file');
+            $extension = $file_coo->getClientOriginalExtension();
+            $destination_path= public_path().'/files'.'/'.auth()->user()->full_name . '/' . $userCR->cr_number;
+            $file_name = substr($Num_date->invoiceItems_description, 0 , 12 ). $request->packing_list_number. 'قائمة التعبئة  '.  '.'. $extension;
+            $file_coo->move($destination_path, $file_name);
+            
+            $pl = PackingList::where('order_id',$id)->first();
+               
+            File::where('id',$pl->file_id)
+            ->update(['file_location'=>$file_name  ]);
+
+            PackingList::where('order_id',$id)
+           ->update(['pl_number'=>$request->packing_list_number, 'expirydate'=> $request->pl_expirydate]);
+
+            }else{
+
+                PackingList::where('order_id',$id)
+                ->update(['pl_number'=>$request->packing_list_number, 'expirydate'=> $request->pl_expirydate]);
+            }
+            if( $request->ms_file != null ){
+
+                $file_coo = $request->file('ms_file'); 
+                $extension = $file_coo->getClientOriginalExtension();
+                $destination_path= public_path().'/files'.'/'.auth()->user()->full_name . '/' . $userCR->cr_number;
+                $file_name =substr($Num_date->invoiceItems_description, 0 , 12 ). $request->ms_number.'بيان المقاصة '.  '.'. $extension;
+                $file_coo->move($destination_path, $file_name);
+                
+                $ms = muqassahStatement::where('order_id',$id)->first();
+               
+                File::where('id',$ms->file_id)
+                ->update(['file_location'=>$file_name  ]);
+               
+       
+                muqassahStatement::where('order_id',$id)
+                ->update(['ms_number'=>$request->ms_number, 'expirydate'=> $request->ms_expirydate]);
+     
+                }else{
+                    muqassahStatement::where('order_id',$id)
+                    ->update(['ms_number'=>$request->ms_number, 'expirydate'=> $request->ms_expirydate]);
+       
+                }
+                if( $request->saso_file != null ){
+
+                    $file_coo = $request->file('saso_file');
+                    $extension = $file_coo->getClientOriginalExtension();
+                    $destination_path= public_path().'/files'.'/'.auth()->user()->full_name . '/' . $userCR->cr_number;
+                    $file_name =substr($Num_date->invoiceItems_description, 0 , 12 ). $request->saso_number. 'شهادة المطابقة    '.  '.'. $extension;
+                    $file_coo->move($destination_path, $file_name);
+                    
+                    $saso = Saso::where('order_id',$id)->first();
+               
+                    File::where('id',$saso->file_id)
+                    ->update(['file_location'=>$file_name  ]);
+
+                    Saso::where('order_id',$id)
+                    ->update(['saso_number'=>$request->saso_number, 'expirydate'=> $request->saso_expirydate]);
+       
+               
+                    }else{
+
+                        Saso::where('order_id',$id)
+                        ->update(['saso_number'=>$request->saso_number, 'expirydate'=> $request->saso_expirydate]);
+           
+                    }
+                    
+                    if( $request->rl_file != null ){
+
+                        $file_coo = $request->file('rl_file');
+                        $extension = $file_coo->getClientOriginalExtension();
+                        $destination_path= public_path().'/files'.'/'.auth()->user()->full_name . '/' . $userCR->cr_number;
+                        $file_name = substr($Num_date->invoiceItems_description, 0 , 12 ).$request->release_letter_number. 'خطاب الفسح   '.  '.'. $extension;
+                        $file_coo->move($destination_path, $file_name);
+                        
+                        $rl = ReleaseLetter::where('order_id',$id)->first();
+               
+                        File::where('id',$rl->file_id)
+                        ->update(['file_location'=>$file_name]);
+    
+                        ReleaseLetter::where('order_id',$id)
+                        ->update(['rl_number'=>$request->release_letter_number, 'expirydate'=> $request->rl_expirydate]);
+                   
+                        }else{
+                            ReleaseLetter::where('order_id',$id)
+                            ->update(['rl_number'=>$request->release_letter_number, 'expirydate'=> $request->rl_expirydate]);
+               
+                        }
+                        if( $request->policy_file != null ){
+
+                            $file_coo = $request->file('policy_file');
+                            $extension = $file_coo->getClientOriginalExtension();
+                            $destination_path= public_path().'/files'.'/'.auth()->user()->full_name . '/' . $userCR->cr_number;
+                            $file_name = substr($Num_date->invoiceItems_description, 0 , 12 ). $request->policy_number.'البوليصة   '.  '.'. $extension;
+                            $file_coo->move($destination_path, $file_name);
+                            
+                            $PolicyNumber = PolicyNumber::where('order_id',$id)->first();
+               
+                            File::where('id',$PolicyNumber->file_id)
+                            ->update(['file_location'=>$file_name]);
+        
+                            PolicyNumber::where('order_id',$id)
+                            ->update(['policy_number'=>$request->policy_number, 'expirydate'=> $request->policy_expirydate]);
+                       
+                         
+                            }else{
+                                PolicyNumber::where('order_id',$id)
+                                ->update(['policy_number'=>$request->policy_number, 'expirydate'=> $request->policy_expirydate]);
+                           
+                   
+                            }
+                            if( $request->el_file != null ){
+
+                                $file_coo = $request->file('el_file');
+                                $extension = $file_coo->getClientOriginalExtension();
+                                $destination_path= public_path().'/files'.'/'.auth()->user()->full_name . '/' . $userCR->cr_number;
+                                $file_name = substr($Num_date->invoiceItems_description, 0 , 12 ).$request->el_number. 'خطاب إعفاء '.  '.'. $extension;
+                                $file_coo->move($destination_path, $file_name);
+                       
+                                $exemptionLetter = exemptionLetter::where('order_id',$id)->first();
+               
+                                File::where('id',$exemptionLetter->file_id)
+                                ->update(['file_location'=>$file_name]);
+            
+                                exemptionLetter::where('order_id',$id)
+                                ->update(['el_number'=>$request->el_number, 'expirydate'=> $request->el_expirydate]);
+                        
+                                }else{
+                                    exemptionLetter::where('order_id',$id)
+                                    ->update(['el_number'=>$request->el_number, 'expirydate'=> $request->el_expirydate]);
+                            
+                                }
+
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////
+/*
+$Truck_ownership = $request->Truck_ownership;
+
+$truck_ownership_number1 = $request->truck_ownership_number1;
+$truck_ownership_number2 = $request->truck_ownership_number2;
+$driver_name = $request->driver_name;
+$tos_file = $request->tos_file;
+
+for($count = 0; $count <= count($truck_ownership_number1); $count++)
+{
+
+   if( $tos_file[$count] != null ){
+
+
+    $file_Truck = $tos_file[$count];
+    $extension =  $file_Truck->getClientOriginalExtension();
+    $destination_path= public_path().'/files'.'/'.auth()->user()->full_name . '/' . $userCR->cr_number;
+    $file_name = substr($Num_date->invoiceItems_description, 0 , 12 ) .  $driver_name[$count]. 'إستمارة ملكية الشاحنات '. '.'. $extension;
+   $file_Truck->move($destination_path, $file_name);
+
+   $truck_id = Truck::where('order_id',$id)->first();
+
+                 File::where('id',$truck_id->file_id)
+                 ->update(['file_location'=>$file_name]);
+            
+
+      Truck::where('order_id', $id)
+      ->update(['driver_mobile_1'=>$truck_ownership_number1[$count],
+       'driver_mobile_2'=>$truck_ownership_number2[$count]]);
+
+   
+   }else{
+
+       Truck::where('order_id', $id)
+       ->update(['driver_mobile_1'=>$request->truck_ownership_number1[$count],
+        'driver_mobile_2'=>$request->truck_ownership_number2[$count]]);
+
+   }
+  
+
+}*/
+
+           UserOreder::where('invoice_id', $id)
+               ->update([ 'status_id'=> 1]);
+
+       $invoiceItem = invoiceItem::where('id',$id)->first();
+       $log = new  UserLogs();
+       $log->user_id = auth()->user()->id;
+       $log->source_ip = $request->getClientIp();
+       $log->description = " تعديل طلب رقم    " . $invoiceItem->invoiceItems_description ;
+       $log->created_on = date('Y-m-d');
+       $log->save();
+        Alert::success('تم تعديل طلبك و ارساله   ',  $invoiceItem->invoiceItems_description );
+
+       return Redirect('/user'); 
+   }
 public function PostRequest() {
    
 $data = array(
