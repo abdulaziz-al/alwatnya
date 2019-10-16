@@ -43,21 +43,28 @@
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
         @if (App::getLocale() == 'en')
                    <style>
-                   p,h4,input.form-control,div.form-group{
+                  h3,td, p,input.form-control{
                 text-align: left;
                 direction: ltr;
-
+                
+                   }
+                   u{
+                       margin-left: 80%;
                    }
                    
                    </style>
                    @else
                    <style>
-                        td,p,h4,input.form-control,div.form-group{
+                      h3, td, p,input.form-control{
                      text-align: right;
                      direction: rtl;
-
+                     
                         }
-                        </style>
+                        u{
+                       margin-right: 40%;
+                   }
+                      
+                      </style>
                    @endif
        
        
@@ -137,15 +144,15 @@
                             </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                   الإعدادات   <span class="caret"></span>
+                                    {{trans('main.sitting')}}   <span class="caret"></span>
                                 </a>
     
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     
-                                    <a class="dropdown-item" href="/admin/settings/subadmins/new"> عضو جديد <i class="fas fa-plus-circle"></i></a>
+                                    <a class="dropdown-item" href="/admin/settings/subadmins/new">{{trans('main.new_member')}}<i class="fas fa-plus-circle"></i></a>
 
                                     <a class="dropdown-item" href="/admin/settings/subadmins" >
-                                        إدارة المشرفين
+                                        {{trans('main.manage_supervisors')}}
                                     </a>
     
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -160,11 +167,11 @@
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="/admin/settings"> 
-                                    الملف الشخصي
+                                    {{trans('main.profile')}}
                                 </a>  
 
                                         <a class="dropdown-item" href="/admin/settings/password"> 
-                                            تغير كلمة المرور 
+                                            {{trans('main.change_password')}} 
                                         </a>   
                                        
                                     
@@ -172,7 +179,7 @@
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                        {{ __('تسجيل خروج') }}
+                       {{trans('main.Logout')}} 
                                     </a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

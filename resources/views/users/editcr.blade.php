@@ -5,38 +5,34 @@
         <title>الوطنية - تعديل سجل تجاري</title>
 
         <div class="container">
-            <h1 class="text-center mt-3">تعديل سجل تجاري</h1>
+            <h1 class="text-center mt-3"> {{trans('main.edit_Commercial_record')}}</h1>
             <hr>
             {{-- breadcrumb --}}
             <nav aria-label="breadcrumb" dir="rtl">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="/user"><i class="fas fa-home"></i> الرئيسية</a></li>
-                    <li class="breadcrumb-item"><a href="/user/settings"><i class="fas fa-cog"></i> الإعدادات</a></li>
+                    <li class="breadcrumb-item"><a href="/user"><i class="fas fa-home"></i> {{trans('main.home')}}</a></li>
+                    <li class="breadcrumb-item"><a href="/user/settings"><i class="fas fa-cog"></i> {{trans('main.sitting')}}</a></li>
                 </ol>
             </nav>
             <table class="table borderless text-center mb-5">
+                    @foreach ($crUser as $crUsers)
                 <tr>
-                    <td><input type="text" class="form-control" value="123456789abcde"></td>
-                    <th>رقم السجل</th>
+                    <td><input type="text" class="form-control" value="{{$crUsers->cr_number}}"></td>
+                    <th>{{trans('main.number_Commercial_record')}}</th>
                 </tr>
                 <tr>
-                    <td><input type="text" class="form-control" id="datepicker" /></td>
-                    <th>تاريخ السجل</th>
+                    <td><input type="text" class="form-control" id="datepicker" value="{{$crUsers->cr_expiry}}" /></td>
+                    <th>{{trans('main.exp_cr')}}</th>
 
                   
                 </tr>
-                <tr>
-                    <td><img src="https://pbs.twimg.com/profile_images/434117280/CR_Logo_400x400.jpg" alt=""></td>
-                    <th>صورة من السجل</th>
-                </tr>
-                <tr>
-                    <td colspan=""><i class="fas fa-trash-alt text-danger fa-2x" title="إزالة الصورة"></i></td>
-                </tr>
+               
                 <tr>
                     <td>
-                        <button class="btn btn-primary">حفظ</button>
+                        <button class="btn btn-primary">{{trans('main.save')}}</button>
                     </td>
                 </tr>   
+                @endforeach
             </table>
     </div>
 

@@ -91,7 +91,7 @@ Route::post('/user/settings/password', 'UserController@updatePassword')->name('u
 // 4 user/settings/crs page
 Route::get('/user/settings/crs', 'UserController@viewCRs');
 // 5 user/settings/crs/edit page
-Route::get('/user/settings/crs/edit', 'UserController@crEditView');
+Route::get('/user/settings/crs/edit{id}', 'UserController@crEditView');
 
 // user quick links:
 // 1 user/neworder

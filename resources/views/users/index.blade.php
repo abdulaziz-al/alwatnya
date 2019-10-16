@@ -55,42 +55,45 @@
 
             <hr>
             <div class="jumbotron rounded-lg">
-                <h4> {{trans('main.report')}} <i class="fas fa-tachometer-alt"></i></h4>
-                <table class="borderless table text-right h4">
+                <h4 style="text-align: center"> {{trans('main.report')}} <i class="fas fa-tachometer-alt"></i></h4>
+                <table class="borderless table inline-table  h4">
                     <tr>
-                            @if (App::getLocale() == 'en') 
-                           <td>  <div class="form-group">{{trans('main.number_of_order')}} <i class="far fa-file text-info"></i></div></td>
-
-                            <td><u>{{$order->count()}}</u></td>
                        
-                            @else 
-                    <td><u>{{$order->count()}}</u></td>
-                        <td>  <div class="form-group">{{trans('main.number_of_order')}} <i class="far fa-file text-info"></i></div></td>
-                    @endif
+                    <td>
+                       {{trans('main.number_of_order')}} <i class="far fa-file text-info"></i>
+                         
+                          <u id="u_index">{{$order->count()}}</u></td>
+                    
                     </tr>
                     <tr>
-                    <td><u>{{$order_Accepte->count()}}</u></td>
-                        <td>عدد طلباتي المنفذة <i class="fas fa-clipboard-check text-success"></i></td>
+                    <td>
+                            {{trans('main.number_of_executed')}}  <i class="fas fa-clipboard-check text-success"></i>
+                            <u id="u_index">{{$order_Accepte->count()}}</u></td>
                     </tr>
                     <tr>
                             
                            
-                    <td><u>{{$order_waiting->count()}}</u></td>
-                        <td>عدد الطلبات بإنتظار التنفيذ <i class="far fa-clock text-danger"></i></td>
+                    <td>
+                          {{trans('main.number_of_waiting_to_execution')}}<i class="far fa-clock text-danger"></i>
+                          <u id="u_index">{{$order_waiting->count()}}</u>
+                        </td>
                     </tr>
                     <tr>
-                    <td><u>{{$order_Reject->count()}}</u></td>
-                        <td>عدد الطلبات المعادة للتحديث <i class="fas fa-exclamation-triangle text-warning"></i></td>
+                    <td>
+                     {{trans('main.Number_of_requests_returned_for_update')}}<i class="fas fa-exclamation-triangle text-warning"></i>
+                     <u id="u_index">{{$order_Reject->count()}}</u>
+                    </td>
                     </tr>
                 </table>
             </div>
             <hr>
-            <h1 class="text-center mt-3 mb-3">الوصول السريع</h1>
+            <h1 class="text-center mt-3 mb-3">{{trans('main.Quick')}}            </h1>
             <div class="text-center">
                 <div class="btn-group btn-group-lg" role="group" aria-label="Basic example">
-                    <a href="/user/returnedorders" target="_blank"><button type="button" class="btn btn-info mr-1 ml-1">طلبات معادة <i class="fas fa-undo text-warning"></i></button></a>
-                    <a href="/user/completed" target="_blank"><button type="button" class="btn btn-info mr-1 ml-1">طلبات منفذة <i class="fas fa-clipboard-check"></i></button></a>
-                    <a href="/user/neworders" target="_blank"><button type="button" class="btn btn-info mr-1 ml-1">طلبات حالية <i class="far fa-clock text-danger"></i></button></a>
+                    <a href="/user/returnedorders" target="_blank"><button type="button" class="btn btn-info mr-1 ml-1"> {{trans('main.Returned_requests')}}                        <i class="fas fa-undo text-warning"></i></button></a>
+                    <a href="/user/completed" target="_blank"><button type="button" class="btn btn-info mr-1 ml-1"> {{trans('main.Executed_requests')}}                        <i class="fas fa-clipboard-check"></i></button></a>
+                    <a href="/user/neworders" target="_blank"><button type="button" class="btn btn-info mr-1 ml-1"> {{trans('main.Current_requests')}}
+                        <i class="far fa-clock text-danger"></i></button></a>
                     <div class="dropdown">
                         <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             إضافة طلب جديد <i class="fas fa-plus-circle"></i></button></a>

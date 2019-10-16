@@ -9,7 +9,7 @@
 
         <title>الوطنية - معلومات الحساب</title>
         <div class="container">
-            <h1 class="text-center mt-3">معلومات الحساب</h1>
+            <h1 class="text-center mt-3">{{trans('main.change_password')}}</h1>
             <hr>
            
             <div class="row">
@@ -21,12 +21,12 @@
                                 @csrf 
                             <fieldset>
                                 <div class="form-group">
-                                    <input class="form-control" placeholder="كلمة المرور الحالية" name="old_password" type="password">
+                                    <input class="form-control" placeholder="{{trans('main.password')}}" name="old_password" type="password">
                                 </div>
                                 <div class="form-group">
-                                    <input class="form-control" placeholder="كلمة المرور الجديدة" name="new_password" type="password">
+                                    <input class="form-control" placeholder="{{trans('main.new_password')}}" name="new_password" type="password">
                                 </div>
-                                <input class="btn btn-lg btn-primary btn-block" type="submit" value="حفظ التغيير">
+                                <input class="btn btn-lg btn-primary btn-block" type="submit" value="{{trans('main.save')}}">
                             </fieldset>
                             </form>
                         </div>
