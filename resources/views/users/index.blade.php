@@ -4,7 +4,7 @@
 @include('sweetalert::alert')
 
 <div class="dropdown">
-        <button onclick="myFunction()" class="dropbtn">                  {{trans('main.chose')}}            
+        <button onclick="myFunction()" class="dropbtn">{{trans('main.chose')}}            
         </button>
         
         <div id="myDropdown" class="dropdown-content">
@@ -79,7 +79,7 @@
                         <td>عدد الطلبات بإنتظار التنفيذ <i class="far fa-clock text-danger"></i></td>
                     </tr>
                     <tr>
-                    <td><u><a href="/admin/returnedorders">{{$order_Reject->count()}}</a></u></td>
+                    <td><u><a href="/user/returnedorders">{{$order_Reject->count()}}</a></u></td>
                         <td>عدد الطلبات المعادة للتحديث <i class="fas fa-exclamation-triangle text-warning"></i></td>
                     </tr>
                 </table>

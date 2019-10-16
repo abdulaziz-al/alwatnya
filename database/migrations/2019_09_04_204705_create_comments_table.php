@@ -17,7 +17,7 @@ class CreateCommentsTable extends Migration
             $table->engine = 'InnoDB';
 
             $table->increments('id');
-            $table->string('comment_description');
+            $table->text('comment_description');
             
 
             //<---------- FK from users tables ------------>//

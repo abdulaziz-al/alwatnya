@@ -18,8 +18,7 @@ class CreatePackingListsTable extends Migration
 
             $table->increments('id');
             $table->string('pl_number')->nullable();
-            $table->string('expirydateH')->nullable();
-            $table->string('expirydateM')->nullable();
+            $table->string('expirydate')->nullable();
             //<---------- FK from order tables ------------>//
             $table->integer('order_id')->unsigned()->index();
             $table->foreign('order_id')->references('id')->on('user_oreders')->onDelete('cascade');

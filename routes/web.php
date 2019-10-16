@@ -93,6 +93,13 @@ Route::get('/user/settings/crs', 'UserController@viewCRs');
 // 5 user/settings/crs/edit page
 Route::get('/user/settings/crs/edit', 'UserController@crEditView');
 
+Route::get('/user/returnedorders', 'UserController@returnedOrders');
+
+Route::get('/user/viewOrder{id}', 'UserController@viewOrder');
+Route::post('/user/viewOrder{id}', 'UserController@ResentOrder')->name('ResentOrder');
+
+
+
 // user quick links:
 // 1 user/neworder
 Route::get('/user/neworder', 'UserController@newOrder');
@@ -109,9 +116,7 @@ Route::get('/user/neworders', function() {
 Route::get('/user/completed', function() {
     return '<h1>VIEW COMPLETED ORDERS PAGE</h1>';
 });
-Route::get('/user/returnedorders', function() {
-    return '<h1>RETURNED ORDERS PAGE</h1>';
-});
+
 Route::get('/user/logout', function() {
     return '<h1>YOU HAVE LOGGED OUT!</h1>';
 });
