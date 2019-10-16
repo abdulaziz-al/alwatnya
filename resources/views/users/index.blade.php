@@ -79,15 +79,10 @@
                         </td>
                     </tr>
                     <tr>
-<<<<<<< HEAD
-                    <td><u><a href="/user/returnedorders">{{$order_Reject->count()}}</a></u></td>
-                        <td>عدد الطلبات المعادة للتحديث <i class="fas fa-exclamation-triangle text-warning"></i></td>
-=======
                     <td>
                      {{trans('main.Number_of_requests_returned_for_update')}}<i class="fas fa-exclamation-triangle text-warning"></i>
                      <u id="u_index">{{$order_Reject->count()}}</u>
                     </td>
->>>>>>> fc3f7989cb14ee004828ce98ad0778358516a836
                     </tr>
                 </table>
             </div>

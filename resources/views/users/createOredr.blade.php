@@ -18,12 +18,8 @@
                    
                                     <h4 style="text-align: right">                                
     
-<<<<<<< HEAD
-                                       إستيراد أو تصدير </h4>
                                     <input type="text" name="cr_number"  value="{{$userCR->cr_number}}" readonly="true" hidden  />
-=======
                                         {{trans('main.export_or_import')}} </h4>
->>>>>>> fc3f7989cb14ee004828ce98ad0778358516a836
                                         <div class="radio-toolbar">
                                             <input type="radio" id="radioA" name="radioF" value="0" checked>
                                             <label for="radioA">{{trans('main.import')}}</label>
