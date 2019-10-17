@@ -16,20 +16,31 @@
                 <h3 style="text-align: center"> {{trans('main.report')}}<i class="fas fa-tachometer-alt"></i></h3>
                 <table class="borderless table text-right h4">
                     <tr>
-                        <td><u>{{$order->count()}}</u></td>
-                        <td>{{trans('main.Number_of_applications_registered_on_the_system')}} <i class="far fa-file text-info"></i></td>
+                        
+                        <th colspan="2">{{trans('main.Number_of_applications_registered_on_the_system')}} <i class="far fa-file text-info"></i>
+                        <u>{{$order->count()}}</u></th>
                     </tr>
                     <tr>
-                        <td><a href="/admin/completedorders"><u>{{$order_Accepte->count()}}</u></a></td>
-                        <td>{{trans('main.Number_of_requests_executed_on_the_system')}} <i class="fas fa-clipboard-check text-success"></i></td>
+                            <th colspan="2">
+                            {{trans('main.Number_of_requests_executed_on_the_system')}} <i class="fas fa-clipboard-check text-success"></i>
+                            <a href="/admin/completedorders"><u>{{$order_Accepte->count()}}</u></a>
+                    </th>
                     </tr>
                     <tr>
-                        <td><a href="/admin/neworders"><u>{{$order_waiting->count()}}</u></a></td>
-                        <td>{{trans('main.The_number_of_applications_pending_execution_on_the_system')}} <i class="far fa-clock text-danger"></i></td>
+                        <th colspan="2">
+                                {{trans('main.The_number_of_applications_pending_execution_on_the_system')}} <i class="far fa-clock text-danger"></i>
+
+                            <a href="/admin/neworders"><u>{{$order_waiting->count()}}</u></a>
+                     
+                        </th>
                     </tr>
                     <tr>
-                        <td> <a href="/admin/returnedorders"><u>{{$order_Reject->count()}}</u></a></td>
-                        <td>{{trans('main.Number_of_requests_returned_for_update')}}<i class="far fa-undo text-warning"></i></td>
+                        <th colspan="2">
+                                {{trans('main.Number_of_requests_returned_for_update')}}<i class="far fa-undo text-warning"></i>
+
+                            <a href="/admin/returnedorders"><u >{{$order_Reject->count()}}</u></a>
+                    
+                    </th>
                     </tr>
                 </table>
             </div>

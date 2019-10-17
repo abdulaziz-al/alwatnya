@@ -59,30 +59,37 @@
                 <table class="borderless table inline-table  h4">
                     <tr>
                        
-                    <td>
+                        <th colspan="2">
                        {{trans('main.number_of_order')}} <i class="far fa-file text-info"></i>
+                       <u id="u_index">{{$order->count()}}</u>
+
                          
-                          <u id="u_index">{{$order->count()}}</u></td>
+                          </th>
                     
                     </tr>
                     <tr>
-                    <td>
+                        <th colspan="2">
                             {{trans('main.number_of_executed')}}  <i class="fas fa-clipboard-check text-success"></i>
-                            <u id="u_index">{{$order_Accepte->count()}}</u></td>
+                            <u id="u_index">{{$order_Accepte->count()}}</u>
+
+                           </th>
                     </tr>
                     <tr>
                             
                            
-                    <td>
-                          {{trans('main.number_of_waiting_to_execution')}}<i class="far fa-clock text-danger"></i>
-                          <u id="u_index">{{$order_waiting->count()}}</u>
-                        </td>
+                        <th colspan="2">
+
+                            {{trans('main.number_of_waiting_to_execution')}}<i class="far fa-clock text-danger"></i>
+                            <u id="u_index">{{$order_waiting->count()}}</u>
+
+                        </th>
                     </tr>
                     <tr>
-                    <td>
+                        <th colspan="2">
                      {{trans('main.Number_of_requests_returned_for_update')}}<i class="fas fa-exclamation-triangle text-warning"></i>
                      <u id="u_index">{{$order_Reject->count()}}</u>
-                    </td>
+
+                    </th>
                     </tr>
                 </table>
             </div>

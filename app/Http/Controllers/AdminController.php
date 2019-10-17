@@ -28,6 +28,15 @@ use App\Truck;
 
 class AdminController extends Controller
 {
+
+
+    
+    public function __construct(){
+        $this->middleware('auth');
+
+        $this->middleware('admin');
+
+    }
     // admin index page (dashboard)
     public function index() {
 

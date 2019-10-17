@@ -43,7 +43,7 @@
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
         @if (App::getLocale() == 'en')
                    <style>
-                  h3,td, p,input.form-control{
+                  u,h3,th, p,input.form-control{
                 text-align: left;
                 direction: ltr;
                 
@@ -55,13 +55,13 @@
                    </style>
                    @else
                    <style>
-                      h3, td, p,input.form-control{
+                      u,h3, th, p,input.form-control{
                      text-align: right;
                      direction: rtl;
                      
                         }
                         u{
-                       margin-right: 40%;
+                       margin-right: 80%;
                    }
                       
                       </style>
@@ -154,6 +154,11 @@
                                     <a class="dropdown-item" href="/admin/settings/subadmins" >
                                         {{trans('main.manage_supervisors')}}
                                     </a>
+                                    <a class="dropdown-item" href="/admin/search" >
+                                        {{trans('main.search')}}
+                                    </a>
+                                    
+
     
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
