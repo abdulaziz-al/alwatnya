@@ -11,6 +11,8 @@
                 <div class="title m-b-md mt-4 h1 text-center">
                     
                 </div>
+                <form  method="POST" action="{{ route('Reseltsearch') }}" enctype="multipart/form-data"  >
+                    @csrf
                 <div class="row">
                     <div class="col-md-4 ml-auto mr-auto">
                         <div class="panel panel-default">
@@ -40,6 +42,7 @@
                         </div>
                     </div>
                 </div>
+                </form>
             </div>
         </div>
 

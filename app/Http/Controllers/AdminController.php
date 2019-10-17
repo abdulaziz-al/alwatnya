@@ -200,7 +200,58 @@ class AdminController extends Controller
     }
     // 6 admin/search page
     public function search() {
+
+
+
+
         return view('admin.search');
+    }
+
+    public function Reseltsearch(Request $request){
+
+        
+
+        $user = User::where('full_name' , $request->text)->get();
+        $userphone = User::where('phone' , $request->text)->get();
+
+        $userAll = User::all();
+        if($request->text == 'تصدير'){
+            $type = 1 ;
+        }else if ($request->text == 'استيراد'){
+            $type = 0;
+        }
+        $order = UserOreder::all();
+        $ordertype = UserOreder::where('importeport_id' , $type)->get();
+        $invoice = Invoice::all();
+
+        $invoice_itemsAll = InvoiceItem::all();
+        $invoice_items = InvoiceItem::where('invoice_number',$request->text)->get();
+
+        $cr = CommercialRecord::where('cr_number',$request->text)->get();
+        $crAll = CommercialRecord::all();
+
+        $truckAll = Truck::all();
+        $truck_name = Truck::where('driver_name',$request->text)->get();
+        $truck_phone1 = Truck::where('driver_mobile_1',$request->text)->get();
+        $truck_phone2 = Truck::where('driver_mobile_2',$request->text)->get();
+
+        $file = File::all();
+
+        $text = $request->text;
+
+
+
+
+        $data =Array('user'=>$user ,'order'=> $order , 'invoice'=>$invoice ,
+                    'invoice_items'=>$invoice_items , 'cr'=>$cr , 'truck_name'=>$truck_name,
+                     'truck_phone1'=>$truck_phone1 , 'truck_phone2'=>$truck_phone2,
+                    'userAll'=>$userAll , 'invoice_itemsAll'=>$invoice_itemsAll,
+                    'truckAll'=>$truckAll , 'file'=>$file , 'text'=>$text,
+                    'crAll'=>$crAll, 'userphone'=>$userphone , 'ordertype'=>$ordertype);
+                    
+        return view('admin.reselt', $data);
+
+
     }
     // admin logout
     public function logout() {

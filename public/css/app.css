@@ -332,3 +332,13 @@ margin-bottom:10%;
     background-color: #bfb;
     border-color: #4c4;
 }
+
+#no_zero{
+    text-align: center;
+    padding-top: 20%;
+    color: red;
+    font-size: 1cm; 
+}
+#data_user{
+    padding-top: 10%;
+}

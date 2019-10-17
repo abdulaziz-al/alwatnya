@@ -64,6 +64,8 @@ Route::post('/admin/vieworder{id}', 'AdminController@OrderReject')->name('OrderR
 
 // 6 admin/search page
 Route::get('/admin/search', 'AdminController@search');
+Route::post('/admin/search', 'AdminController@Reseltsearch')->name('Reseltsearch');
+
 // admin logout
 Route::get('/admin/logout', 'AdminController@logout');
 // -- end of admin controller functionality --
