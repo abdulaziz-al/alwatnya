@@ -41,79 +41,32 @@
             </div>
             <div class="row mb-3">
                 <div class="col-6 text-center">
-                    <label for="stats">عرض التقرير المبسط</label>
-                    <input type="checkbox" name="privliges" id="stats">
+                    <label for="stats">تسجيل عميل جديد </label>
+                    <input type="checkbox" class="child" name="Create_user" id="stats">
                 </div>
                 <div class="col-6 text-center">
-                    <label for="manageadmins">عرض خيار إدارة الإشراف</label>
-                    <input type="checkbox" name="privliges" id="manageadmins">
+                    <label for="manageadmins">الموافقه على السجلات التجارية وإدارتها وتفعيل العملاء</label>
+                    <input type="checkbox" class="child" name="active_cr" id="manageadmins">
                 </div>
             </div>
             <div class="row mb-3">
                 <div class="col-6 text-center">
-                    <label for="passwordchange">تغيير كلمة المرور</label>
-                    <input type="checkbox" name="privliges" id="passwordchange">
+                    <label for="passwordchange">إدارة حالات الطلب وإعادته</label>
+                    <input type="checkbox" class="child" name="edit_order" id="passwordchange">
                 </div>
                 <div class="col-6 text-center">
-                    <label for="viewneworders">عرض الطلبات الجديدة</label>
-                    <input type="checkbox" name="privliges" id="viewneworders">
+                    <label for="viewneworders">عرض الطلبات على النظام لمدة 365 يوما </label>
+                    <input type="checkbox" class="child" name="view_year" id="viewneworders">
                 </div>
             </div>
             <div class="row mb-3">
                 <div class="col-6 text-center">
-                    <label for="viewcompletedorders">عرض الطلبات المنفذه</label>
-                    <input type="checkbox" name="privliges" id="viewcompletedorders">
+                    <label for="viewcompletedorders">تحديد الكل</label>
+                    <input type="checkbox"  name="all" id="viewcompletedorders">
                 </div>
-                <div class="col-6 text-center">
-                    <label for="viewreturnedorders">عرض الطلبات المعادة</label>
-                    <input type="checkbox" name="privliges" id="viewreturnedorders">
-                </div>
+                
             </div>
-            <div class="row mb-3">
-                <div class="col-6 text-center">
-                    <label for="viewuserinfo">عرض بيانات عضو</label>
-                    <input type="checkbox" name="privliges" id="viewuserinfo">
-                </div>
-                <div class="col-6 text-center">
-                    <label for="edituserinfo">تعديل بيانات عضو</label>
-                    <input type="checkbox" name="privliges" id="edituserinfo">
-                </div>
-            </div>
-            <div class="row mb-3">
-                <div class="col-6 text-center">
-                    <label for="acceptorders">قبول طلب عضو</label>
-                    <input type="checkbox" name="privliges" id="acceptorders">
-                </div>
-                <div class="col-6 text-center">
-                    <label for="declineorders">رفض طلب عضو</label>
-                    <input type="checkbox" name="privliges" id="declineorders">
-                </div>
-            </div>
-            <div class="row mb-3">
-                <div class="col-6 text-center">
-                    <label for="returnorder">إعادة طلب الى عضو للتحديث</label>
-                    <input type="checkbox" name="privliges" id="returnorder">
-                </div>
-                <div class="col-6 text-center">
-                    <label for="statuses">إدارة حالات الطلب</label>
-                    <input type="checkbox" name="privliges" id="statuses">
-                </div>
-            </div>
-            <div class="row mb-3">
-                <div class="col text-right">
-                    <label for="">فعالية الحساب</label>
-                </div>
-            </div>
-            <div class="row mb-3">
-                <div class="col-6 text-center">
-                    <label for="inactive">معطّل</label>
-                    <input type="radio" name="activity" id="inactive">
-                </div>
-                <div class="col-6 text-center">
-                    <label for="active">فعّال</label>
-                    <input type="radio" name="activity" id="active" checked>
-                </div>
-            </div>
+            
             <hr>
             <div class="row mb-3">
                 <div class="col-12 text-center">
@@ -123,5 +76,17 @@
         </form>
         <br><br>
     </div>
+     
 
+    <script>
+$(function() {
+  $('#viewcompletedorders').on('change', function() {
+    $('.child').prop('checked', this.checked);
+  });
+  $('.child').on('change', function() {
+    $('#viewcompletedorders').prop('checked', $('.child:checked').length===$('.child').length);
+  });
+});
+
+        </script>
     @endsection
