@@ -101,6 +101,10 @@ return [
        'Number_of_requests_executed_on_the_system'=>'عدد الطلبات المنفذة على النظام ',
        'The_number_of_applications_pending_execution_on_the_system'=>'عدد الطلبات بإنتظار التنفيذ على النظام ',
        'Number_of_requests_returned_for_update'=>'عدد الطلبات المعادة للتحديث ',
+       'supervisors'=>'المشرف',
+       'status'=>'الحالة',
+       'active'=>'فعال',
+       'search'=>'بحث',
        
 
 ];

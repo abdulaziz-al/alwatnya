@@ -94,5 +94,8 @@ return [
        'The_number_of_applications_pending_execution_on_the_system'=>'The number of applications pending execution on the system',
        'Number_of_requests_returned_for_update'=>'Number of requests returned for update',
        'new_order'=>'New order',
-
+       'supervisors'=>'Supervisors',
+       'status'=>'Status',
+        'active'=>'Active',  
+        'search'=>'Search'
 ];

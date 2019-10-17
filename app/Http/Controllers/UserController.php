@@ -44,7 +44,11 @@ class UserController extends Controller
 {
     // user index page (dashboard)
 
+    public function __construct(){
+        $this->middleware('auth');
 
+        $this->middleware('user');
+    }
     public function index(  ) {
 
         
