@@ -11,9 +11,12 @@
 |
 
 */
-Route::group(['prefix' => LaravelLocalization::setLocale()], function()
+Route::group([
+    'prefix' => LaravelLocalization::setLocale(),
+    'middleware' => [ 'localeSessionRedirect', 'localizationRedirect' ]
+], function()
 {
-// -- home controller --
+    // -- home controller --
 // home / guest view
 Route::get('/','HomeController@index');
 // registration page

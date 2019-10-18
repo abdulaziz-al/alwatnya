@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-
+use Illuminate\Support\Facades\Notification;
+use App\Notifications\AddOrder;
 use App\User;
 use App\Role;
 use App\UserOreder;
@@ -198,6 +199,7 @@ class UserController extends Controller
          $UserOreder->importeport_id = $request->radioF ;
          $UserOreder->number_of_trucks =$countTrunl;
          $UserOreder->status_id = $Statu->id;
+         $UserOreder->seen =  0;
          $UserOreder->save();
 
          $Comment =  new Comment();

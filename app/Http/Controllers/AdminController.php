@@ -24,6 +24,7 @@ use App\ReleaseLetter;
 use App\Saso;
 use App\Statu;
 use App\Truck;
+use App\Previlige;
 
 
 class AdminController extends Controller
@@ -48,39 +49,60 @@ class AdminController extends Controller
         $order_Accepte = UserOreder::where('status_id',2);
         
         $order_Reject = UserOreder::where('status_id',3);
-         
+        
+        UserOreder::where('seen',0)
+        ->update(['seen' =>1]);
+        
+        $seen = UserOreder::where('seen',0)->get();
 
-        $userInfo =Array('order'=>$order_all ,'order_waiting'=>$order_waiting,'order_Reject'=>$order_Reject,'order_Accepte'=>$order_Accepte);
+   
+
+        $userInfo =Array('order'=>$order_all ,'order_waiting'=>$order_waiting,'order_Reject'=>$order_Reject,
+        'order_Accepte'=>$order_Accepte, 'seen'=>$seen);
         
         return view('admin.index', $userInfo);
     }
     // admin settings page:
     public function settings() {
-        return view('admin.settings');
+
+        $seen = UserOreder::where('seen',0)->get();
+
+        return view('admin.settings')->with('seen',$seen);
     }
     // 1 admin settings page / subadmins page
     public function subadmins() {
+
+        $seen = UserOreder::where('seen',0)->get();
+
         $sub = User::where('role_id', 2)->get();
 
-        return view('admin.subadmins'  )->with('sub',$sub);
+        $array = Array('sub'=>$sub , 'seen'=>$seen);
+
+        return view('admin.subadmins' , $array );
     }
     // 2 admin/settings/subadmins/ create a new sub-admin page
     public function newSubAdmin() {
-        return view('admin.newsubadmin');
+        $seen = UserOreder::where('seen',0)->get();
+
+        return view('admin.newsubadmin')->with('seen',$seen);
     }
     // 3 admin/settings/subadmins/ view a sub-admin info page
     public function viewsubadmin($id) {
+
         $sub = User::where('id', $id)->first();
-        return view('admin.viewsubadmin')->with('sub',$sub);;
+        $seen = UserOreder::where('seen',0)->get();
+        $array = Array('sub'=>$sub , 'seen'=>$seen);
+
+        return view('admin.viewsubadmin', $array);
     }
     // 4 admin/settings/password change password page
     public function password() {
-        return view('admin.changepassword');
+
+        $seen = UserOreder::where('seen',0)->get();
+
+        return view('admin.changepassword')->with('seen',$seen);
     }
-    // 5 admin/settings/orderStatuses view orders statuses page
-    public function orderStatuses() {
-        return view('admin.statuses');
-    }
+  
 
     // admin quick links:
     // 1 admin/ create new user
@@ -89,17 +111,87 @@ class AdminController extends Controller
     }
     public function createUser(Request $request){
 
+        if($request->type == 2 ){
+
+            if($request->all != null ){
+
+            $Previlige = new Previlige();
+            $Previlige->Create_user = 1;
+            $Previlige->active_cr = 1;
+            $Previlige->edit_order = 1; 
+            $Previlige->view_year = 1;
+            $Previlige->save();
+            
+            $subadmin =  new User();
+            $subadmin->full_name = $request->full_name;
+            $subadmin->email = $request->email;
+            $subadmin->phone = $request->phone;
+            $subadmin->active = true ;
+            $subadmin->role_id = 2;
+            $subadmin->previlige_id = $Previlige->id;
+            $subadmin->password =  Hash::make($request->password);
+    
+            $subadmin->save();
+            }else{
+                
+                $Previlige = new Previlige();
+                if($request->Create_user != null ){
+                $Previlige->Create_user = 1;
+                }else{
+                    $Previlige->Create_user = 0;
+                }
+                if($request->active_cr != null ){
+                    $Previlige->active_cr = 1;
+                    }else{
+                        $Previlige->active_cr = 0;
+                    }
+                    if($request->edit_order != null ){
+                        $Previlige->edit_order = 1;
+                        }else{
+                            $Previlige->edit_order = 0;
+                        }
+                        if($request->view_year != null ){
+                            $Previlige->view_year = 1;
+                            }else{
+                                $Previlige->view_year = 0;
+                            }
+
+                $Previlige->save();
+            
+            $subadmin =  new User();
+            $subadmin->full_name = $request->full_name;
+            $subadmin->email = $request->email;
+            $subadmin->phone = $request->phone;
+            $subadmin->active = true ;
+            $subadmin->role_id = 2;
+            $subadmin->previlige_id = $Previlige->id;
+            $subadmin->password =  Hash::make($request->password);
+    
+            $subadmin->save();
+            
+            Alert::success('تمت اضافة عضو جديد ',$request->full_name );
+
+            }
+        
+        }else{
+
+
+
         $subadmin =  new User();
         $subadmin->full_name = $request->full_name;
         $subadmin->email = $request->email;
         $subadmin->phone = $request->phone;
         $subadmin->active = true ;
-        $subadmin->role_id = 2;
+        $subadmin->role_id = 3;
         $subadmin->password =  Hash::make($request->password);
 
         $subadmin->save();
 
-        Alert::success('تمت اضافة عضو جديد ',$request->full_name );
+        Alert::success('تمت اضافة عميل   ',$request->full_name );
+
+        }
+
+        
         return redirect('/');
 
 
@@ -112,8 +204,11 @@ class AdminController extends Controller
         $invoice = Invoice::all();
         $invoice_items = InvoiceItem::all();
         $user = User::all();
+        $seen = UserOreder::where('seen',0)->get();
 
-        $Waitorder =Array( 'order'=>$order ,'invoice_items'=>$invoice_items, 'invoice'=>$invoice , 'user'=>$user);
+
+        $Waitorder =Array( 'order'=>$order ,'invoice_items'=>$invoice_items,
+         'invoice'=>$invoice , 'user'=>$user , 'seen'=>$seen);
 
         
 /*
@@ -124,6 +219,7 @@ class AdminController extends Controller
 
         $Waitorder =Array( 'Waiting_order'=>$Waiting_order);
 */
+
 
         return view('admin.neworders', $Waitorder);
     }
@@ -136,8 +232,11 @@ class AdminController extends Controller
         $invoice = Invoice::all();
         $invoice_items = InvoiceItem::all();
         $user = User::all();
+        $seen = UserOreder::where('seen',0)->get();
 
-        $Accorder =Array( 'order'=>$order ,'invoice_items'=>$invoice_items, 'invoice'=>$invoice , 'user'=>$user);
+
+        $Accorder =Array( 'order'=>$order ,'invoice_items'=>$invoice_items,
+         'invoice'=>$invoice , 'user'=>$user , 'seen'=>$seen);
 
 
         return view('admin.completed' , $Accorder);
@@ -150,8 +249,11 @@ class AdminController extends Controller
         $invoice = Invoice::all();
         $invoice_items = InvoiceItem::all();
         $user = User::all();
+        $seen = UserOreder::where('seen',0)->get();
 
-        $retrunorder =Array( 'order'=>$order ,'invoice_items'=>$invoice_items, 'invoice'=>$invoice , 'user'=>$user);
+
+        $retrunorder =Array( 'order'=>$order ,'invoice_items'=>$invoice_items,
+         'invoice'=>$invoice , 'user'=>$user , 'seen'=>$seen);
 
         
         return view('admin.returnedorders', $retrunorder);
@@ -176,11 +278,15 @@ class AdminController extends Controller
         $pn = PolicyNumber::where('order_id',$id)->get();
         $rl = ReleaseLetter::where('order_id',$id)->get();
         $saso = Saso::where('order_id' , $id)->get();
+
+        $seen = UserOreder::where('seen',0)->get();
+
+
         $Accorder =Array( 'order'=>$order ,'invoice_items'=>$invoice_items,
         'truck'=>$truck , 'invoice'=>$invoice , 'user'=>$user,
         'file'=>$file , 'cr'=>$cr , 'other'=>$other , 'coo'=>$coo,
         'comment'=>$comment , 'el'=>$el , 'ms'=>$ms , 'pl'=>$pl,
-        'pn'=>$pn , 'rl'=>$rl , 'saso'=>$saso);
+        'pn'=>$pn , 'rl'=>$rl , 'saso'=>$saso , 'seen'=>$seen);
 
 
         return view('admin.vieworder' , $Accorder );
@@ -211,9 +317,10 @@ class AdminController extends Controller
     public function search() {
 
 
+        $seen = UserOreder::where('seen',0)->get();
 
 
-        return view('admin.search');
+        return view('admin.search')->with('seen',$seen);
     }
 
     public function Reseltsearch(Request $request){
@@ -228,7 +335,10 @@ class AdminController extends Controller
             $type = 1 ;
         }else if ($request->text == 'استيراد'){
             $type = 0;
+        }else{
+            $type = null ;
         }
+
         $order = UserOreder::all();
         $ordertype = UserOreder::where('importeport_id' , $type)->get();
         $invoice = Invoice::all();
@@ -245,6 +355,8 @@ class AdminController extends Controller
         $truck_phone2 = Truck::where('driver_mobile_2',$request->text)->get();
 
         $file = File::all();
+        $seen = UserOreder::where('seen',0)->get();
+
 
         $text = $request->text;
 
@@ -256,7 +368,7 @@ class AdminController extends Controller
                      'truck_phone1'=>$truck_phone1 , 'truck_phone2'=>$truck_phone2,
                     'userAll'=>$userAll , 'invoice_itemsAll'=>$invoice_itemsAll,
                     'truckAll'=>$truckAll , 'file'=>$file , 'text'=>$text,
-                    'crAll'=>$crAll, 'userphone'=>$userphone , 'ordertype'=>$ordertype);
+                    'crAll'=>$crAll, 'userphone'=>$userphone , 'ordertype'=>$ordertype , 'seen'=>$seen);
                     
         return view('admin.reselt', $data);
 

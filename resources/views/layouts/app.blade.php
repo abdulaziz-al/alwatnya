@@ -140,7 +140,15 @@
                         @else
                         @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2 )
                         <li class="nav-item">
-                                <a class="nav-link" href="/admin">{{trans('main.dashboard')}} </a>
+                                
+                                <a class="nav-link" href="/admin">{{trans('main.dashboard')}}
+                                    
+                                    @if ($seen->count() != null )
+                                        
+                                    <span class="badge badge-pill badge-danger">{{$seen->count()}}</span>
+                                    @else
+                                        @endif
+                                </a>
                             </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>

@@ -26,7 +26,7 @@ class CreateUsersTable extends Migration
             $table->integer('role_id')->unsigned()->index();
             $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');
 
-            $table->integer('previlige_id')->unsigned()->index();
+            $table->integer('previlige_id')->unsigned()->index()->nullable();
             $table->foreign('previlige_id')->references('id')->on('previliges')->onDelete('cascade');
             
             $table->boolean('active');
