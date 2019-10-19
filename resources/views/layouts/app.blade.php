@@ -43,7 +43,7 @@
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
         @if (App::getLocale() == 'en')
                    <style>
-                  u,h3,th, p,input.form-control{
+                  div.container,u,h3,th, p,input.form-control{
                 text-align: left;
                 direction: ltr;
                 
@@ -55,7 +55,7 @@
                    </style>
                    @else
                    <style>
-                      u,h3, th, p,input.form-control{
+                      div.container,u,h3, th, p,input.form-control{
                      text-align: right;
                      direction: rtl;
                      
