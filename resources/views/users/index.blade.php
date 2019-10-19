@@ -70,7 +70,7 @@
                     <tr>
                         <th colspan="2">
                             {{trans('main.number_of_executed')}}  <i class="fas fa-clipboard-check text-success"></i>
-                            <u id="u_index">{{$order_Accepte->count()}}</u>
+                            <a href="/user/complateorder" >   <u id="u_index">{{$order_Accepte->count()}}</u></a>
 
                            </th>
                     </tr>
@@ -80,14 +80,14 @@
                         <th colspan="2">
 
                             {{trans('main.number_of_waiting_to_execution')}}<i class="far fa-clock text-danger"></i>
-                            <u id="u_index">{{$order_waiting->count()}}</u>
+                            <a href="/user/wittingorder" >   <u id="u_index">{{$order_waiting->count()}}</u></a>
 
                         </th>
                     </tr>
                     <tr>
                         <th colspan="2">
                      {{trans('main.Number_of_requests_returned_for_update')}}<i class="fas fa-exclamation-triangle text-warning"></i>
-                     <u id="u_index">{{$order_Reject->count()}}</u>
+                    <a href="/user/returnedorders" ><u id="u_index">{{$order_Reject->count()}}</u></a>
 
                     </th>
                     </tr>

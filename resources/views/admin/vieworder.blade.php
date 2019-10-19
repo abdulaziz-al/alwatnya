@@ -30,21 +30,21 @@
                         {{$invoice_item->invoiceItems_description}}
                     </i>
                 </a><i class="far fa-file text-primary"></i></td>
-                    <td>رقم الطلب</td>
+                    <td>{{trans('main.Order_number')}}</td>
 
                 </tr>
                 <tr>
                        
                     <td>{{$users->full_name}} <i class="far fa-user text-primary"></i></td>
-                    <td>إسم المستخدم</td>
+                    <td>{{trans('main.name')}}</td>
                 </tr>
                 <tr>
                     <td>{{$users->email}} <i class="far fa-envelope text-primary"></i></td>
-                    <td>البريد الإلكتروني</td>
+                    <td>{{trans('main.email')}}</td>
                 </tr>
                 <tr>
                     <td>+{{$users->phone}}  <i class="fas fa-mobile-alt text-primary"></i></td>
-                    <td>رقم الجوال</td>
+                    <td>{{trans('main.phone')}}</td>
                    
 
                 </tr>
@@ -57,17 +57,17 @@
                     <tr>
                         
                         <td>{{$trucks->driver_name}} <i class="fas fa-truck-moving text-primary"></i></td>
-                        <td>إسم السائق</td>
+                        <td>{{trans('main.name_of_driver')}}</td>
                     </tr>
                     <tr>
                         <td>{{$trucks->driver_mobile_2}} <i class="fas fa-mobile-alt text-primary"></i></td>
-                        <td> رقم جوال السائق المحلي </td>
+                        <td> {{trans('main.Local_phone_number')}} </td>
                     </tr>
     
                         <tr>
                         <td> {{$trucks->driver_mobile_1}} <i class="fas fa-mobile-alt text-primary"></i></td>
     
-                        <td> رقم جوال السائق الدولي </td>
+                        <td> {{trans('main.International_telephone_number')}} </td>
                     </tr>
                     @foreach ($file as $files)
                         
@@ -79,7 +79,7 @@
                                 {{$files->file_location}}
                         </a><i class="far fa-file text-primary"></i></td>
         
-                            <td>ملف السائق  </td>
+                            <td>{{trans('main.file')}} </td>
                         </tr>
                         
                     @endif
@@ -91,26 +91,28 @@
 
                 <tr>
                         
-                    <td>Import <i class="fas fa-arrow-circle-down text-primary"></i></td>
-                    <td>نوع الطلب</td>
+                    <td>{{trans('main.import')}} <i class="fas fa-arrow-circle-down text-primary"></i></td>
+                    <td>{{trans('main.export_or_import')}}</td>
                 </tr>
                 @else 
                 <tr>
-                    <td>Export <i class="fas fa-arrow-circle-up text-primary"></i></td>
-                    <td>نوع الطلب</td>
+                    <td>{{trans('main.export')}} <i class="fas fa-arrow-circle-up text-primary"></i></td>
+                    <td>{{trans('main.export_or_import')}}</td>
                    
                 </tr>
                 @endif
 
 
                 <tr>
+                    @if($orders->status_id==1)
                     <td>
+
                         <form method="post" action="/admin/vieworderC{{$orders->id}}">
                             @csrf
-                            <input type="submit" class="btn btn-success"  value="قبول " />
-                        </form>
-                        
-                        <a><button class="btn btn-warning text-right ml-auto mr-auto" data-toggle="modal" data-target="#viewAddModal">رفض  </button></a>
+                            <input type="submit" class="btn btn-success"  value="{{trans('main.accept')}} " />
+                        </form></td>
+                        <td>
+                        <a><button class="btn btn-warning text-right ml-auto mr-auto" data-toggle="modal" data-target="#viewAddModal">{{trans('main.rejection')}}   </button></a>
 
 
                         </td>
@@ -118,7 +120,7 @@
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content container">
                                     <div class="modal-header">
-                                        <h4 class="modal-title" id="exampleModalLabel">ملاحظة الرفض </h4>
+                                        <h4 class="modal-title" id="exampleModalLabel">{{trans('main.note')}} </h4>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
@@ -150,11 +152,14 @@
                          
                        
 
-                    <td>إجراء</td>
+                            
+                    <td>{{trans('main.Procedure')}}</td>
                 </tr>
+                @else
+                @endif
             </table>
             <hr>
-            <h3 class="text-center text-primary">الملفات المرفقة</h3>
+            <h3 class="text-center text-primary">{{trans('main.attached_files')}}</h3>
 
             <div class="row">
                 <div class="col-xs-6 col-md-6 col-lg-6">
@@ -164,11 +169,11 @@
                     @if ($crs->file_id == $files->id )
                     <table class="table borderless table-striped text-center">
                         <tr>
-                        <th colspan="2"> السجل التجاري</th>
+                        <th colspan="2"> {{trans('main.cr')}}</th>
                         </tr>
                         <tr>
-                            <td>رقم السجل</td>
-                            <td>تاريخ السجل</td>
+                            <td>{{trans('main.number_Commercial_record')}}</td>
+                            <td>{{trans('main.exp_cr')}}</td>
                         </tr>
                         <tr>
                             <td>{{$crs->cr_number}}</td>
@@ -197,11 +202,11 @@
                     {{-- Cirtificate of Origin --}}
                     <table class="table borderless table-striped text-center">
                         <tr>
-                            <th colspan="2">شهادة بلد المنشأ</th>
+                            <th colspan="2">{{trans('main.Country_of_origin_certificate')}}</th>
                         </tr>
                         <tr>
-                            <td>رقم الشهادة</td>
-                            <td>تاريخ الشهادة</td>
+                            <td>{{trans('main.number_of_certificate')}}</td>
+                            <td>{{trans('main.date')}}</td>
                         </tr>
                         <tr>
                         <td>{{$coos->coo_number}}</td>
@@ -227,11 +232,11 @@
                     {{-- packing list --}}
                     <table class="table borderless table-striped text-center">
                         <tr>
-                            <th colspan="2">قائمة التعبئة</th>
+                            <th colspan="2">{{trans('main.packing_list')}}</th>
                         </tr>
                         <tr>
-                            <td>رقم القائمة</td>
-                            <td>تاريخ القائمة</td>
+                            <td>{{trans('main.number_packing')}}</td>
+                            <td>{{trans('main.date')}}</td>
                         </tr>
                         <tr>
                             <td>{{$packList->pl_number}}</td>
@@ -258,11 +263,11 @@
                     {{-- Muqassah statement --}}
                     <table class="table borderless table-striped text-center">
                         <tr>
-                            <th colspan="2">بيان المقاصة</th>
+                            <th colspan="2">{{trans('main.Clearing_statement')}}</th>
                         </tr>
                         <tr>
-                            <td>رقم البيان</td>
-                            <td>تاريخ البيان</td>
+                            <td>{{trans('main.number_of_statement')}}</td>
+                            <td>{{trans('main.date')}}</td>
                         </tr>
                         <tr>
                             <td>{{$Muqassah->ms_number}}</td>
@@ -287,11 +292,11 @@
                     {{-- SASO - شهادة المطابقة للمنتجات المصدرة للمملكة --}}
                     <table class="table borderless table-striped text-center">
                         <tr>
-                            <th colspan="2">شهادة المطابقة للمنتجات المصدرة للمملكة</th>
+                            <th colspan="2">{{trans('main.Certificate_of_Conformity')}}</th>
                         </tr>
                         <tr>
-                            <td>رقم الشهادة</td>
-                            <td>تاريخ الشهادة</td>
+                            <td>{{trans('main.number_of_certificate')}}</td>
+                            <td>{{trans('main.date')}}</td>
                         </tr>
                         <tr>
                             <td>{{$sasos->saso_number}}</td>
@@ -316,11 +321,11 @@
                     {{-- Release letter - خطاب الفسح --}}
                     <table class="table borderless table-striped text-center">
                         <tr>
-                            <th colspan="2">خطاب الفسح</th>
+                            <th colspan="2">{{trans('main.Glade_speech')}}</th>
                         </tr>
                         <tr>
-                            <td>رقم الفسح</td>
-                            <td>تاريخ الفسح</td>
+                            <td>{{trans('main.number_of_speach')}}</td>
+                            <td>{{trans('main.date')}}</td>
                         </tr>
                         <tr>
                             <td>{{$Release->rl_number}}</td>
@@ -345,11 +350,11 @@
                     {{-- Policy - البوليصة --}}
                     <table class="table borderless table-striped text-center">
                         <tr>
-                            <th colspan="2">البوليصة</th>
+                            <th colspan="2">{{trans('main.The_policy')}}</th>
                         </tr>
                         <tr>
-                            <td>رقم البوليصة</td>
-                            <td>تاريخ البوليصة</td>
+                            <td>{{trans('main.number_of_policy')}}</td>
+                            <td>{{trans('main.date')}}</td>
                         </tr>
                         <tr>
                             <td>{{$Policy->policy_number}}</td>
@@ -374,11 +379,11 @@
                     {{-- exemption_letter - خطاب إعفاء من التفتيش --}}
                     <table class="table borderless table-striped text-center">
                         <tr>
-                            <th colspan="2">خطاب إعفاء من التفتيش</th>
+                            <th colspan="2">{{trans('main.Letter_of_exemption')}}</th>
                         </tr>
                         <tr>
-                            <td>رقم الخطاب</td>
-                            <td>تاريخ الخطاب</td>
+                            <td>{{trans('main.number_of_Letter')}}</td>
+                            <td>{{trans('main.date')}}</td>
                         </tr>
                         <tr>
                         <td>{{$exemption_letter->el_number}}</td>
@@ -403,11 +408,11 @@
                     {{-- exemption_letter - خطاب إعفاء من التفتيش --}}
                     <table class="table borderless table-striped text-center">
                         <tr>
-                            <th colspan="2">تعليق من العميل </th>
+                            <th colspan="2">{{trans('main.comment_user')}} </th>
                         </tr>
                         <tr>
-                            <td>التعليق </td>
-                            <td>تاريخ التعليق </td>
+                            <td>{{trans('main.comment')}}  </td>
+                            <td>{{trans('main.Comment_date')}}  </td>
                         </tr>
                         <tr>
                         <td>{{$comments->comment_description}}</td>
@@ -431,11 +436,11 @@
                 <div class="col-xs-6 col-md-6 col-lg-6">
                     <table class="table borderless table-striped text-center">
                         <tr>
-                        <th colspan="2">  {{$others->ood_name}} إستمارة أخرى </th>
+                        <th colspan="2">  {{$others->ood_name}} {{trans('main.Other_Form')}} </th>
                         </tr>
                         <tr>
-                            <td>رقم الاستمارة</td>
-                            <td>تاريخ الاستمارة</td>
+                            <td>{{trans('main.Form_number')}}</td>
+                            <td>{{trans('main.date')}}</td>
                         </tr>
                         <tr>
                             <td>{{$others->ood_number}}</td>
