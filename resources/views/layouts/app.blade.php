@@ -151,21 +151,24 @@
                                 </a>
                             </li>
                             <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{trans('main.sitting')}}   <span class="caret"></span>
-                                </a>
+                                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                            {{trans('main.sitting')}}   <span class="caret"></span>
+                                        </a>
+                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+
+                              
     
-                                    
                                     @if(Auth::user()->role_id==1)
                                     <a class="dropdown-item" href="/admin/settings/subadmins/new">{{trans('main.new_member')}}<i class="fas fa-plus-circle"></i></a>
                                 @else 
+
                                 @endif
                                 <a class="dropdown-item" href="/admin/viewCr">{{trans('main.Commercial_record')}}</a>
 
                                     <a class="dropdown-item" href="/admin/settings/subadmins" >
                                         {{trans('main.manage_supervisors')}}
                                     </a>
-                                    <a class="dropdown-item" href="/admin/newuser" >
+                                    <a class="dropdown-item" href="/admin/createuser" >
                                         {{trans('main.Add_new_user')}}
                                     </a>
                                     <a class="dropdown-item" href="/admin/search" >
@@ -173,9 +176,6 @@
                                     </a>
                                     
 
-                                    
-
-    
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
                                     </form>

@@ -121,7 +121,7 @@ class AdminController extends Controller
 
     // admin quick links:
     // 1 admin/ create new user
-    public function newUser() {
+    public function newuser() {
         $seen = UserOreder::where('seen',0)->get();
 
         return view('admin.newuser')->with('seen',$seen);
@@ -379,14 +379,7 @@ $log->save();
 
     }
     // 6 admin/search page
-    public function search() {
-
-
-        $seen = UserOreder::where('seen',0)->get();
-
-
-        return view('admin.search')->with('seen',$seen);
-    }
+   
 
     public function Reseltsearch(Request $request){
 

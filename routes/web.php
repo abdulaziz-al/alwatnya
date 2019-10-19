@@ -46,7 +46,7 @@ Route::post('/admin/settings/password', 'AdminController@updatePasswordAdmin')->
 
 // admin quick links:
 // 1 admin/create new user page
-Route::get('/admin/createuser', 'AdminController@newUser');
+Route::get('/admin/createuser', 'AdminController@newuser');
 Route::post('/admin/createuser', 'AdminController@createUser')->name('createUser');
 
 // 2 admin/neworders page
