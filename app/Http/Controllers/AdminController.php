@@ -24,12 +24,8 @@ use App\ReleaseLetter;
 use App\Saso;
 use App\Statu;
 use App\Truck;
-<<<<<<< HEAD
 use App\Previlige;
-use App\UserLogs;
-=======
 use App\AdminLogs;
->>>>>>> 2840412ac90e328e5964fe76fe001475389b9d29
 
 
 
