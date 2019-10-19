@@ -14,7 +14,7 @@ class SessionTimeout {
      * Time for user to remain active, set to 900secs( 15minutes )
      * @var timeout
      */
-    protected $timeout = 60;
+    protected $timeout = 900;
     public function __construct(Store $session){
         $this->session        = $session;
         $this->redirectUrl    = 'auth/login';

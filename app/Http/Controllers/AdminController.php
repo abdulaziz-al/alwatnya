@@ -107,7 +107,9 @@ class AdminController extends Controller
     // admin quick links:
     // 1 admin/ create new user
     public function newUser() {
-        return view('admin.newuser');
+        $seen = UserOreder::where('seen',0)->get();
+
+        return view('admin.newuser')->with('seen',$seen);
     }
     public function createUser(Request $request){
 
@@ -199,6 +201,19 @@ class AdminController extends Controller
     // 2 admin/neworders page
     public function newOrders() {
 
+
+        if(auth()->user()->role_id == 2 ){
+        $subadmin = Previlige::where('id',auth()->user()->previlige_id)->first();
+        
+        if($subadmin->edit_order == 0 ){
+            Alert::error(' لا تملك صلاحية لهذا الاجراء  ','you do not have that preiliges ' );
+
+            return redirect('/');
+
+
+        }
+    }
+
         $order = UserOreder::where('status_id' , 1 )->orderBy('created_at','DESC')->paginate(10);
     
         $invoice = Invoice::all();
@@ -221,6 +236,7 @@ class AdminController extends Controller
 */
 
 
+        
         return view('admin.neworders', $Waitorder);
     }
     // 3 admin/completedorders page
@@ -374,6 +390,42 @@ class AdminController extends Controller
 
 
     }
+    protected function viewCr(){
+        $cr = CommercialRecord::where('active',0)->get();
+        $file = File::all();
+        $user = User::all();
+
+        $seen = UserOreder::where('seen',0)->get();
+
+        $arr = Array('cr'=>$cr , 'seen'=>$seen , 'user'=>$user , 'file'=>$file);
+
+
+        return view ('admin.viewCr',$arr);
+    }
+
+    protected function activeCr($id){
+        $cr = CommercialRecord::where('cr_number' ,$id)->get();
+
+        CommercialRecord::where('cr_number' ,$id)
+        ->update(['active' => 1]);
+
+        Alert::success('تم قبول  السجل التجاري  رقم ',$id );
+
+        return redirect('/admin');
+
+
+    }
+    protected function diableCr(Request $request){
+  $cr = CommercialRecord::where('cr_number' ,$request->cr_number)->get();
+
+        CommercialRecord::where('cr_number' ,$request->cr_number)
+        ->update(['active' => 2]);
+
+        Alert::success('تم رفض السجل التجاري  رقم ',$request->cr_number );
+
+        return redirect('/admin');
+    }
+ 
     // admin logout
     public function logout() {
         // logout & end sessions
@@ -411,5 +463,5 @@ class AdminController extends Controller
         return redirect('/admin');
      
     }
- 
+   
 }

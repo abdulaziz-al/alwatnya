@@ -157,6 +157,7 @@
     
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     
+                                    <a class="dropdown-item" href="/admin/viewCr">{{trans('main.Commercial_record')}}</a>
                                     <a class="dropdown-item" href="/admin/settings/subadmins/new">{{trans('main.new_member')}}<i class="fas fa-plus-circle"></i></a>
 
                                     <a class="dropdown-item" href="/admin/settings/subadmins" >

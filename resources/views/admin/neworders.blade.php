@@ -25,7 +25,9 @@
 
                                         @endif
                                     @endforeach
-                                    @endforeach
+                                    @endforeach 
+                                    <small> {{ $orders->created_at->diffForHumans() }}  :منذ </small>
+
                                     <small> {{substr ($orders->created_at,0,10)}}  :منذ </small>
                                 </div>
                                 @foreach ($user as $users)

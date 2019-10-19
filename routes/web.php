@@ -65,6 +65,11 @@ Route::get('/admin/vieworder{id}', 'AdminController@viewOrder');
 Route::post('/admin/vieworderC{id}', 'AdminController@OrderCompleted');
 Route::post('/admin/vieworder{id}', 'AdminController@OrderReject')->name('OrderReject');
 
+Route::get('/admin/viewCr', 'AdminController@viewCr');
+Route::post('/admin/viewCrAccpte{id}', 'AdminController@activeCr')->name('activeCr');
+Route::post('/admin/viewCr', 'AdminController@DiableCr')->name('DiableCr');
+
+
 // 6 admin/search page
 Route::get('/admin/search', 'AdminController@search');
 Route::post('/admin/search', 'AdminController@Reseltsearch')->name('Reseltsearch');
