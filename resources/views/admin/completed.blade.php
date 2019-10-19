@@ -6,7 +6,7 @@
         <title>الوطنية - الطلبات المنفذة</title>
 
         <div class="container">
-            <h1 class="text-center mt-3">طلبات تم تنفيذها</h1>
+            <h1 class="text-center mt-3">{{trans('main.Executed_requests')}}</h1>
             <hr>
             <table class="table table-striped  text-center">
                 <tr>
@@ -17,7 +17,7 @@
                         <a href="vieworder{{$orders->id}}" class="list-group-item list-group-item-action">
                                 
                             <i class="fas fa-check text-success"></i>
-                                <span class="badge badge-pill badge-primary">منفذ</span>
+                                <span class="badge badge-pill badge-primary">{{trans('main.completed')}}</span>
                                 <div class="d-flex w-100 justify-content-between">
                                     @foreach ($invoice as $invoices)
                                     @foreach ($invoice_items as $invoice_item)
@@ -29,7 +29,7 @@
                                     @endforeach
                                 
                                 
-                                <small> {{substr ($orders->created_at,0,10)}}   :منذ </small>
+                                <small> {{substr ($orders->created_at,0,10)}}   :{{trans('main.since')}} </small>
                                 </div>
                                 @foreach ($user as $users)
                                     @if ($users->id == $orders->user_id)
@@ -38,7 +38,7 @@
                                 @endif
                                 @endforeach
 
-                                <small>{{substr ($orders->updated_at, 0,10)}}     :تاريخ التنفيذ </small>
+                                <small>{{substr ($orders->updated_at, 0,10)}}     :{{trans('main.date_of_starting')}}</small>
                             </a>
                           
                             @endforeach

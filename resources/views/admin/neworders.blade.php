@@ -6,7 +6,7 @@
 
 
         <div class="container">
-            <h1 class="text-center mt-3">طلبات بإنتظار التنفيذ</h1>
+            <h1 class="text-center mt-3">{{trans('main.number_of_waiting_to_execution')}}</h1>
             <hr>
             <table class="table table-striped  text-center">
                 <tr>
@@ -26,7 +26,7 @@
                                         @endif
                                     @endforeach
                                     @endforeach
-                                    <small> {{substr ($orders->created_at,0,10)}}  :منذ </small>
+                                    <small> {{substr ($orders->created_at,0,10)}}  :{{trans('main.since')}} </small>
                                 </div>
                                 @foreach ($user as $users)
                                 @if ($users->id == $orders->user_id)

@@ -130,4 +130,9 @@ return [
         'Procedure'=>'إجراء',
         'Comment_date'=>'تاريخ التعليق',
         'Add_new_user'=>'إضافة مستخدم جديد',
+        'date_of_starting'=>'تاريخ التنفيذ',
+        'Add_new_member'=>'إضافة عضو جديد',
+        'completed'=>'منفذة',
+        'returned'=>'معادة',
+        'Modify_admin_data'=>'تعديل بيانات مشرف',
 ];

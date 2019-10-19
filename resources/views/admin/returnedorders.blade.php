@@ -5,7 +5,7 @@
         <title>الوطنية - الطلبات المعاده</title>
 
         <div class="container">
-            <h1 class="text-center mt-3">طلبات معاده للعضو</h1>
+            <h1 class="text-center mt-3">{{trans('main.Returned_requests')}}</h1>
             <hr>
             <table class="table table-striped  text-center">
                 <tr>
@@ -15,7 +15,7 @@
 
                             <a href="vieworder{{$orders->id}}" class="list-group-item list-group-item-action">
                                 <i class="fas fa-fire text-danger"></i>
-                                <span class="badge badge-pill badge-warning">معاد</span>
+                                <span class="badge badge-pill badge-warning">{{trans('main.returned')}}</span>
                                 <div class="d-flex w-100 justify-content-between">
                                         @foreach ($invoice as $invoices)
                                         @foreach ($invoice_items as $invoice_item)
@@ -25,7 +25,7 @@
                                         @endif
                                     @endforeach
                                     @endforeach
-                                    <small> {{substr ($orders->created_at,0,10)}}  :منذ </small>
+                                    <small> {{substr ($orders->created_at,0,10)}}  :{{trans('main.since')}} </small>
                                 </div>
                                 @foreach ($user as $users)
                                 @if ($users->id == $orders->user_id)

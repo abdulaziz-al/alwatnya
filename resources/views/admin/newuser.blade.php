@@ -21,22 +21,22 @@
                                 @csrf
                                 <fieldset>
                                 <div class="form-group text-right">
-                                    <label for="username">إسم المستخدم</label>
+                                    <label for="username">{{trans('main.name')}}</label>
                                     <input class="form-control" id='full_name' placeholder="username" name="full_name" type="text">
                                 </div>
                                 <div class="form-group text-right">
-                                    <label for="email">البريد الإلكتروني</label>
+                                    <label for="email">{{trans('main.email')}}</label>
                                     <input class="form-control" id='email' placeholder="email@example.com" name="email" type="email">
                                 </div>
                                 <div class="form-group text-right">
-                                    <label for="password">كلمة المرور</label>
+                                    <label for="password">{{trans('main.password')}}</label>
                                     <input class="form-control" id='password' placeholder="********" name="password" type="password">
                                 </div>
                                 <div class="form-group text-right">
-                                    <label for="phone">رقم الجوال</label>
+                                    <label for="phone">{{trans('main.phone')}}</label>
                                     <input class="form-control" id='phone' placeholder="+966543210987" name="phone" type="phone">
                                 </div>
-                                <input class="btn btn-lg btn-primary btn-block" type="submit" value="إضافة عضو جديد">
+                                <input class="btn btn-lg btn-primary btn-block" type="submit" value="{{trans('main.Add_new_member')}}">
                             </fieldset>
                             </form>
                         </div>

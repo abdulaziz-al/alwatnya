@@ -123,5 +123,9 @@ return [
         'Procedure'=>'Procedure',
         'Comment_date'=>'Comment date',
         'Add_new_user'=>'Add new user',
-        
+        'date_of_starting'=>'Date of starting',
+        'Add_new_member'=>'Add new member',
+        'completed'=>'Completed',
+        'returned'=>'Returned',
+        'Modify_admin_data'=>'Modify admin data',
 ];
