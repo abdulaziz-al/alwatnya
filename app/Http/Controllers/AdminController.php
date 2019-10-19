@@ -24,12 +24,9 @@ use App\ReleaseLetter;
 use App\Saso;
 use App\Statu;
 use App\Truck;
-<<<<<<< HEAD
 use App\Previlige;
-=======
 use App\UserLogs;
 
->>>>>>> 8718c9e92a32676d82afb74b56ae36941c20a6ea
 
 
 class AdminController extends Controller
@@ -74,49 +71,6 @@ class AdminController extends Controller
 
         return view('admin.index', $userInfo);
     }
-<<<<<<< HEAD
-    // admin settings page:
-    public function settings() {
-
-        $seen = UserOreder::where('seen',0)->get();
-
-        return view('admin.settings')->with('seen',$seen);
-    }
-    // 1 admin settings page / subadmins page
-    public function subadmins() {
-
-        $seen = UserOreder::where('seen',0)->get();
-
-        $sub = User::where('role_id', 2)->get();
-
-        $array = Array('sub'=>$sub , 'seen'=>$seen);
-
-        return view('admin.subadmins' , $array );
-    }
-    // 2 admin/settings/subadmins/ create a new sub-admin page
-    public function newSubAdmin() {
-        $seen = UserOreder::where('seen',0)->get();
-
-        return view('admin.newsubadmin')->with('seen',$seen);
-    }
-    // 3 admin/settings/subadmins/ view a sub-admin info page
-    public function viewsubadmin($id) {
-
-        $sub = User::where('id', $id)->first();
-        $seen = UserOreder::where('seen',0)->get();
-        $array = Array('sub'=>$sub , 'seen'=>$seen);
-
-        return view('admin.viewsubadmin', $array);
-    }
-    // 4 admin/settings/password change password page
-    public function password() {
-
-        $seen = UserOreder::where('seen',0)->get();
-
-        return view('admin.changepassword')->with('seen',$seen);
-    }
-  
-=======
     
     // 1 admin settings page / subadmins page
     protected function subadmins(Request $request) {
@@ -164,7 +118,6 @@ class AdminController extends Controller
         return view('admin.changepassword');
     }
     
->>>>>>> 8718c9e92a32676d82afb74b56ae36941c20a6ea
 
     // admin quick links:
     // 1 admin/ create new user
@@ -298,10 +251,6 @@ class AdminController extends Controller
         $Waitorder =Array( 'Waiting_order'=>$Waiting_order);
 */
 
-<<<<<<< HEAD
-
-        
-=======
         
 $log = new  UserLogs();
 $log->user_id = auth()->user()->id;
@@ -310,7 +259,6 @@ $log->description = "شاهد الطلبات الغير منفذة" . auth()->us
 $log->created_on = date('Y-m-d');
 $log->save();
 
->>>>>>> 8718c9e92a32676d82afb74b56ae36941c20a6ea
         return view('admin.neworders', $Waitorder);
     }
     // 3 admin/completedorders page
@@ -431,7 +379,6 @@ $log->save();
 
     }
     // 6 admin/search page
-<<<<<<< HEAD
     public function search() {
 
 
@@ -532,7 +479,6 @@ $log->save();
     public function logout() {
         // logout & end sessions
     }
-=======
     protected function search(Request $request) {
 
         $log = new  UserLogs();
@@ -543,7 +489,6 @@ $log->save();
         $log->save();
         return view('admin.search');
     }
->>>>>>> 8718c9e92a32676d82afb74b56ae36941c20a6ea
 
     protected function updatePasswordAdmin(Request $request){
         if (!(Hash::check($request->get('old_password'), auth()->user()->password))) {
