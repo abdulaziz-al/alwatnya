@@ -50,7 +50,7 @@ class UserController extends Controller
 
         $this->middleware('user');
     }
-    public function index(  ) {
+    protected function index(Request $request) {
 
         
         $order_all = UserOreder::where('user_id',auth()->user()->id);
@@ -72,19 +72,34 @@ class UserController extends Controller
 
         $userInfo =Array('order'=>$order_all ,'order_waiting'=>$order_waiting,'order_Reject'=>$order_Reject,'order_Accepte'=>$order_Accepte, 'cr_number'=>$cr_number );
 
+        
+        $log = new  UserLogs();
+        $log->user_id = auth()->user()->id;
+        $log->source_ip = $request->getClientIp();
+        $log->description = "نظر إلى لوحة التحكم" . auth()->user()->full_name ;
+        $log->created_on = date('Y-m-d');
+        $log->save();
+
 
         return view('users.index' ,$userInfo);
+
     }
 
-    public function showCreatePage($number){
+    protected function showCreatePage($number,Request $request){
 
         $userCR = CommercialRecord::where('cr_number',$number)->first();
 
-        
+        $log = new  UserLogs();
+        $log->user_id = auth()->user()->id;
+        $log->source_ip = $request->getClientIp();
+        $log->description = "دخل إلى صحة أنشاء طلب" . auth()->user()->full_name ;
+        $log->created_on = date('Y-m-d');
+        $log->save();
+
      return view('users.createOredr')->with('userCR',$userCR);
     }
 
-    public function createOrder(Request $request ){
+    protected function createOrder(Request $request ){
 
         $messages = [
     
@@ -632,8 +647,18 @@ class UserController extends Controller
     
         
     }
-    protected function showCRcreate(){
+    protected function showCRcreate(Request $request){
+                
+        $log = new  UserLogs();
+        $log->user_id = auth()->user()->id;
+        $log->source_ip = $request->getClientIp();
+        $log->description = "شاهد السجلات التجاري".auth()->user()->full_name  ;
+        $log->created_on = date('Y-m-d');
+        $log->save();
+
         return view('users.createCR');
+
+
 
 
     }
@@ -710,13 +735,17 @@ class UserController extends Controller
     }
 
 
-    // user/settings page:
-    public function settings() {
-        return view('users.settings');
-    }
     // 1 user/settings/info page
-    public function viewInfoPage() {
+    protected function viewInfoPage(Request $request) {
     
+
+        $log = new  UserLogs();
+        $log->user_id = auth()->user()->id;
+        $log->source_ip = $request->getClientIp();
+        $log->description = "دخل إلى الصفحة الشخصية" . auth()->user()->full_name . auth()->user()->id ;
+        $log->created_on = date('Y-m-d');
+        $log->save();
+ 
 
 
         
@@ -724,32 +753,60 @@ class UserController extends Controller
 
     }
     // 2 user/settings/info/edit page
-    public function viewEditPage() {
+    protected function viewEditPage(Request $request) {
+        $log = new  UserLogs();
+        $log->user_id = auth()->user()->id;
+        $log->source_ip = $request->getClientIp();
+        $log->description = "دخل إلى صفحة تعديل المعلومات الشخصية" . auth()->user()->full_name . auth()->user()->id ;
+        $log->created_on = date('Y-m-d');
+        $log->save();
+ 
+
+
         return view('users.editinfo');
     }
     // 3 user/settings/password
-    public function password() {
+    protected function password(Request $request) {
+        $log = new  UserLogs();
+        $log->user_id = auth()->user()->id;
+        $log->source_ip = $request->getClientIp();
+        $log->description = "دخل إلى صفحة تعديل الرقم السري" . auth()->user()->full_name . auth()->user()->id ;
+        $log->created_on = date('Y-m-d');
+        $log->save();
         return view('users.changepassword');
+
+ 
     }
     // 4 user/settings/crs page
-    public function viewCRs() {
+    protected function viewCRs(Request $request) {
         $crUser = CommercialRecord::where('user_id',auth()->user()->id)->get();
+      
+        $log = new  UserLogs();
+        $log->user_id = auth()->user()->id;
+        $log->source_ip = $request->getClientIp();
+        $log->description = "شاهد السجلات التجارية الخاصة به" . auth()->user()->full_name . auth()->user()->id ;
+        $log->created_on = date('Y-m-d');
+        $log->save();
 
         return view('users.viewCRs')->with('crUser',$crUser);
+
     }
     // 5 user/settings/crs/edit page
-    public function crEditView($id) {
+    protected function crEditView($id,Request $request) {
         $crUser = CommercialRecord::where('id',$id)->get();
+        $log = new  UserLogs();
+        $log->user_id = auth()->user()->id;
+        $log->source_ip = $request->getClientIp();
+        $log->description = "عدل على سجلة التجاري" . auth()->user()->full_name . auth()->user()->id ;
+        $log->created_on = date('Y-m-d');
+        $log->save();
+
         return view('users.editcr')->with('crUser',$crUser);
     }
 
-    // user quick links:
-    // 1 user/neworder page
-    public function newOrder() {
-        return view('users.neworder');
-    }
+    
 
-    public function updatePassword(Request $request){
+    protected function updatePassword(Request $request){
         if (!(Hash::check($request->get('old_password'), auth()->user()->password))) {
             // The passwords not matches
             //return redirect()->back()->with("error","Your current password does not matches with the password you provided. Please try again.");
@@ -777,13 +834,21 @@ class UserController extends Controller
      //   Alert::info('تمت الزيادة بنسبة %',$request->input('salary') );
 
         Alert::info('تم تغير كلمة المرور ','password has been changed ' , 'okay ');
+        
+        $log = new  UserLogs();
+        $log->user_id = auth()->user()->id;
+        $log->source_ip = $request->getClientIp();
+        $log->description = "تم تغيير الرقم السري " . auth()->user()->full_name . auth()->user()->id ;
+        $log->created_on = date('Y-m-d');
+        $log->save();
+
         return redirect('/user');
      
     }
 
 
 
-    public function returnedOrders(){
+    protected function returnedOrders(Request $request){
         
         $order = UserOreder::where('status_id' , 3 )
         ->where('user_id', auth()->user()->id)->get();
@@ -795,10 +860,95 @@ class UserController extends Controller
         $retrunorder =Array( 'order'=>$order ,'invoice_items'=>$invoice_items, 'invoice'=>$invoice , 'user'=>$user);
 
         
+        $log = new  UserLogs();
+        $log->user_id = auth()->user()->id;
+        $log->source_ip = $request->getClientIp();
+        $log->description = "شاهد الطلبات المعادة" . auth()->user()->full_name . auth()->user()->id ;
+        $log->created_on = date('Y-m-d');
+        $log->save();
         return view('users.returnedorders', $retrunorder);
     }
 
-    public function viewOrder($id){
+
+    protected function wittingOrder(Request $request){
+        
+        $order = UserOreder::where('status_id' , 1 )
+        ->where('user_id', auth()->user()->id)->get();
+    
+        $invoice = Invoice::all();
+        $invoice_items = InvoiceItem::all();
+        $user = User::all();
+
+        $wittingorders =Array( 'order'=>$order ,'invoice_items'=>$invoice_items, 'invoice'=>$invoice , 'user'=>$user);
+
+        
+        
+        $log = new  UserLogs();
+        $log->user_id = auth()->user()->id;
+        $log->source_ip = $request->getClientIp();
+        $log->description = "شاهد الطلبات الغير منفذة" . auth()->user()->full_name . auth()->user()->id ;
+        $log->created_on = date('Y-m-d');
+        $log->save();
+        
+        return view('users.wittingorder', $wittingorders);
+    }
+    
+
+    protected function complateOrder(Request $request){
+        
+        $order = UserOreder::where('status_id' , 2 )
+        ->where('user_id', auth()->user()->id)->get();
+    
+        $invoice = Invoice::all();
+        $invoice_items = InvoiceItem::all();
+        $user = User::all();
+
+        $complateorders =Array( 'order'=>$order ,'invoice_items'=>$invoice_items, 'invoice'=>$invoice , 'user'=>$user);
+
+        
+        $log = new  UserLogs();
+        $log->user_id = auth()->user()->id;
+        $log->source_ip = $request->getClientIp();
+        $log->description = "شاهد الطلبات المنفذة" . auth()->user()->full_name . auth()->user()->id ;
+        $log->created_on = date('Y-m-d');
+        $log->save();
+        
+        return view('users.complateorder', $complateorders);
+    }
+
+    protected function showOrder($id){
+        
+        $order = UserOreder::where('id',$id )->get();
+    
+        $invoice = Invoice::all();
+        $invoice_items = InvoiceItem::all();
+        $user = User::all();
+        $truck = Truck::where('order_id' , $id)->get();
+        $file = File::all();
+        $cr = CommercialRecord::all();
+        $other = OrderOtherdocs::where('order_id', $id)->get();
+        $coo = Coo::where('order_id', $id)->get();
+        $comment = Comment::where('order_id', $id)->get();
+        $el = exemptionLetter::where('order_id' , $id)->get();
+        $ms = muqassahStatement::where('order_id',$id)->get();
+        $pl = PackingList::where('order_id',$id)->get();
+        $pn = PolicyNumber::where('order_id',$id)->get();
+        $rl = ReleaseLetter::where('order_id',$id)->get();
+        $saso = Saso::where('order_id' , $id)->get();
+        $Accorder =Array( 'order'=>$order ,'invoice_items'=>$invoice_items,
+        'truck'=>$truck , 'invoice'=>$invoice , 'user'=>$user,
+        'file'=>$file , 'cr'=>$cr , 'other'=>$other , 'coo'=>$coo,
+        'comment'=>$comment , 'el'=>$el , 'ms'=>$ms , 'pl'=>$pl,
+        'pn'=>$pn , 'rl'=>$rl , 'saso'=>$saso);
+
+
+        return view('users.showOrder' , $Accorder );
+
+    }
+
+
+
+    protected function viewOrder($id){
        
         $order = UserOreder::where('id',$id )->get();
     
@@ -824,11 +974,12 @@ class UserController extends Controller
         'pn'=>$pn , 'rl'=>$rl , 'saso'=>$saso);
 
 
+        
         return view('users.viewOrder' , $Accorder);
 
 
     }
-    public function ResentOrder(Request $request , $id){
+    protected function ResentOrder(Request $request , $id){
        
        
         //////////////////////////////////
@@ -1080,7 +1231,7 @@ for($count = 0; $count <= count($truck_ownership_number1); $count++)
 
        return Redirect('/user'); 
    }
-public function PostRequest() {
+protected function PostRequest() {
    
 $data = array(
  'user' => "abdulaziz",

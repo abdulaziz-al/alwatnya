@@ -33,8 +33,7 @@ Route::get('/contact-us', 'HomeController@contactus');
 // -- admin controller --
 // admin dashboard
 Route::get('/admin', 'AdminController@index');
-// admin/settings page:
-Route::get('/admin/settings', 'AdminController@settings');
+
 // 1 admin/settings/ sub-admins page
 Route::get('/admin/settings/subadmins', 'AdminController@subadmins');
 // 2 admin/settings/subadmins/ create a new sub-admin page
@@ -44,10 +43,6 @@ Route::get('/admin/settings/subadmins/viewsubadmin{id}', 'AdminController@viewsu
 // 4 admin/settings/password page 
 Route::get('/admin/settings/password', 'AdminController@password');
 Route::post('/admin/settings/password', 'AdminController@updatePasswordAdmin')->name('updatePasswordAdmin');
-
-// 5 admin/settings/statuses page
-Route::get('/admin/settings/statuses', 'AdminController@orderStatuses');
-
 
 // admin quick links:
 // 1 admin/create new user page
@@ -89,8 +84,6 @@ Route::post('/user/createCR', 'UserController@CreateCR')->name('CreateCR');
 Route::get('/createOrder{number}', 'UserController@showCreatePage');
 Route::post('/createOrder', 'UserController@createOrder')->name('createOrder');
 
-// user/settings page:
-Route::get('/user/settings', 'UserController@settings');
 // 1 user/settings/info page
 Route::get('/user/settings/info', 'UserController@viewInfoPage');
 // 2 user/settings/info/edit page
@@ -104,32 +97,13 @@ Route::get('/user/settings/crs', 'UserController@viewCRs');
 Route::get('/user/settings/crs/edit{id}', 'UserController@crEditView');
 
 Route::get('/user/returnedorders', 'UserController@returnedOrders');
+Route::get('/user/wittingorder', 'UserController@wittingOrder');
+Route::get('/user/complateorder', 'UserController@complateOrder');
 
 Route::get('/user/viewOrder{id}', 'UserController@viewOrder');
+Route::get('/user/showOrder{id}', 'UserController@showOrder');
+
 Route::post('/user/viewOrder{id}', 'UserController@ResentOrder')->name('ResentOrder');
-
-
-
-// user quick links:
-// 1 user/neworder
-Route::get('/user/neworder', 'UserController@newOrder');
-
-// -- end of user controller functionality --
-
-
-Route::get('/user/create', function() {
-    return '<h1>SUBMIT A NEW ORDER PAGE</h1>';
-});
-Route::get('/user/neworders', function() {
-    return '<h1>VIEW NEW ORDERS PAGE</h1>';
-});
-Route::get('/user/completed', function() {
-    return '<h1>VIEW COMPLETED ORDERS PAGE</h1>';
-});
-
-Route::get('/user/logout', function() {
-    return '<h1>YOU HAVE LOGGED OUT!</h1>';
-});
 
 Auth::routes();
 

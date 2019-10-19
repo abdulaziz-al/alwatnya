@@ -24,7 +24,12 @@ use App\ReleaseLetter;
 use App\Saso;
 use App\Statu;
 use App\Truck;
+<<<<<<< HEAD
 use App\Previlige;
+=======
+use App\UserLogs;
+
+>>>>>>> 8718c9e92a32676d82afb74b56ae36941c20a6ea
 
 
 class AdminController extends Controller
@@ -39,7 +44,7 @@ class AdminController extends Controller
 
     }
     // admin index page (dashboard)
-    public function index() {
+    protected function index(Request $request) {
 
          
         $order_all = UserOreder::all();
@@ -60,8 +65,16 @@ class AdminController extends Controller
         $userInfo =Array('order'=>$order_all ,'order_waiting'=>$order_waiting,'order_Reject'=>$order_Reject,
         'order_Accepte'=>$order_Accepte, 'seen'=>$seen);
         
+        $log = new  UserLogs();
+        $log->user_id = auth()->user()->id;
+        $log->source_ip = $request->getClientIp();
+        $log->description = "تمت رؤية الطلبات الجديدة من قبل" . auth()->user()->full_name . auth()->user()->id ;
+        $log->created_on = date('Y-m-d');
+        $log->save();
+
         return view('admin.index', $userInfo);
     }
+<<<<<<< HEAD
     // admin settings page:
     public function settings() {
 
@@ -103,6 +116,55 @@ class AdminController extends Controller
         return view('admin.changepassword')->with('seen',$seen);
     }
   
+=======
+    
+    // 1 admin settings page / subadmins page
+    protected function subadmins(Request $request) {
+        $sub = User::where('role_id', 2)->get();
+        
+        $log = new  UserLogs();
+        $log->user_id = auth()->user()->id;
+        $log->source_ip = $request->getClientIp();
+        $log->description = "دخل إلى صفحة إدارة المشرفين" . auth()->user()->full_name . auth()->user()->id ;
+        $log->created_on = date('Y-m-d');
+        $log->save();
+        return view('admin.subadmins'  )->with('sub',$sub);
+    }
+    // 2 admin/settings/subadmins/ create a new sub-admin page
+    protected function newSubAdmin(Request $request) {
+        
+        $log = new  UserLogs();
+        $log->user_id = auth()->user()->id;
+        $log->source_ip = $request->getClientIp();
+        $log->description = "دخل إلى صفحة إضافة عضو جديد" . auth()->user()->full_name . auth()->user()->id ;
+        $log->created_on = date('Y-m-d');
+        $log->save();
+        return view('admin.newsubadmin');
+    }
+    // 3 admin/settings/subadmins/ view a sub-admin info page
+    protected function viewsubadmin($id,Request $request) {
+        $sub = User::where('id', $id)->first();
+        
+        $log = new  UserLogs();
+        $log->user_id = auth()->user()->id;
+        $log->source_ip = $request->getClientIp();
+        $log->description = "دخل إلى صفحة أحد المشرفين " . auth()->user()->full_name . auth()->user()->id ;
+        $log->created_on = date('Y-m-d');
+        $log->save();
+        return view('admin.viewsubadmin')->with('sub',$sub);;
+    }
+    // 4 admin/settings/password change password page
+    protected function password(Request $request) {
+        $log = new  UserLogs();
+        $log->user_id = auth()->user()->id;
+        $log->source_ip = $request->getClientIp();
+        $log->description = "دخل إلى صفحة تعديل الرقم السري" . auth()->user()->full_name . auth()->user()->id ;
+        $log->created_on = date('Y-m-d');
+        $log->save();
+        return view('admin.changepassword');
+    }
+    
+>>>>>>> 8718c9e92a32676d82afb74b56ae36941c20a6ea
 
     // admin quick links:
     // 1 admin/ create new user
@@ -111,6 +173,7 @@ class AdminController extends Controller
 
         return view('admin.newuser')->with('seen',$seen);
     }
+
     public function createUser(Request $request){
 
         if($request->type == 2 ){
@@ -199,7 +262,7 @@ class AdminController extends Controller
 
     }
     // 2 admin/neworders page
-    public function newOrders() {
+    protected function newOrders(Request $request) {
 
 
         if(auth()->user()->role_id == 2 ){
@@ -235,12 +298,23 @@ class AdminController extends Controller
         $Waitorder =Array( 'Waiting_order'=>$Waiting_order);
 */
 
+<<<<<<< HEAD
 
         
+=======
+        
+$log = new  UserLogs();
+$log->user_id = auth()->user()->id;
+$log->source_ip = $request->getClientIp();
+$log->description = "شاهد الطلبات الغير منفذة" . auth()->user()->full_name . auth()->user()->id ;
+$log->created_on = date('Y-m-d');
+$log->save();
+
+>>>>>>> 8718c9e92a32676d82afb74b56ae36941c20a6ea
         return view('admin.neworders', $Waitorder);
     }
     // 3 admin/completedorders page
-    public function completedOrders() {
+    protected function completedOrders(Request $request) {
 
     
         $order = UserOreder::where('status_id' , 2 )->get();
@@ -255,10 +329,17 @@ class AdminController extends Controller
          'invoice'=>$invoice , 'user'=>$user , 'seen'=>$seen);
 
 
+        $log = new  UserLogs();
+        $log->user_id = auth()->user()->id;
+        $log->source_ip = $request->getClientIp();
+        $log->description = "شاهد الطلبات المنفذة" . auth()->user()->full_name . auth()->user()->id ;
+        $log->created_on = date('Y-m-d');
+        $log->save();
+        
         return view('admin.completed' , $Accorder);
     }
     // 4 admin/returnedorders page
-    public function returnedOrders() {
+    protected function returnedOrders(Request $request) {
 
         $order = UserOreder::where('status_id' , 3 )->get();
     
@@ -271,11 +352,17 @@ class AdminController extends Controller
         $retrunorder =Array( 'order'=>$order ,'invoice_items'=>$invoice_items,
          'invoice'=>$invoice , 'user'=>$user , 'seen'=>$seen);
 
-        
+        $log = new  UserLogs();
+        $log->user_id = auth()->user()->id;
+        $log->source_ip = $request->getClientIp();
+        $log->description = "شاهد الطلبات المعادة" . auth()->user()->full_name . auth()->user()->id ;
+        $log->created_on = date('Y-m-d');
+        $log->save();
+    
         return view('admin.returnedorders', $retrunorder);
     }
     // 5 admin/vieworder page
-    public function viewOrder($id) {
+    protected function viewOrder($id) {
         
         $order = UserOreder::where('id',$id )->get();
     
@@ -308,14 +395,21 @@ class AdminController extends Controller
         return view('admin.vieworder' , $Accorder );
     }
 
-    public function OrderCompleted($id){
+    protected function OrderCompleted($id ,Request $request){
         UserOreder::where('id', $id)
         ->update(['admin_id' => auth()->user()->id , 'status_id'=> 2]);
         $order = UserOreder::where('id', $id )->first();
         Alert::success('تم قبول الطلب رقم ',$order->id );
+        
+        $log = new  UserLogs();
+        $log->user_id = auth()->user()->id;
+        $log->source_ip = $request->getClientIp();
+        $log->description = "تم قبول الطلب من قبل" . auth()->user()->full_name . auth()->user()->id ;
+        $log->created_on = date('Y-m-d');
+        $log->save();
         return redirect('/admin');
     }
-    public function OrderReject(Request $request , $id){
+    protected function OrderReject(Request $request , $id){
 
         UserOreder::where('id', $id)
         ->update(['admin_id' => auth()->user()->id , 'status_id'=> 3]);
@@ -326,10 +420,18 @@ class AdminController extends Controller
         $Comment->order_id = $userInfo->id;
         $Comment->save(); 
             //   Alert::info('تمت الزيادة بنسبة %',$request->input('salary') );
+            
+        $log = new  UserLogs();
+        $log->user_id = auth()->user()->id;
+        $log->source_ip = $request->getClientIp();
+        $log->description = "تم رفض الطلب من قبل" . auth()->user()->full_name . auth()->user()->id ;
+        $log->created_on = date('Y-m-d');
+        $log->save();
         return redirect('/admin');
 
     }
     // 6 admin/search page
+<<<<<<< HEAD
     public function search() {
 
 
@@ -430,6 +532,18 @@ class AdminController extends Controller
     public function logout() {
         // logout & end sessions
     }
+=======
+    protected function search(Request $request) {
+
+        $log = new  UserLogs();
+        $log->user_id = auth()->user()->id;
+        $log->source_ip = $request->getClientIp();
+        $log->description = "دخل إلى صفحة البحث" . auth()->user()->full_name . auth()->user()->id ;
+        $log->created_on = date('Y-m-d');
+        $log->save();
+        return view('admin.search');
+    }
+>>>>>>> 8718c9e92a32676d82afb74b56ae36941c20a6ea
 
     protected function updatePasswordAdmin(Request $request){
         if (!(Hash::check($request->get('old_password'), auth()->user()->password))) {
@@ -460,6 +574,13 @@ class AdminController extends Controller
      //   Alert::info('تمت الزيادة بنسبة %',$request->input('salary') );
 
         Alert::info('تم تغير كلمة المرور ','password has been changed ' , 'okay ');
+        
+        $log = new  UserLogs();
+        $log->user_id = auth()->user()->id;
+        $log->source_ip = $request->getClientIp();
+        $log->description = "غير الرقم السري" . auth()->user()->full_name . auth()->user()->id ;
+        $log->created_on = date('Y-m-d');
+        $log->save();
         return redirect('/admin');
      
     }

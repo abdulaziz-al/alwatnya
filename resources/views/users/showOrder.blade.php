@@ -4,7 +4,7 @@
 
         <title> #CDC-1090 الوطنية - عرض طلب</title>
         <div class="container">
-            
+            {{$order->count()}}
             @foreach ($order as $orders)
             @foreach ($invoice as $invoices)
             @foreach ($invoice_items as $invoice_item)
@@ -17,25 +17,19 @@
                 @if ($users->id == $orders->user_id && $orders->cr_id == $crs->id && $crs->file_id == $files->id)
 
                
-            <h1 class="text-center mt-3"> {{trans('main.Order_number')}} {{str_replace('فاتورة البضاعة .pdf' , '',$invoice_item->invoiceItems_description) }}  </h1>
+            <h1 class="text-center mt-3"> {{substr($invoice_item->invoiceItems_description , 0,-4) }} {{trans('main.invoice')}}</h1>
    
       
-        <form  method="POST" action="/user/viewOrder{{$orders->id}}" enctype="multipart/form-data"  >
-                @csrf
+
        
             <hr>
             <table class="table borderless table-striped text-center">
-                    
                 <tr>
-                <td><input type="text" name="invoice_number" readonly="true" value="{{$invoice_item->invoice_number}}" />
-                        <input type="text" id="hijri-date-input21"  value="{{$invoice_item->expirydate}}" name="expirydate_invoice" />
-                         <input type="file"  name="invoice_file"  value="{{$invoice_item->invoiceItems_description}}" />
-                         <a href="/files/{{$users->full_name}}/{{$crs->cr_number}}/{{$invoice_item->invoiceItems_description}}" download="{{$invoice_item->invoiceItems_description}}">
+                    <td> <a href="/files/{{$users->full_name}}/{{$crs->cr_number}}/{{$invoice_item->invoiceItems_description}}" download="{{$invoice_item->invoiceItems_description}}">
          
                         {{$invoice_item->invoiceItems_description}}
                     </i>
-                </a>
-                <i class="far fa-file text-primary"></i></td>
+                </a><i class="far fa-file text-primary"></i></td>
                     <td>{{trans('main.Order_number')}}</td>
 
                 </tr>
@@ -59,35 +53,33 @@
              
 
                     @foreach ($truck as $trucks)
-                    @foreach ($file as $files)
-                        
-                    @if( $trucks->file_id == $files->id  )
 
                     <tr>
                         
-                        <td><input type="text" name="driver_name[]" value="{{$trucks->driver_name}}" /> <i class="fas fa-truck-moving text-primary"></i></td>
+                        <td>{{$trucks->driver_name}} <i class="fas fa-truck-moving text-primary"></i></td>
                         <td>{{trans('main.name_of_driver')}}</td>
                     </tr>
                     <tr>
-                        <td><input type="text" value="{{$trucks->driver_mobile_2}}" name="truck_ownership_number2[]"/><i class="fas fa-mobile-alt text-primary"></i></td>
+                        <td>{{$trucks->driver_mobile_2}} <i class="fas fa-mobile-alt text-primary"></i></td>
                         <td> {{trans('main.Local_phone_number')}}</td>
                     </tr>
     
                         <tr>
-                        <td><input type="text" value="{{$trucks->driver_mobile_1}}" name="truck_ownership_number1[]" /> <i class="fas fa-mobile-alt text-primary"></i></td>
+                        <td> {{$trucks->driver_mobile_1}} <i class="fas fa-mobile-alt text-primary"></i></td>
     
-                        <td> {{trans('main.International_telephone_number')}} </td>
+                        <td> {{trans('main.International_telephone_number')}}</td>
                     </tr>
-                   
+                    @foreach ($file as $files)
+                        
+                    @if( $trucks->file_id == $files->id  )
                    
                     <tr>
-                            <td> <input type="file"  name="tos_file[]"/>
-                                <a href="/files/{{$users->full_name}}/{{$crs->cr_number}}/{{$files->file_location}}" download="{{$files->file_location}}">
+                            <td><a href="/files/{{$users->full_name}}/{{$crs->cr_number}}/{{$files->file_location}}" download="{{$files->file_location}}">
              
                                 {{$files->file_location}}
                         </a><i class="far fa-file text-primary"></i></td>
         
-                            <td>{{trans('main.file')}}</td>
+                            <td>{{trans('main.file')}}  </td>
                         </tr>
                         
                     @endif
@@ -99,8 +91,8 @@
 
                 <tr>
                         
-                    <td>{{trans('main.import')}}  <i class="fas fa-arrow-circle-down text-primary"></i></td>
-                    <td>{{trans('main.export_or_import')}}</td>
+                    <td>{{trans('main.import')}} <i class="fas fa-arrow-circle-down text-primary"></i></td>
+                    <td>{{trans('main.export_or_import')}} </td>
                 </tr>
                 @else 
                 <tr>
@@ -111,10 +103,19 @@
                 @endif
 
 
-               
+                <tr>
+                    <td>
+                        
+
+
+                        </td>
+                        
+                       
+
+                </tr>
             </table>
             <hr>
-            <h3 class="text-center text-primary">{{trans('main.attached_files')}}</h3>
+            <h3 class="text-center text-primary"> {{trans('main.attached_files')}}</h3>
 
             <div class="row">
                 <div class="col-xs-6 col-md-6 col-lg-6">
@@ -131,7 +132,7 @@
                             <td>{{trans('main.exp_cr')}}</td>
                         </tr>
                         <tr>
-                            <td><input   value="{{$crs->cr_number}}" name="cr_number" readonly="true"/></td>
+                            <td>{{$crs->cr_number}}</td>
                             <td>{{$crs->cr_expiry}}</td>
                         </tr>
                     
@@ -164,12 +165,11 @@
                             <td>{{trans('main.date')}}</td>
                         </tr>
                         <tr>
-                        <td><input type="text"  value="{{$coos->coo_number}}" name="coo_number"  /></td>
-                        <td><input type="text" id="hijri-date-input13"  value="{{$coos->expirydate}}" name="expirydate_coo" /></td>
+                        <td>{{$coos->coo_number}}</td>
+                        <td>{{$coos->expirydate}}</td>
                         </tr>
                         <tr>
-                                <td colspan="2"><input type="file"   name="coo_file" />
-                                     <a href="/files/{{$users->full_name}}/{{$crs->cr_number}}/{{$files->file_location}}" download="{{$files->file_location}}">
+                                <td colspan="2"><a href="/files/{{$users->full_name}}/{{$crs->cr_number}}/{{$files->file_location}}" download="{{$files->file_location}}">
              
                                     {{$files->file_location}}
                             </a><i class="far fa-file text-primary"></i></td>
@@ -195,14 +195,12 @@
                             <td>{{trans('main.date')}}</td>
                         </tr>
                         <tr>
-                            <td><input type="text"  value="{{$packList->pl_number}}" name="packing_list_number" /></td>
-                        <td><input type="text" id="hijri-date-input14"  value="{{$packList->expirydate}}" name="pl_expirydate" /></td>
+                            <td>{{$packList->pl_number}}</td>
+                        <td>{{$packList->expirydate}}</td>
                         </tr>
 
                         <tr>
-                                <td colspan="2">
-                                        <input type="file"  name="pl_file" />
-                                    <a href="/files/{{$users->full_name}}/{{$crs->cr_number}}/{{$files->file_location}}" download="{{$files->file_location}}">
+                                <td colspan="2"><a href="/files/{{$users->full_name}}/{{$crs->cr_number}}/{{$files->file_location}}" download="{{$files->file_location}}">
              
                                     {{$files->file_location}}
                             </a><i class="far fa-file text-primary"></i></td>
@@ -228,12 +226,11 @@
                             <td>{{trans('main.date')}}</td>
                         </tr>
                         <tr>
-                            <td><input type="text" value="{{$Muqassah->ms_number}}" name="ms_number" /></td>
-                        <td><input type="text" id="hijri-date-input15" value="{{$Muqassah->expirydate}}" name="ms_expirydate" /></td>
+                            <td>{{$Muqassah->ms_number}}</td>
+                        <td>{{$Muqassah->expirydate}}</td>
                         </tr>
                         <tr>
-                                <td colspan="2"> <input type="file"   name="ms_file" />
-                                    <a href="/files/{{$users->full_name}}/{{$crs->cr_number}}/{{$files->file_location}}" download="{{$files->file_location}}">
+                                <td colspan="2"><a href="/files/{{$users->full_name}}/{{$crs->cr_number}}/{{$files->file_location}}" download="{{$files->file_location}}">
              
                                     {{$files->file_location}}
                             </a><i class="far fa-file text-primary"></i></td>
@@ -258,12 +255,11 @@
                             <td>{{trans('main.date')}}</td>
                         </tr>
                         <tr>
-                            <td><input type="text" value="{{$sasos->saso_number}}" name="saso_number" /></td>
-                        <td><input type="text" id="hijri-date-input16" value="{{$sasos->expirydate}}" name="saso_expirydate"/></td>
+                            <td>{{$sasos->saso_number}}</td>
+                        <td>{{$sasos->expirydate}}</td>
                         </tr>
                         <tr>
-                                <td colspan="2"><input type="file" name="saso_file" />
-                                    <a href="/files/{{$users->full_name}}/{{$crs->cr_number}}/{{$files->file_location}}" download="{{$files->file_location}}">
+                                <td colspan="2"><a href="/files/{{$users->full_name}}/{{$crs->cr_number}}/{{$files->file_location}}" download="{{$files->file_location}}">
              
                                     {{$files->file_location}}
                             </a><i class="far fa-file text-primary"></i></td>
@@ -288,12 +284,11 @@
                             <td>{{trans('main.date')}}</td>
                         </tr>
                         <tr>
-                            <td><input type="text" value="{{$Release->rl_number}}" name="release_letter_number" /> </td>
-                        <td><input type="text" id="hijri-date-input17"  value="{{$Release->expirydate}}" name="rl_expirydate" /> </td>
+                            <td>{{$Release->rl_number}}</td>
+                        <td>{{$Release->expirydate}}</td>
                         </tr>
                         <tr>
-                                <td colspan="2"><input type="file" name="rl_file" />
-                                    <a href="/files/{{$users->full_name}}/{{$crs->cr_number}}/{{$files->file_location}}" download="{{$files->file_location}}">
+                                <td colspan="2"><a href="/files/{{$users->full_name}}/{{$crs->cr_number}}/{{$files->file_location}}" download="{{$files->file_location}}">
              
                                     {{$files->file_location}}
                             </a><i class="far fa-file text-primary"></i></td>
@@ -318,12 +313,11 @@
                             <td>{{trans('main.date')}}</td>
                         </tr>
                         <tr>
-                            <td><input type="text" value="{{$Policy->policy_number}}" name="policy_number" /> </td>
-                        <td><input type="text" id="hijri-date-input18"  value="{{$Policy->expirydate}}" name="policy_expirydate" /></td>
+                            <td>{{$Policy->policy_number}}</td>
+                        <td>{{$Policy->expirydate}}</td>
                         </tr>
                         <tr>
-                                <td colspan="2"><input type="file" name="policy_file" />
-                                    <a href="/files/{{$users->full_name}}/{{$crs->cr_number}}/{{$files->file_location}}" download="{{$files->file_location}}">
+                                <td colspan="2"><a href="/files/{{$users->full_name}}/{{$crs->cr_number}}/{{$files->file_location}}" download="{{$files->file_location}}">
              
                                     {{$files->file_location}}
                             </a><i class="far fa-file text-primary"></i></td>
@@ -348,12 +342,11 @@
                             <td>{{trans('main.date')}}</td>
                         </tr>
                         <tr>
-                        <td><input type="text" value="{{$exemption_letter->el_number}}" name="el_number" /></td>
-                        <td><input type="text" id="hijri-date-input19"  value="{{$exemption_letter->expirydate}}" name="el_expirydate" /></td>
+                        <td>{{$exemption_letter->el_number}}</td>
+                        <td>{{$exemption_letter->expirydate}}</td>
                         </tr>
                         <tr>
-                                <td colspan="2"><input type="file" name="el_file" />
-                                    <a href="/files/{{$users->full_name}}/{{$crs->cr_number}}/{{$files->file_location}}" download="{{$files->file_location}}">
+                                <td colspan="2"><a href="/files/{{$users->full_name}}/{{$crs->cr_number}}/{{$files->file_location}}" download="{{$files->file_location}}">
              
                                     {{$files->file_location}}
                             </a><i class="far fa-file text-primary"></i></td>
@@ -371,17 +364,13 @@
                     {{-- exemption_letter - خطاب إعفاء من التفتيش --}}
                     <table class="table borderless table-striped text-center">
                         <tr>
-                            @if ($comments->comment_by_user == auth()->user()->id)
                             <th colspan="2">{{trans('main.comment_user')}} </th>
-                            @else 
-                            <th colspan="2">{{trans('main.comment_admin')}}  </th>
-
-                            @endif
                         </tr>
-                      
-
                         <tr>
-                        <th colspan="2">{{$comments->comment_description}}</th>
+                            <td>{{trans('main.comment')}}  </td>
+                        </tr>
+                        <tr>
+                        <td>{{$comments->comment_description}}</td>
                         </tr>
                       
                         <tr><td colspan="2"></td></tr>
@@ -408,13 +397,12 @@
                             <td>{{trans('main.date')}}</td>
                         </tr>
                         <tr>
-                            <td><input type="text" value="{{$others->ood_number}}" name="Other_number[]" /></td>
-                        <td><input type="date"   value="{{$others->expirydate}}" name="Other_exp[]" /></td>
+                            <td>{{$others->ood_number}}</td>
+                        <td>{{$others->expirydate}}</td>
                         </tr>
 
                         <tr>
-                                <td colspan="2"><input type="file" name="Other_file[]" />
-                                    <a href="/files/{{$users->full_name}}/{{$crs->cr_number}}/{{$files->file_location}}" download="{{$files->file_location}}">
+                                <td colspan="2"><a href="/files/{{$users->full_name}}/{{$crs->cr_number}}/{{$files->file_location}}" download="{{$files->file_location}}">
              
                                     {{$files->file_location}}
                             </a><i class="far fa-file text-primary"></i></td>
@@ -422,29 +410,27 @@
                         <tr><td colspan="2"></td></tr>
                     </table>
                 </div>
-
-
-
-
-              
-
                 @endif
                 @endforeach
                 @endforeach
 
-                <input type="submit"  name="save" id="save" style="width: 100%" class="btn btn-primary" value="{{trans('main.save')}}" />
-
-            </form>
-
             </div>
 
 
-           
+            </div>
+            <div class="row">
+                <div class="col-xs-6 col-md-6 col-lg-6">
+
+                </div>
+                <div class="col-xs-6 col-md-6 col-lg-6">
+
+                </div>
+            </div>
     
 
                           {{-- <img src="http://pngimg.com/uploads/simpsons/simpsons_PNG8.png" class="d-block w-100" height="650" alt="..."> --}}
                  
-
+        </div>
 
         @endif
         @endforeach
@@ -456,24 +442,6 @@
         @endforeach
         @endforeach                    
         @endforeach
-        
-        <div class="col-xs-12 col-md-6 col-lg-12  table-bordered table-striped" style="width: 100%" >
-
-
-                <div class=" amber-textarea active-amber-textarea-2">
-                        <i class="fas fa-pencil-alt prefix"></i>
-                        <textarea id="comment_order" name="comment_order" class="md-textarea form-control" rows="5" required></textarea>
-                        <div  id="comment_div"> <h4> أترك ملاحظة </h4>
-                         </div>
-                      </div>
-            
-                    
-                          </div>
-<input type="submit"  name="save" id="save" style="width: 100%" class="btn btn-primary" value="Save" />
-
-</form>
-
-</div>
 
 
 
