@@ -11,9 +11,12 @@
 |
 
 */
-Route::group(['prefix' => LaravelLocalization::setLocale()], function()
+Route::group([
+    'prefix' => LaravelLocalization::setLocale(),
+    'middleware' => [ 'localeSessionRedirect', 'localizationRedirect' ]
+], function()
 {
-// -- home controller --
+    // -- home controller --
 // home / guest view
 Route::get('/','HomeController@index');
 // registration page
@@ -43,7 +46,7 @@ Route::post('/admin/settings/password', 'AdminController@updatePasswordAdmin')->
 
 // admin quick links:
 // 1 admin/create new user page
-Route::get('/admin/createuser', 'AdminController@newUser');
+Route::get('/admin/createuser', 'AdminController@newuser');
 Route::post('/admin/createuser', 'AdminController@createUser')->name('createUser');
 
 // 2 admin/neworders page
@@ -57,8 +60,15 @@ Route::get('/admin/vieworder{id}', 'AdminController@viewOrder');
 Route::post('/admin/vieworderC{id}', 'AdminController@OrderCompleted');
 Route::post('/admin/vieworder{id}', 'AdminController@OrderReject')->name('OrderReject');
 
+Route::get('/admin/viewCr', 'AdminController@viewCr');
+Route::post('/admin/viewCrAccpte{id}', 'AdminController@activeCr')->name('activeCr');
+Route::post('/admin/viewCr', 'AdminController@DiableCr')->name('DiableCr');
+
+
 // 6 admin/search page
 Route::get('/admin/search', 'AdminController@search');
+Route::post('/admin/search', 'AdminController@Reseltsearch')->name('Reseltsearch');
+
 // admin logout
 Route::get('/admin/logout', 'AdminController@logout');
 // -- end of admin controller functionality --

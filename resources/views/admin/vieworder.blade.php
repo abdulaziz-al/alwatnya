@@ -408,12 +408,18 @@
                     {{-- exemption_letter - خطاب إعفاء من التفتيش --}}
                     <table class="table borderless table-striped text-center">
                         <tr>
-                            <th colspan="2">{{trans('main.comment_user')}} </th>
+                                @if ($comments->comment_by_user == $users->id)
+                                <th colspan="2">{{trans('main.comment_user')}} </th>
+                                @else 
+                                <th colspan="2">{{trans('main.comment_admin')}} </th>
+        
+                                @endif
                         </tr>
                         <tr>
                             <td>{{trans('main.comment')}}  </td>
                             <td>{{trans('main.Comment_date')}}  </td>
                         </tr>
+                       
                         <tr>
                         <td>{{$comments->comment_description}}</td>
                         <td>{{$exemption_letter->created_at}}</td>

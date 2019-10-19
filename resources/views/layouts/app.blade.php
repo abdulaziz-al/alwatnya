@@ -140,18 +140,31 @@
                         @else
                         @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2 )
                         <li class="nav-item">
-                                <a class="nav-link" href="/admin">{{trans('main.dashboard')}} </a>
+                                
+                                <a class="nav-link" href="/admin">{{trans('main.dashboard')}}
+                                    
+                                    @if ($seen->count() != null )
+                                        
+                                    <span class="badge badge-pill badge-danger">{{$seen->count()}}</span>
+                                    @else
+                                        @endif
+                                </a>
                             </li>
                             <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{trans('main.sitting')}}   <span class="caret"></span>
-                                </a>
+                                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                            {{trans('main.sitting')}}   <span class="caret"></span>
+                                        </a>
+                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+
+                              
     
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     @if(Auth::user()->role_id==1)
                                     <a class="dropdown-item" href="/admin/settings/subadmins/new">{{trans('main.new_member')}}<i class="fas fa-plus-circle"></i></a>
                                 @else 
+
                                 @endif
+                                <a class="dropdown-item" href="/admin/viewCr">{{trans('main.Commercial_record')}}</a>
+
                                     <a class="dropdown-item" href="/admin/settings/subadmins" >
                                         {{trans('main.manage_supervisors')}}
                                     </a>
@@ -163,9 +176,6 @@
                                     </a>
                                     
 
-                                    
-
-    
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
                                     </form>

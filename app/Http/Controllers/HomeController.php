@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+
+use App\UserOreder;
+
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,7 +26,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $seen = UserOreder::where('seen',0)->get();
+
+        return view('home')->with('seen',$seen);
     }
     public function contactus(){
         return view('contactus');

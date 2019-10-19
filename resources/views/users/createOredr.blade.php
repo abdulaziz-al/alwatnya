@@ -18,8 +18,8 @@
                    
                                     <h4 style="text-align: right">                                
     
-                                        {{trans('main.export_or_import')}} </h4>
                                     <input type="text" name="cr_number"  value="{{$userCR->cr_number}}" readonly="true" hidden  />
+                                        {{trans('main.export_or_import')}} </h4>
                                         <div class="radio-toolbar">
                                             <input type="radio" id="radioA" name="radioF" value="0" checked>
                                             <label for="radioA">{{trans('main.import')}}</label>
@@ -522,10 +522,10 @@
                    html += '<td><button type="button" name="remove" id="" class="btn btn-danger remove">Remove</button></td>';
                    html += '<td><input type="file" name="Other_file[]" /></td>';     
         
-               html += '<td><input type="date" name="Other_exp[]" class="form-control" placeholder="{{trans('main.exp')}}" /></td>';
-                 html += '<td><input type="text"  name="Other_number[]" class="form-control" placeholder="{{trans('main.number')}}" / ></td>';
+               html += '<td><input type="date" name="Other_exp[]" class="form-control" placeholder="" /></td>';
+                 html += '<td><input type="text"  name="Other_number[]" class="form-control" placeholder="" / ></td>';
         
-               html += '<td><input type="text"  name="Other_name[]" class="form-control"  placeholder="{{trans('main.name')}}"  /></td></tr>';
+               html += '<td><input type="text"  name="Other_name[]" class="form-control"  placeholder=""  /></td></tr>';
         
                    $('tbody').append(html);
                }
@@ -534,10 +534,10 @@
                    html += '<td><button type="button" name="add" id="add" class="btn btn-success">Add</button></td>';
                    html += '<td><input type="file" name="Other_file[]" /></td>';     
         
-               html += '<td><input type="date" name="Other_exp[]" class="form-control" placeholder="{{trans('main.exp')}}" /></td>';
-                 html += '<td><input type="text"  name="Other_number[]" class="form-control" placeholder="{{trans('main.number')}}" / ></td>';
+               html += '<td><input type="date" name="Other_exp[]" class="form-control" placeholder="" /></td>';
+                 html += '<td><input type="text"  name="Other_number[]" class="form-control" placeholder="" / ></td>';
         
-               html += '<td><input type="text"  name="Other_name[]" class="form-control"  placeholder="{{trans('main.name')}}"  /></td></tr>';
+               html += '<td><input type="text"  name="Other_name[]" class="form-control"  placeholder=""  /></td></tr>';
         
                    $('tbody').html(html);
                }

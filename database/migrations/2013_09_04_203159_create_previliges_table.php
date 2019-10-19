@@ -19,7 +19,10 @@ class CreatePreviligesTable extends Migration
 
             $table->increments('id');
              
-            $table->string('previliges_name');
+            $table->boolean('Create_user');
+            $table->boolean('active_cr');
+            $table->boolean('edit_order');
+            $table->boolean('view_year');
             
 
             $table->timestamps();

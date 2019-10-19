@@ -40,6 +40,8 @@ class CreateUserOredersTable extends Migration
                 //<---------- FK from Status tables ------------>//
             $table->integer('status_id')->unsigned()->index();
             $table->foreign('status_id')->references('id')->on('status')->onDelete('cascade');
+
+            $table->boolean('seen');
             
             
             

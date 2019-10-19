@@ -34,6 +34,10 @@
                                     <input class="form-control" id='phone' placeholder="+966543210987" name="phone" type="phone">
                                 </div>
 
+                                <input type="radio" name="type" value="2"required/>Subadmin<br>
+                                <input type="radio" name="type" value="3" required/>User<br>
+                                
+
             <div class="row mb-3">
                 <div class="col text-right">
                     <label for=""> {{trans('main.privileges')}}</label>
@@ -89,4 +93,21 @@ $(function() {
 });
 
         </script>
+     
+
+            <script>
+  
+$('input[type=radio]').change(function () {
+    var stat = $('input[value="3"]').is(':checked');
+    if(stat){
+        $('input[type=checkbox]').prop('disabled', 'disabled');
+    }
+    else{
+        $('input[type=checkbox]').prop('disabled', false);
+        $('.child').on('change', function() {
+    $('#viewcompletedorders').prop('checked', $('.child:checked').length===$('.child').length);
+  });
+    }
+});
+                </script>
     @endsection
