@@ -20,7 +20,7 @@
             <h1 class="text-center mt-3"> {{trans('main.Order_number')}} {{str_replace('فاتورة البضاعة .pdf' , '',$invoice_item->invoiceItems_description) }}  </h1>
    
       
-        <form  method="POST" action="/user/viewOrder{{$orders->id}}" enctype="multipart/form-data"  >
+        <form  method="POST" action="{{route('ResentOrder',$orders->id)}}" enctype="multipart/form-data"  >
                 @csrf
        
             <hr>
@@ -432,11 +432,7 @@
                 @endforeach
                 @endforeach
 
-                <input type="submit"  name="save" id="save" style="width: 100%" class="btn btn-primary" value="{{trans('main.save')}}" />
-
-            </form>
-
-            </div>
+           
 
 
            

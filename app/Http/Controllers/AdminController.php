@@ -82,7 +82,9 @@ class AdminController extends Controller
         $log->description = "دخل إلى صفحة إدارة المشرفين" . auth()->user()->full_name . auth()->user()->id ;
         $log->created_on = date('Y-m-d');
         $log->save();
-        return view('admin.subadmins'  )->with('sub',$sub);
+        $seen = UserOreder::where('seen',0)->get();
+        $arr = Array('sub'=>$sub, 'seen'=>$seen);
+        return view('admin.subadmins' , $arr );
     }
     // 2 admin/settings/subadmins/ create a new sub-admin page
     protected function newSubAdmin(Request $request) {
@@ -93,7 +95,10 @@ class AdminController extends Controller
         $log->description = "دخل إلى صفحة إضافة عضو جديد" . auth()->user()->full_name . auth()->user()->id ;
         $log->created_on = date('Y-m-d');
         $log->save();
-        return view('admin.newsubadmin');
+
+        $seen = UserOreder::where('seen',0)->get();
+
+        return view('admin.newsubadmin')->with('seen',$seen);
     }
     // 3 admin/settings/subadmins/ view a sub-admin info page
     protected function viewsubadmin($id,Request $request) {
@@ -105,7 +110,11 @@ class AdminController extends Controller
         $log->description = "دخل إلى صفحة أحد المشرفين " . auth()->user()->full_name . auth()->user()->id ;
         $log->created_on = date('Y-m-d');
         $log->save();
-        return view('admin.viewsubadmin')->with('sub',$sub);;
+        $seen = UserOreder::where('seen',0)->get();
+        $arr = Array('sub'=>$sub, 'seen'=>$seen);
+        return view('admin.subadmins' , $arr );
+    
+        return view('admin.viewsubadmin',$arr);
     }
     // 4 admin/settings/password change password page
     protected function password(Request $request) {
@@ -116,7 +125,10 @@ class AdminController extends Controller
         $log->description = "دخل إلى صفحة تعديل الرقم السري" . auth()->user()->full_name . auth()->user()->id ;
         $log->created_on = date('Y-m-d');
         $log->save();
-        return view('admin.changepassword');
+
+        $seen = UserOreder::where('seen',0)->get();
+     
+        return view('admin.changepassword')->with('seen',$seen);
     }
     
 
@@ -481,7 +493,10 @@ $log->save();
         $log->description = "دخل إلى صفحة البحث" . auth()->user()->full_name . auth()->user()->id ;
         $log->created_on = date('Y-m-d');
         $log->save();
-        return view('admin.search');
+
+        $seen = UserOreder::where('seen',0)->get();
+
+        return view('admin.search')->with('seen',$seen);
     }
 
     protected function updatePasswordAdmin(Request $request){

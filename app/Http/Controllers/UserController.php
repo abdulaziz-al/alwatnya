@@ -1009,7 +1009,7 @@ class UserController extends Controller
         ->update(['invoiceItems_description' => $file_name, 'expirydate'=> $request->expirydate_invoice]);
 
         //$invoiceItem = invoiceItem::where('id', $id)->first();
-       }else {
+       } else {
            invoiceItem::where('id', $id)
            ->update(['expirydate'=>$request->expirydate_invoice]);
        }
@@ -1175,47 +1175,60 @@ class UserController extends Controller
 
 
 //////////////////////////////////////////////////////////////////////////////
-/*
+
 $Truck_ownership = $request->Truck_ownership;
 
-$truck_ownership_number1 = $request->truck_ownership_number1;
-$truck_ownership_number2 = $request->truck_ownership_number2;
-$driver_name = $request->driver_name;
-$tos_file = $request->tos_file;
+$truck_ownership_number1[] = $request->truck_ownership_number1;
+$truck_ownership_number2[] = $request->truck_ownership_number2;
+$driver_name[] = $request->driver_name;
+$tos_file = $request->file('tos_file[]');
 
-for($count = 0; $count <= count($truck_ownership_number1); $count++)
+for($count = 0; $count < count($request->truck_ownership_number1); $count++)
 {
 
    if( $tos_file[$count] != null ){
 
 
-    $file_Truck = $tos_file[$count];
+    $file_Truck = $tos_file[$count]  ;
     $extension =  $file_Truck->getClientOriginalExtension();
     $destination_path= public_path().'/files'.'/'.auth()->user()->full_name . '/' . $userCR->cr_number;
     $file_name = substr($Num_date->invoiceItems_description, 0 , 12 ) .  $driver_name[$count]. 'إستمارة ملكية الشاحنات '. '.'. $extension;
    $file_Truck->move($destination_path, $file_name);
 
-   $truck_id = Truck::where('order_id',$id)->first();
+   $truck_id = Truck::where('order_id',$id , 'driver_name',$request->driver_name[$count])->get();
 
                  File::where('id',$truck_id->file_id)
                  ->update(['file_location'=>$file_name]);
+
             
 
-      Truck::where('order_id', $id)
-      ->update(['driver_mobile_1'=>$truck_ownership_number1[$count],
-       'driver_mobile_2'=>$truck_ownership_number2[$count]]);
+      Truck::where('order_id', $id )
+      ->update(['driver_name'=>$request->driver_name[$count],'driver_mobile_1'=>$request->truck_ownership_number1[$count],
+       'driver_mobile_2'=>$request->truck_ownership_number2[$count]]);
 
    
    }else{
 
-       Truck::where('order_id', $id)
-       ->update(['driver_mobile_1'=>$request->truck_ownership_number1[$count],
-        'driver_mobile_2'=>$request->truck_ownership_number2[$count]]);
+    Truck::where('order_id', $id )
+      ->update(['driver_name'=>$request->driver_name[$count],
+      'driver_mobile_1'=>$request->truck_ownership_number1[$count],
+       'driver_mobile_2'=>$request->truck_ownership_number2[$count]]);
+
+   
 
    }
   
 
-}*/
+}
+
+$Other_name = $request->Other_name;
+$Other_number = $request->Other_number;
+$Other_exp = $request->Other_exp;
+$Other_file = $request->Other_file;
+
+/////////////////Save the data to other order table ////////////////////
+
+
 
            UserOreder::where('invoice_id', $id)
                ->update([ 'status_id'=> 1]);
