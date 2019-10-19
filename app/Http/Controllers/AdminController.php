@@ -24,7 +24,7 @@ use App\ReleaseLetter;
 use App\Saso;
 use App\Statu;
 use App\Truck;
-use App\UserLogs;
+use App\AdminLogs;
 
 
 
@@ -54,8 +54,8 @@ class AdminController extends Controller
 
         $userInfo =Array('order'=>$order_all ,'order_waiting'=>$order_waiting,'order_Reject'=>$order_Reject,'order_Accepte'=>$order_Accepte);
         
-        $log = new  UserLogs();
-        $log->user_id = auth()->user()->id;
+        $log = new  AdminLogs();
+        $log->admin_id = auth()->user()->id;
         $log->source_ip = $request->getClientIp();
         $log->description = "تمت رؤية الطلبات الجديدة من قبل" . auth()->user()->full_name . auth()->user()->id ;
         $log->created_on = date('Y-m-d');
@@ -68,8 +68,8 @@ class AdminController extends Controller
     protected function subadmins(Request $request) {
         $sub = User::where('role_id', 2)->get();
         
-        $log = new  UserLogs();
-        $log->user_id = auth()->user()->id;
+        $log = new  AdminLogs();
+        $log->admin_id = auth()->user()->id;
         $log->source_ip = $request->getClientIp();
         $log->description = "دخل إلى صفحة إدارة المشرفين" . auth()->user()->full_name . auth()->user()->id ;
         $log->created_on = date('Y-m-d');
@@ -79,8 +79,8 @@ class AdminController extends Controller
     // 2 admin/settings/subadmins/ create a new sub-admin page
     protected function newSubAdmin(Request $request) {
         
-        $log = new  UserLogs();
-        $log->user_id = auth()->user()->id;
+        $log = new  AdminLogs();
+        $log->admin_id = auth()->user()->id;
         $log->source_ip = $request->getClientIp();
         $log->description = "دخل إلى صفحة إضافة عضو جديد" . auth()->user()->full_name . auth()->user()->id ;
         $log->created_on = date('Y-m-d');
@@ -91,8 +91,8 @@ class AdminController extends Controller
     protected function viewsubadmin($id,Request $request) {
         $sub = User::where('id', $id)->first();
         
-        $log = new  UserLogs();
-        $log->user_id = auth()->user()->id;
+        $log = new  AdminLogs();
+        $log->admin_id = auth()->user()->id;
         $log->source_ip = $request->getClientIp();
         $log->description = "دخل إلى صفحة أحد المشرفين " . auth()->user()->full_name . auth()->user()->id ;
         $log->created_on = date('Y-m-d');
@@ -101,8 +101,9 @@ class AdminController extends Controller
     }
     // 4 admin/settings/password change password page
     protected function password(Request $request) {
-        $log = new  UserLogs();
-        $log->user_id = auth()->user()->id;
+
+        $log = new  AdminLogs();
+        $log->admin_id = auth()->user()->id;
         $log->source_ip = $request->getClientIp();
         $log->description = "دخل إلى صفحة تعديل الرقم السري" . auth()->user()->full_name . auth()->user()->id ;
         $log->created_on = date('Y-m-d');
@@ -156,8 +157,8 @@ class AdminController extends Controller
 */
 
         
-$log = new  UserLogs();
-$log->user_id = auth()->user()->id;
+$log = new  AdminLogs();
+$log->admin_id = auth()->user()->id;
 $log->source_ip = $request->getClientIp();
 $log->description = "شاهد الطلبات الغير منفذة" . auth()->user()->full_name . auth()->user()->id ;
 $log->created_on = date('Y-m-d');
@@ -178,8 +179,8 @@ $log->save();
         $Accorder =Array( 'order'=>$order ,'invoice_items'=>$invoice_items, 'invoice'=>$invoice , 'user'=>$user);
 
 
-        $log = new  UserLogs();
-        $log->user_id = auth()->user()->id;
+        $log = new  AdminLogs();
+        $log->admin_id = auth()->user()->id;
         $log->source_ip = $request->getClientIp();
         $log->description = "شاهد الطلبات المنفذة" . auth()->user()->full_name . auth()->user()->id ;
         $log->created_on = date('Y-m-d');
@@ -198,8 +199,8 @@ $log->save();
 
         $retrunorder =Array( 'order'=>$order ,'invoice_items'=>$invoice_items, 'invoice'=>$invoice , 'user'=>$user);
 
-        $log = new  UserLogs();
-        $log->user_id = auth()->user()->id;
+        $log = new  AdminLogs();
+        $log->admin_id = auth()->user()->id;
         $log->source_ip = $request->getClientIp();
         $log->description = "شاهد الطلبات المعادة" . auth()->user()->full_name . auth()->user()->id ;
         $log->created_on = date('Y-m-d');
@@ -243,8 +244,8 @@ $log->save();
         $order = UserOreder::where('id', $id )->first();
         Alert::success('تم قبول الطلب رقم ',$order->id );
         
-        $log = new  UserLogs();
-        $log->user_id = auth()->user()->id;
+        $log = new  AdminLogs();
+        $log->admin_id = auth()->user()->id;
         $log->source_ip = $request->getClientIp();
         $log->description = "تم قبول الطلب من قبل" . auth()->user()->full_name . auth()->user()->id ;
         $log->created_on = date('Y-m-d');
@@ -263,8 +264,8 @@ $log->save();
         $Comment->save(); 
             //   Alert::info('تمت الزيادة بنسبة %',$request->input('salary') );
             
-        $log = new  UserLogs();
-        $log->user_id = auth()->user()->id;
+        $log = new  AdminLogs();
+        $log->admin_id = auth()->user()->id;
         $log->source_ip = $request->getClientIp();
         $log->description = "تم رفض الطلب من قبل" . auth()->user()->full_name . auth()->user()->id ;
         $log->created_on = date('Y-m-d');
@@ -275,8 +276,8 @@ $log->save();
     // 6 admin/search page
     protected function search(Request $request) {
 
-        $log = new  UserLogs();
-        $log->user_id = auth()->user()->id;
+        $log = new  AdminLogs();
+        $log->admin_id = auth()->user()->id;
         $log->source_ip = $request->getClientIp();
         $log->description = "دخل إلى صفحة البحث" . auth()->user()->full_name . auth()->user()->id ;
         $log->created_on = date('Y-m-d');
@@ -314,8 +315,8 @@ $log->save();
 
         Alert::info('تم تغير كلمة المرور ','password has been changed ' , 'okay ');
         
-        $log = new  UserLogs();
-        $log->user_id = auth()->user()->id;
+        $log = new  AdminLogs();
+        $log->admin_id = auth()->user()->id;
         $log->source_ip = $request->getClientIp();
         $log->description = "غير الرقم السري" . auth()->user()->full_name . auth()->user()->id ;
         $log->created_on = date('Y-m-d');

@@ -1214,6 +1214,7 @@ for($count = 0; $count <= count($truck_ownership_number1); $count++)
                ->update([ 'status_id'=> 1]);
 
        $invoiceItem = invoiceItem::where('id',$id)->first();
+     
        $log = new  UserLogs();
        $log->user_id = auth()->user()->id;
        $log->source_ip = $request->getClientIp();

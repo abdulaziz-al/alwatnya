@@ -155,7 +155,7 @@
                                     <a class="dropdown-item" href="/admin/settings/subadmins" >
                                         {{trans('main.manage_supervisors')}}
                                     </a>
-                                    <a class="dropdown-item" href="/admin/newuser" >
+                                    <a class="dropdown-item" href="/admin/createuser" >
                                         {{trans('main.Add_new_user')}}
                                     </a>
                                     <a class="dropdown-item" href="/admin/search" >
